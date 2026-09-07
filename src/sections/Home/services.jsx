@@ -128,37 +128,29 @@ export default function Services() {
       {/* ── Service Cards: full width, no max-w constraint ── */}
       <div className="relative z-10 w-full px-4 sm:px-6 mt-12 sm:mt-14">
 
-        {/* ── Mobile/Tablet Grid (<lg) ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
+        {/* ── Mobile/Tablet Grid (<lg): Clean Icon + Title Grid ── */}
+        <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-10 lg:hidden">
           {serviceList.map((card, index) => (
-            <div
+            <Link
               key={index}
-              className="bg-white rounded-2xl p-5 shadow-2xs border border-[#E4E8E4] flex flex-col justify-between gap-4 hover:shadow-md hover:border-[#d3d663] transition-all"
+              href={`/services/${card.slug}`}
+              className="group flex flex-col items-center text-center p-3 rounded-2xl transition-all duration-300 active:scale-95 cursor-pointer"
             >
-              <div className="flex items-start justify-between">
-                <div className="w-11 h-11 rounded-xl bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/30 flex items-center justify-center flex-shrink-0 shadow-2xs">
+              {/* Icon Container */}
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/95 border border-[#E4E8E4] text-[#0B1F3B] flex items-center justify-center shadow-xs group-hover:border-[#d3d663] group-hover:shadow-md group-hover:scale-105 transition-all duration-300 mb-3.5">
+                <span className="text-2xl text-[#0B1F3B] group-hover:text-[#2D503B] transition-colors">
                   {card.icon}
-                </div>
-                <span className="text-xs font-bold font-mono text-[#66706A]">
-                  {card.no}
                 </span>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-[#0B1F3B] font-figtree mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-[#66706A] leading-relaxed line-clamp-3 font-manrope">
-                  {card.desc}
-                </p>
-              </div>
-              <Link
-                href={`/services/${card.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B1F3B] hover:text-[#d3d663] font-figtree pt-2 border-t border-[#E4E8E4]"
-              >
-                <span>Learn More</span>
-                <span>↗</span>
-              </Link>
-            </div>
+
+              {/* Title */}
+              <h3 className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#0B1F3B] font-figtree leading-snug group-hover:text-[#2D503B] transition-colors max-w-[150px] sm:max-w-[180px]">
+                {card.title}
+              </h3>
+
+              {/* Accent Underline Bar */}
+              <span className="w-7 h-[3px] rounded-full bg-[#d3d663] group-hover:w-10 group-hover:bg-[#0B1F3B] transition-all duration-300 mt-2.5" />
+            </Link>
           ))}
         </div>
 
