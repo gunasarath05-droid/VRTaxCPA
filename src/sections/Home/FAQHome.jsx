@@ -67,7 +67,7 @@ export default function FAQHome() {
                 alt="Frequently Asked Questions - VR Tax CPA LLC"
                 width={600}
                 height={400}
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover hidden md:block"
               />
             </motion.div>
           </div>

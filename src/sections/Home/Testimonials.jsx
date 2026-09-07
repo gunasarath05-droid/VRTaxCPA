@@ -146,7 +146,7 @@ export default function Testimonials() {
                     <div className="flex items-center gap-4">
                       {/* Avatar */}
                       <div
-                        className={`w-14 h-14 rounded-2xl bg-[#0B1F3B] flex items-center justify-center text-white font-extrabold text-lg font-figtree flex-shrink-0 shadow-sm`}
+                        className={`w-14 h-14 rounded-2xl bg-[#0B1F3B] flex items-center justify-center text-white font-extrabold text-lg font-figtree flex-shrink-0 shadow-sm hidden md:block`}
                       >
                         {t.initials}
                       </div>
