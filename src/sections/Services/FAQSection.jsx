@@ -16,7 +16,7 @@ export default function FAQSection({ faqs, serviceTitle = "Tax Compliance" }) {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+    <section className="py-8 md:py-16 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
@@ -45,7 +45,7 @@ export default function FAQSection({ faqs, serviceTitle = "Tax Compliance" }) {
                 alt={`Frequently Asked Questions on ${serviceTitle} - VR Tax CPA LLC`}
                 width={500}
                 height={420}
-                className="w-full h-auto object-contain drop-shadow-md"
+                className="w-full h-auto object-contain drop-shadow-md hidden md:block"
                 priority={false}
               />
             </motion.div>

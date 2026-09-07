@@ -67,7 +67,7 @@ export default function MissionVision() {
   ];
 
   return (
-    <section id="mission" className="py-16 bg-white relative overflow-hidden">
+    <section id="mission" className="py-8 md:py-16 bg-white relative overflow-hidden">
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-30 pointer-events-none bg-[radial-gradient(circle,#d3d66325,transparent_70%)] filter blur-3xl" />
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#0B1F3B18,transparent_70%)] filter blur-3xl" />
@@ -136,7 +136,7 @@ export default function MissionVision() {
                 </p>
 
                 {/* Key Points */}
-                <div className="pt-5 border-t border-slate-100 space-y-2.5">
+                <div className="pt-5 border-t border-slate-100 space-y-2.5 hidden md:block">
                   {pillar.bullets.map((bullet, bIdx) => (
                     <div key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium font-manrope">
                       <FiCheckCircle className="text-[#2D503B] mt-0.5 flex-shrink-0" size={16} />

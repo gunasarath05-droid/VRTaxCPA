@@ -7,7 +7,7 @@ import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 
 export default function CTABanner() {
   return (
-    <section className="py-12 sm:py-16 bg-white">
+    <section className="py-12 sm:py-16 bg-white hidden md:block">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 25 }}

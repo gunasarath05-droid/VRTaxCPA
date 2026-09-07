@@ -137,12 +137,12 @@ export default function Services() {
               className="group flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl bg-white/80 hover:bg-white border border-[#E4E8E4] shadow-xs hover:shadow-md hover:border-[#d3d663] transition-all duration-300 active:scale-95 cursor-pointer"
             >
               {/* Icon Container */}
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-100 flex items-center justify-center p-2.5 shadow-xs group-hover:scale-105 group-hover:border-[#d3d663]/50 transition-all duration-300 mb-3">
+              <div className="w-20 h-20 sm:w-20 sm:h-20 flex items-center justify-center opacity-70 mb-1">
                 <Image
                   src={card.iconImg}
                   alt={card.title}
-                  width={64}
-                  height={64}
+                  width={90}
+                  height={90}
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -188,12 +188,12 @@ export default function Services() {
                     {card.no}
                   </span>
 
-                  <div className="absolute bottom-[98px] left-3.5 w-12 h-12 rounded-2xl bg-white/90 border border-[#d3d663]/30 flex items-center justify-center shrink-0 shadow-2xs p-2 overflow-hidden">
+                  <div className="absolute bottom-[98px] left-3.5 w-18 h-18 flex items-center justify-center shrink-0 p-2 overflow-hidden">
                     <Image
                       src={card.iconImg}
                       alt={card.title}
-                      width={36}
-                      height={36}
+                      width={40}
+                      height={40}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -226,12 +226,12 @@ export default function Services() {
                       {card.no}
                     </span>
 
-                    <div className="w-12 h-12 rounded-2xl bg-white/90 border border-[#d3d663]/40 flex items-center justify-center shrink-0 shadow-2xs p-2 overflow-hidden">
+                    <div className="w-24 h-24 flex items-center justify-center shrink-0 overflow-hidden">
                       <Image
                         src={card.iconImg}
                         alt={card.title}
-                        width={36}
-                        height={36}
+                        width={90}
+                        height={90}
                         className="w-full h-full object-contain"
                       />
                     </div>

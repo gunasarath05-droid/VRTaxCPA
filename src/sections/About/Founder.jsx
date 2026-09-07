@@ -19,7 +19,7 @@ export default function Founder() {
   ];
 
   return (
-    <section className="py-16 bg-white relative overflow-hidden">
+    <section className="py-8 md:py-16 bg-white relative overflow-hidden">
       {/* Background Decorative */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#d3d66320,transparent_70%)] filter blur-2xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#0B1F3B15,transparent_70%)] filter blur-2xl" />
@@ -125,7 +125,7 @@ export default function Founder() {
             </div>
 
             {/* Key Credentials */}
-            <div>
+            <div className="hidden md:block">
               <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0B1F3B] font-figtree mb-3 flex items-center gap-2">
                 <FiAward className="text-[#d3d663]" size={16} />
                 Professional Qualifications &amp; Commitments

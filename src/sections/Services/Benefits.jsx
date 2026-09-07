@@ -24,7 +24,7 @@ export default function Benefits({ benefits }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Large Rounded Container Box as in Reference Image */}
-        <div className="border border-slate-200/60 rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 shadow-sm">
+        <div className="border border-slate-200/60 rounded-[32px] bg-[#FDFBF7] sm:rounded-[40px] p-8 sm:p-14 shadow-sm">
 
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">

@@ -118,7 +118,7 @@ export default function IndustriesWeServe({ industries }) {
                 >
                   {({ isActive }) => (
                     <div
-                      className={`relative aspect-[4/3.4] sm:aspect-[4/5] rounded-[22px] sm:rounded-[26px] overflow-hidden shadow-xl transition-all duration-500 border select-none ${
+                      className={`relative aspect-[4/5] sm:aspect-[4/5] rounded-[22px] sm:rounded-[26px] overflow-hidden shadow-xl transition-all duration-500 border select-none ${
                         isActive
                           ? "scale-100 opacity-100 border-[#d3d663] shadow-[0_15px_35px_rgba(0,0,0,0.5)] ring-2 ring-[#d3d663]/40"
                           : "scale-[0.9] opacity-50 brightness-75 blur-[1.5px] border-white/10"

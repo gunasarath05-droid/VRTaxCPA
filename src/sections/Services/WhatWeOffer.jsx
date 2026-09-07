@@ -2,42 +2,19 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiCheckCircle } from "react-icons/fi";
-
-const offerImages = [
-  "/images/offers/offer-tax.jpg",
-  "/images/offers/offer-business.jpg",
-  "/images/offers/offer-compliance.jpg",
-  "/images/offers/offer-strategy.jpg",
-];
-
-const getOfferImage = (title = "", idx = 0) => {
-  const lower = title.toLowerCase();
-  if (lower.includes("tax") || lower.includes("individual") || lower.includes("1040") || lower.includes("filing")) {
-    return "/images/offers/offer-tax.jpg";
-  }
-  if (lower.includes("business") || lower.includes("s-corp") || lower.includes("c-corp") || lower.includes("llc") || lower.includes("entity")) {
-    return "/images/offers/offer-business.jpg";
-  }
-  if (lower.includes("compliance") || lower.includes("irs") || lower.includes("trust") || lower.includes("estate") || lower.includes("protect")) {
-    return "/images/offers/offer-compliance.jpg";
-  }
-  if (lower.includes("strategy") || lower.includes("advisory") || lower.includes("planning") || lower.includes("cfo") || lower.includes("non-profit")) {
-    return "/images/offers/offer-strategy.jpg";
-  }
-  return offerImages[idx % offerImages.length];
-};
+import imgOffer1 from "@/assets/images/services/whatweoffer (1).png";
+import imgOffer2 from "@/assets/images/services/whatweoffer (2).png";
 
 export default function WhatWeOffer({ offers }) {
   if (!offers || offers.length === 0) return null;
 
   return (
-    <section id="what-we-offer" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="what-we-offer" className="py-8 md:py-16 bg-white relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-4 font-figtree">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-3 font-figtree">
             WHAT WE OFFER
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
@@ -48,44 +25,109 @@ export default function WhatWeOffer({ offers }) {
           </p>
         </div>
 
-        {/* 2x2 Accessible Executive Card Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
-          {offers.map((offer, idx) => (
+        {/* ── Bento Mosaic Grid ── */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-6">
+          
+          {/* ── Card 1: Top Left (Wide with Team Photo Background) ── */}
+          {offers[0] && (
             <motion.div
-              key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-              className="group bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#C5A880]/50 transition-all duration-300 flex flex-col sm:flex-row items-start gap-6"
+              transition={{ duration: 0.5 }}
+              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end shadow-sm group cursor-default"
             >
-              {/* Image / Thumbnail */}
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src={getOfferImage(offer.title, idx)}
-                  alt={offer.title}
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
-              </div>
+              <Image
+                src={imgOffer1}
+                alt={offers[0].title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/10 pointer-events-none" />
 
-              {/* Content */}
-              <div className="flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <FiCheckCircle className="text-[#2D503B] flex-shrink-0" size={16} />
-                    <h3 className="text-lg font-extrabold font-figtree text-[#0B1F3B] tracking-tight leading-snug group-hover:text-[#0B1F3B]">
-                      {offer.title}
-                    </h3>
-                  </div>
-                  <p className="text-slate-600 text-sm leading-relaxed font-manrope">
-                    {offer.desc}
-                  </p>
-                </div>
+              <div className="relative z-10 max-w-lg">
+                <h3 className="text-xl sm:text-2xl font-bold font-figtree text-white mb-2 leading-snug">
+                  {offers[0].title}
+                </h3>
+                <p className="text-white/85 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {offers[0].desc}
+                </p>
               </div>
             </motion.div>
-          ))}
+          )}
+
+          {/* ── Card 2: Top Right (Compact Light Beige/Sand Card) ── */}
+          {offers[1] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#F4EFEA] border border-[#EBE3D8] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+            >
+              <div className="relative z-10">
+                <h3 className="text-xl sm:text-2xl font-bold font-figtree text-[#1E293B] mb-2.5 leading-snug">
+                  {offers[1].title}
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {offers[1].desc}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── Card 3: Bottom Left (Compact Warm Taupe/Camel Card) ── */}
+          {offers[2] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#C1B29D] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+            >
+              <div className="relative z-10">
+                <h3 className="text-xl sm:text-2xl font-bold font-figtree text-white mb-2.5 leading-snug">
+                  {offers[2].title}
+                </h3>
+                <p className="text-white/90 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {offers[2].desc}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── Card 4: Bottom Right (Wide Olive Green Card with Professional Woman Photo) ── */}
+          {offers[3] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end bg-[#495B43] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+            >
+              {/* Image Cutout on Right */}
+              <div className="absolute right-0 bottom-0 top-0 w-[42%] sm:w-[38%] overflow-hidden pointer-events-none">
+                <Image
+                src={imgOffer1}
+                alt={offers[3].title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/10 pointer-events-none" />
+
+              <div className="relative z-10 max-w-lg">
+                <h3 className="text-xl sm:text-2xl font-bold font-figtree text-white mb-2 leading-snug">
+                  {offers[3].title}
+                </h3>
+                <p className="text-white/85 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {offers[3].desc}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
         </div>
 
       </div>
