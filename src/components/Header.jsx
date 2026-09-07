@@ -45,9 +45,21 @@ const navLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
+const knownSubpages = [
+  "/about",
+  "/services",
+  "/blog",
+  "/contact",
+  "/privacy-policy",
+  "/terms-of-service",
+  "/faq",
+  "/disclaimer",
+];
+
 export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isSubPage = knownSubpages.some((route) => (pathname ? pathname.startsWith(route) : false));
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -140,9 +152,11 @@ export default function Header() {
         {/* ── Main Corporate Header Bar ── */}
         <div
           className={`transition-all duration-300 ${
-            isSticky
-              ? "bg-[#0B1F3B] shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5 sm:py-3"
-              : "bg-[#0B1F3B] py-3 sm:py-4 border-b border-white/10"
+            isSubPage && !isSticky
+              ? "bg-transparent py-3 sm:py-4"
+              : isSticky
+                ? "bg-[#0B1F3B] shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5 sm:py-3"
+                : "bg-[#0B1F3B] py-3 sm:py-4 border-b border-white/10"
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
