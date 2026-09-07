@@ -140,12 +140,10 @@ export default function Header() {
         {/* ── Main Corporate Header Bar ── */}
         <div
           className={`transition-all duration-300 ${
-          !isHomePage && !isSticky
-            ? "bg-transparent py-3 sm:py-4"
-            : isSticky
+            isSticky
               ? "bg-[#0B1F3B] shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5 sm:py-3"
-              : "bg-[#0B1F3B] py-3 sm:py-4 border-b border-white/5"
-        }`}
+              : "bg-[#0B1F3B] py-3 sm:py-4 border-b border-white/10"
+          }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
 
