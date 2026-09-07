@@ -2,106 +2,172 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { FiArrowRight, FiClock, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import Button from "@/components/Button";
+import { blogPosts } from "@/constants/blogData";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function Blog() {
-  const posts = [
-    {
-      image: "https://ranko.themejunction.net/wp-content/uploads/2025/09/blog-1.webp",
-      category: "Tax Planning",
-      date: "Jan 15, 2026",
-      title: "How Small Business Owners Can Maximize Deductions and Lower Taxes in 2026",
-      href: "/blog/tax-savings",
-    },
-    {
-      image: "https://ranko.themejunction.net/wp-content/uploads/2025/09/blog-2.webp",
-      category: "Gusto Payroll",
-      date: "Jan 28, 2026",
-      title: "Setting Up Compliant Payroll: What S-Corp Owners Must Know About Reasonable Salary",
-      href: "/blog/gusto-payroll-setup",
-    },
-    {
-      image: "https://ranko.themejunction.net/wp-content/uploads/2025/09/blog-3.webp",
-      category: "Fractional CFO",
-      date: "Feb 10, 2026",
-      title: "Why Growing Businesses Choose Fractional CFO Services to Scale Profitably",
-      href: "/blog/fractional-cfo-benefits",
-    },
-  ];
-
   return (
-    <section id="blog" className="py-16 sm:py-24 bg-bg-light/30 relative overflow-hidden">
+    <section id="blog" className="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-[#E2E8F0]">
+      <style jsx global>{`
+        .blog-swiper .swiper-pagination {
+          position: relative !important;
+          margin-top: 2rem !important;
+          bottom: auto !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 6px;
+        }
+        .blog-swiper .swiper-pagination-bullet {
+          background: #cbd5e1;
+          opacity: 1;
+          width: 8px;
+          height: 8px;
+          margin: 0 !important;
+          border-radius: 9999px;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          cursor: pointer;
+        }
+        .blog-swiper .swiper-pagination-bullet-active {
+          background: #0B1F3B !important;
+          width: 28px;
+          border-radius: 9999px;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8 mb-10 sm:mb-14">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 sm:mb-12">
           <div>
-            <span className="inline-flex items-center rounded-full bg-primary/8 text-primary px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-primary/15 mb-3 sm:mb-4">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-2.5 block">
               Knowledge Base
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight max-w-xl">
-              Explore Tax & Accounting Insights
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight max-w-xl">
+              Tax &amp; Accounting Insights
             </h2>
           </div>
 
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-3 bg-primary hover:bg-secondary text-white text-sm sm:text-base font-semibold font-figtree pl-6 sm:pl-8 pr-2.5 sm:pr-3 py-2.5 sm:py-3 rounded-full shadow-lg transition-all duration-300 self-start lg:self-center"
-          >
-            <span>Read All Articles</span>
-            <span className="bg-white text-dark p-2.5 sm:p-3 rounded-full flex items-center justify-center group-hover:translate-x-1 duration-300 transition-transform text-xs sm:text-sm">
-              <FiArrowRight />
-            </span>
-          </Link>
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            {/* Slider Navigation Arrows */}
+            <div className="flex items-center gap-2">
+              <button
+                className="blog-prev-btn w-10 sm:w-11 h-10 sm:h-11 rounded-full border border-slate-200 bg-white text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-[#d3d663] hover:border-[#0B1F3B] flex items-center justify-center transition-all duration-300 shadow-xs cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Previous articles"
+              >
+                <FiChevronLeft size={18} />
+              </button>
+              <button
+                className="blog-next-btn w-10 sm:w-11 h-10 sm:h-11 rounded-full border border-slate-200 bg-white text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-[#d3d663] hover:border-[#0B1F3B] flex items-center justify-center transition-all duration-300 shadow-xs cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Next articles"
+              >
+                <FiChevronRight size={18} />
+              </button>
+            </div>
+
+            <Button
+              href="/blog"
+              variant="accent"
+              size="md"
+              className="shrink-0"
+            >
+              View All Articles
+            </Button>
+          </div>
         </div>
 
-        {/* Blog Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {posts.map((post, idx) => (
-            <motion.article
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="group relative rounded-[26px] sm:rounded-3xl overflow-hidden aspect-[4/4.6] sm:aspect-[4/4.8] shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer bg-[#122115]"
-            >
-              <Link href={post.href} className="block w-full h-full relative">
-                {/* Background Image */}
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                />
-
-                {/* Brand Dark Forest Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#122115]/95 via-[#122115]/60 via-45% to-transparent transition-opacity duration-300" />
-
-                {/* Content at Bottom with smooth Y-axis lift and subtle scale */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 flex flex-col items-start gap-2.5 z-10 transform transition-all duration-500 ease-out group-hover:-translate-y-2.5 group-hover:scale-[1.02] origin-bottom-left">
-                  {/* Category & Date Row */}
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="bg-secondary text-dark font-black text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded shadow-sm font-figtree">
+        {/* Smooth X-Axis Horizontal Slider */}
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={20}
+          slidesPerView={1.15}
+          navigation={{
+            prevEl: ".blog-prev-btn",
+            nextEl: ".blog-next-btn",
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 4500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={650}
+          grabCursor={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 2.1,
+              spaceBetween: 24,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 28,
+            },
+          }}
+          className="blog-swiper"
+        >
+          {blogPosts.map((post, idx) => (
+            <SwiperSlide key={post.slug || idx} className="!h-auto pb-2">
+              <article className="group bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] shadow-2xs hover:shadow-xl hover:border-[#d3d663]/50 duration-300 transition-all flex flex-col justify-between h-full">
+                <Link href={`/blog/${post.slug}`} className="block w-full">
+                  {/* Thumbnail Image Container */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F8FAFC]">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 400px"
+                    />
+                    {/* Category Pill on image */}
+                    <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-xs text-[#0B1F3B] font-extrabold text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-2xs border border-[#E2E8F0] font-figtree">
                       {post.category}
-                    </span>
-                    <span className="text-white/40 text-[10px]">•</span>
-                    <span className="text-white/85 font-semibold text-[11px] uppercase tracking-wider font-figtree">
-                      {post.date}
                     </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-bold font-figtree text-white leading-snug tracking-tight line-clamp-2 transition-colors duration-300 group-hover:text-secondary">
-                    {post.title}
-                  </h3>
+                  {/* Card Content */}
+                  <div className="p-5 sm:p-6 flex flex-col gap-3">
+                    <div className="flex items-center gap-3 text-xs text-[#66706A] font-manrope">
+                      <span>{post.date}</span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <FiClock size={12} />
+                        {post.readTime}
+                      </span>
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-bold font-figtree text-[#0B1F3B] leading-snug tracking-tight group-hover:text-[#d3d663] transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+
+                    <p className="text-[#66706A] text-xs sm:text-sm leading-relaxed font-manrope line-clamp-2">
+                      {post.summary}
+                    </p>
+                  </div>
+                </Link>
+
+                {/* Card Footer Link */}
+                <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 mt-auto">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B1F3B] group-hover:text-[#d3d663] font-figtree transition-colors"
+                  >
+                    <span>Read Article</span>
+                    <FiArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
                 </div>
-              </Link>
-            </motion.article>
+              </article>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
       </div>
     </section>

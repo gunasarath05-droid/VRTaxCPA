@@ -6,9 +6,9 @@ import TeamMembers from "@/sections/About/TeamMembers";
 import Affiliations from "@/sections/About/Affiliations";
 
 export const metadata: Metadata = {
-  title: "About Us | Aegis Financial Advisory — Certified CPA & Audit Firm",
+  title: "About Us | VR Tax CPA LLC — Reliable Partners in Your Growth",
   description:
-    "Learn about Aegis Financial Advisory — a certified CPA firm specializing in independent attestations, corporate tax planning, bookkeeping, and financial consulting since 2013.",
+    "Learn about VR Tax CPA LLC — delivering reliable, accurate, and strategic tax, accounting, and advisory services led by Vethavalli Ramakrishnan, CPA.",
 };
 
 export default function AboutPage() {
@@ -17,8 +17,8 @@ export default function AboutPage() {
       <AboutHero />
       <MissionVision />
       <Founder/>
-      <TeamMembers />
-      <Affiliations />
+      {/* <TeamMembers /> */}
+      {/* <Affiliations /> */}
     </>
   );
 }

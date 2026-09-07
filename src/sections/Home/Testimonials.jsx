@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,7 +16,7 @@ export default function Testimonials() {
       initials: "MT",
       rating: 5,
       industry: "Real Estate",
-      desc: "Vethavalli saved me tens of thousands in taxes by correctly structuring my rental properties and recommending a cost segregation study. She explained everything clearly and was available whenever I had questions. I've already referred three other investors to VS Tax CPA LLC.",
+      desc: "Vethavalli saved me tens of thousands in taxes by correctly structuring my rental properties and recommending a cost segregation study. She explained everything clearly and was available whenever I had questions. I've already referred three other investors to VR Tax CPA LLC.",
     },
     {
       name: "Dr. Priya N.",
@@ -24,7 +24,7 @@ export default function Testimonials() {
       initials: "PN",
       rating: 5,
       industry: "Dental Practice",
-      desc: "Running a dental practice is already overwhelming — dealing with taxes on top of that was a nightmare until I found VS Tax CPA LLC. Vethavalli set up our Gusto payroll, organized our books, and reduced our tax liability significantly through proper S-Corp structuring. She's an absolute gem.",
+      desc: "Running a dental practice is already overwhelming — dealing with taxes on top of that was a nightmare until I found VR Tax CPA LLC. Vethavalli set up our payroll, organized our books, and reduced our tax liability significantly through proper S-Corp structuring. She's an absolute gem.",
     },
     {
       name: "Alex R.",
@@ -40,7 +40,7 @@ export default function Testimonials() {
       initials: "LM",
       rating: 5,
       industry: "Restaurants",
-      desc: "I had back taxes and unfiled returns that were keeping me up at night. VS Tax CPA LLC handled everything — they filed all the back returns, negotiated with the IRS, and got my penalties abated. Now my books are clean and my sales tax is filed on time every month. I couldn't be more relieved.",
+      desc: "I had back taxes and unfiled returns that were keeping me up at night. VR Tax CPA LLC handled everything — they filed all the back returns, negotiated with the IRS, and got my penalties abated. Now my books are clean and my sales tax is filed on time every month. I couldn't be more relieved.",
     },
     {
       name: "Ryan K.",
@@ -48,81 +48,130 @@ export default function Testimonials() {
       initials: "RK",
       rating: 5,
       industry: "Contractors",
-      desc: "Before VS Tax CPA LLC, I was leaving money on the table every year. Vethavalli found deductions I'd never claimed — home office, vehicle, tools, and retirement contributions. My tax bill dropped by over $12,000 last year. Wish I'd found her sooner!",
+      desc: "Before VR Tax CPA LLC, I was leaving money on the table every year. Vethavalli found deductions I'd never claimed — home office, vehicle, tools, and retirement contributions. My tax bill dropped by over $12,000 last year. Wish I'd found her sooner!",
     },
   ];
 
   return (
-    <section className="py-24 bg-bg-light/40 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      {/* subtle bg glows */}
+      <div className="absolute right-0 top-1/3 w-[500px] h-[500px] rounded-full bg-[#d3d663]/6 blur-3xl pointer-events-none" />
+      <div className="absolute -left-20 bottom-0 w-80 h-80 rounded-full bg-[#0B1F3B]/4 blur-3xl pointer-events-none" />
+
+      {/* Slide transition styles */}
+      <style>{`
+        .testi-swiper .swiper-slide {
+          transition: transform 0.75s cubic-bezier(0.76,0,0.24,1),
+                      opacity 0.75s cubic-bezier(0.76,0,0.24,1);
+          transform: scale(0.84);
+          opacity: 0.45;
+        }
+        .testi-swiper .swiper-slide-active {
+          transform: scale(1);
+          opacity: 1;
+        }
+        .testi-swiper .swiper-slide .quote-badge {
+          background: #ffffff;
+          color: #94a3b8;
+          border: 1.5px solid #E2E8F0;
+        }
+        .testi-swiper .swiper-slide-active .quote-badge {
+          background: #0B1F3B;
+          color: #d3d663;
+          border-color: #0B1F3B;
+          box-shadow: 0 4px 14px rgba(11, 31, 59, 0.25);
+          transform: translateX(-50%) scale(1.08);
+        }
+        .testi-swiper .swiper-pagination {
+          bottom: 0px !important;
+        }
+        .testi-swiper .swiper-pagination-bullet {
+          background: #cbd5e1;
+          opacity: 1;
+          width: 8px;
+          height: 8px;
+        }
+        .testi-swiper .swiper-pagination-bullet-active {
+          background: #0B1F3B !important;
+          width: 24px;
+          border-radius: 4px;
+        }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-flex items-center rounded-full bg-primary/8 text-primary px-4 py-2 text-xs font-bold uppercase tracking-widest border border-primary/15 mb-4">
+          <span className="inline-flex items-center text-[#0B1F3B] text-xs font-extrabold uppercase tracking-widest mb-4">
             Client Success Stories
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
             Real Clients. Real Tax Savings. Real Results.
           </h2>
         </div>
 
-        {/* Carousel */}
-        <div className="relative max-w-4xl mx-auto">
-          <button className="testi-prev-btn absolute left-[-60px] top-[50%] -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full border border-slate-200 text-slate-500 hover:text-white hover:bg-primary hover:border-primary items-center justify-center transition-all z-10 cursor-pointer">
-            <FaChevronLeft size={16} />
+        {/* Carousel wrapper */}
+        <div className="relative">
+          {/* Prev / Next arrows */}
+          <button className="testi-prev-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer">
+            <FaChevronLeft size={14} />
           </button>
-          <button className="testi-next-btn absolute right-[-60px] top-[50%] -translate-y-1/2 hidden md:flex w-12 h-12 rounded-full border border-slate-200 text-slate-500 hover:text-white hover:bg-primary hover:border-primary items-center justify-center transition-all z-10 cursor-pointer">
-            <FaChevronRight size={16} />
+          <button className="testi-next-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer">
+            <FaChevronRight size={14} />
           </button>
 
           <Swiper
             modules={[Pagination, Autoplay, Navigation]}
-            spaceBetween={30}
-            slidesPerView={1}
+            spaceBetween={24}
+            centeredSlides={true}
             loop={true}
+            speed={750}
             autoplay={{ delay: 5500, disableOnInteraction: false }}
-            pagination={{
-              clickable: true,
-              bulletActiveClass: "swiper-pagination-bullet-active !bg-primary",
-            }}
+            pagination={{ clickable: true }}
             navigation={{ prevEl: ".testi-prev-btn", nextEl: ".testi-next-btn" }}
-            className="pb-12"
+            className="testi-swiper pb-20"
+            breakpoints={{
+              0:    { slidesPerView: 1.05 },
+              640:  { slidesPerView: 1.3 },
+              1024: { slidesPerView: 1.55 },
+              1280: { slidesPerView: 1.7 },
+            }}
           >
             {testimonialsList.map((t, i) => (
-              <SwiperSlide key={i}>
-                <div className="bg-white border border-border-light rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300">
-                  {/* Stars + Industry Badge */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex gap-0.5 text-amber-400 text-base">
+              <SwiperSlide key={i} className="pt-2 pb-12">
+                <div className="relative bg-white border border-[#E2E8F0] rounded-3xl p-7 md:p-10 pb-9 md:pb-11 shadow-md">
+
+                  {/* Top: avatar + name + stars */}
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="flex items-center gap-4">
+                      {/* Avatar */}
+                      <div
+                        className={`w-14 h-14 rounded-2xl bg-[#0B1F3B] flex items-center justify-center text-white font-extrabold text-lg font-figtree flex-shrink-0 shadow-sm`}
+                      >
+                        {t.initials}
+                      </div>
+                      <div>
+                        <h5 className="text-lg font-bold font-figtree text-[#0B1F3B] leading-tight">
+                          {t.name}
+                        </h5>
+                        <p className="text-sm text-slate-500 mt-0.5">{t.desig}</p>
+                      </div>
+                    </div>
+
+                    {/* Stars */}
+                    <div className="flex gap-1 text-amber-400 text-2xl sm:text-3xl mt-1">
                       {"★".repeat(t.rating)}
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-secondary/10 text-primary px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-secondary/20">
-                      {t.industry}
-                    </span>
                   </div>
 
-                  {/* Quote */}
-                  <p className="text-body-text text-base leading-relaxed mb-8 italic">
+                  {/* Quote text */}
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed relative z-10 font-manrope">
                     &ldquo;{t.desc}&rdquo;
                   </p>
 
-                  {/* Client info */}
-                  <div className="flex items-center gap-4 pt-6 border-t border-border-light">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-extrabold text-base font-figtree flex-shrink-0"
-                      style={{ background: "linear-gradient(135deg, #1e3a24, #9CB05A)" }}
-                    >
-                      {t.initials}
-                    </div>
-                    <div>
-                      <h5 className="text-sm font-bold font-figtree text-dark">{t.name}</h5>
-                      <p className="text-xs text-body-text">{t.desig}</p>
-                    </div>
-                    {/* VS Tax CPA logo text */}
-                    <div className="ml-auto text-right">
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Client of</p>
-                      <p className="text-xs font-extrabold text-primary font-figtree">VS Tax CPA LLC</p>
-                    </div>
+                  {/* Circular quote badge */}
+                  <div className="quote-badge absolute -bottom-5 left-1/2 -translate-x-1/2 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500 z-10 shadow-sm">
+                    <FaQuoteRight className="text-xs sm:text-sm" />
                   </div>
                 </div>
               </SwiperSlide>

@@ -1,61 +1,93 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiCheckCircle } from "react-icons/fi";
+
+const offerImages = [
+  "/images/offers/offer-tax.jpg",
+  "/images/offers/offer-business.jpg",
+  "/images/offers/offer-compliance.jpg",
+  "/images/offers/offer-strategy.jpg",
+];
+
+const getOfferImage = (title = "", idx = 0) => {
+  const lower = title.toLowerCase();
+  if (lower.includes("tax") || lower.includes("individual") || lower.includes("1040") || lower.includes("filing")) {
+    return "/images/offers/offer-tax.jpg";
+  }
+  if (lower.includes("business") || lower.includes("s-corp") || lower.includes("c-corp") || lower.includes("llc") || lower.includes("entity")) {
+    return "/images/offers/offer-business.jpg";
+  }
+  if (lower.includes("compliance") || lower.includes("irs") || lower.includes("trust") || lower.includes("estate") || lower.includes("protect")) {
+    return "/images/offers/offer-compliance.jpg";
+  }
+  if (lower.includes("strategy") || lower.includes("advisory") || lower.includes("planning") || lower.includes("cfo") || lower.includes("non-profit")) {
+    return "/images/offers/offer-strategy.jpg";
+  }
+  return offerImages[idx % offerImages.length];
+};
 
 export default function WhatWeOffer({ offers }) {
   if (!offers || offers.length === 0) return null;
 
   return (
     <section id="what-we-offer" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-80 h-80 rounded-full opacity-[0.04] pointer-events-none bg-[radial-gradient(circle,#1e3a24,transparent_70%)]" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/8 text-primary px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-primary/15 mb-3 sm:mb-4 font-figtree">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
-            What We Offer
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-4 font-figtree">
+            WHAT WE OFFER
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight">
-            Specialized Services &amp; Capabilities Included
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
+            Specialized Solutions &amp; Scope of Services
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-body-text font-manrope">
-            Tailored deliverables designed to maintain rigorous compliance and unlock strategic savings.
+          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto font-manrope">
+            Designed to deliver clarity, compliance, and dedicated support for each area of your financial operations.
           </p>
         </div>
 
-        {/* Offers Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        {/* 2x2 Accessible Executive Card Grid */}
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {offers.map((offer, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group bg-slate-50/70 hover:bg-white border border-slate-100 hover:border-primary/25 rounded-3xl p-6 sm:p-8 flex items-start gap-4 sm:gap-6 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 transition-all cursor-default"
+              transition={{ duration: 0.45, delay: idx * 0.08 }}
+              className="group bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#C5A880]/50 transition-all duration-300 flex flex-col sm:flex-row items-start gap-6"
             >
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white duration-300 transition-colors shadow-sm">
-                <FiCheckCircle size={22} />
+              {/* Image / Thumbnail */}
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  src={getOfferImage(offer.title, idx)}
+                  alt={offer.title}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                />
               </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <h3 className="text-lg sm:text-xl font-bold font-figtree text-dark group-hover:text-primary transition-colors">
-                    {offer.title}
-                  </h3>
-                  <span className="text-xs font-extrabold text-slate-300 font-figtree">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
+
+              {/* Content */}
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <FiCheckCircle className="text-[#2D503B] flex-shrink-0" size={16} />
+                    <h3 className="text-lg font-extrabold font-figtree text-[#0B1F3B] tracking-tight leading-snug group-hover:text-[#0B1F3B]">
+                      {offer.title}
+                    </h3>
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed font-manrope">
+                    {offer.desc}
+                  </p>
                 </div>
-                <p className="text-body-text text-xs sm:text-sm leading-relaxed font-manrope">
-                  {offer.desc}
-                </p>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

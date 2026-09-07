@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/Button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 
@@ -79,8 +80,8 @@ export default function Projects() {
           }}
         >
           <div className="flex flex-col gap-4 mb-8">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-3.5 py-1 text-xs font-bold uppercase tracking-widest border border-primary/20 self-start font-figtree">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#0E1710]/10 text-[#111815] px-3.5 py-1 text-xs font-bold uppercase tracking-widest border border-primary/20 self-start font-figtree">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0E1710] inline-block"></span>
               Proven Results
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight font-figtree tracking-tight">
@@ -95,7 +96,7 @@ export default function Projects() {
                 className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 flex flex-col gap-5 shadow-sm border border-slate-100"
               >
                 <div className="flex items-center justify-between">
-                  <span className="inline-block text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-lg font-figtree">
+                  <span className="inline-block text-xs font-bold text-[#111815] bg-[#0E1710]/10 border border-primary/20 px-3 py-1 rounded-lg font-figtree">
                     {study.tag}
                   </span>
                 </div>
@@ -104,7 +105,7 @@ export default function Projects() {
                   <Link href={study.href}>{study.title}</Link>
                 </h3>
 
-                <p className="text-body-text text-sm leading-relaxed">
+                <p className="text-[#66706A] text-sm leading-relaxed">
                   {study.desc}
                 </p>
 
@@ -150,7 +151,7 @@ export default function Projects() {
 
                 <Link
                   href={study.href}
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-white text-xs sm:text-sm font-bold font-figtree py-2.5 rounded-full mt-1"
+                  className="inline-flex items-center justify-center gap-2 bg-[#0E1710] text-white text-xs sm:text-sm font-bold font-figtree py-2.5 rounded-full mt-1"
                 >
                   <span>Explore Strategy</span>
                   <FiArrowRight size={13} />
@@ -180,8 +181,8 @@ export default function Projects() {
           {/* ── Section Header (Sticky at top) ── */}
           <div className="absolute top-8 sm:top-12 max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 z-20">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-3.5 py-1 text-xs font-bold uppercase tracking-widest border border-primary/20 mb-2 font-figtree">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0E1710]/10 text-[#111815] px-3.5 py-1 text-xs font-bold uppercase tracking-widest border border-primary/20 mb-2 font-figtree">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0E1710] inline-block"></span>
                 Proven Results
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight font-figtree tracking-tight max-w-2xl">
@@ -189,15 +190,14 @@ export default function Projects() {
               </h2>
             </div>
 
-            <Link
+            <Button
               href="/services/tax-planning"
-              className="group inline-flex items-center gap-3 bg-secondary hover:bg-secondary-dark text-dark text-xs sm:text-sm font-bold font-figtree pl-6 pr-2 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 shrink-0"
+              variant="accent"
+              size="md"
+              className="shrink-0"
             >
-              <span>Explore Strategies</span>
-              <span className="w-7 h-7 rounded-full bg-dark text-white flex items-center justify-center group-hover:translate-x-1 duration-300 transition-transform text-xs">
-                <FiArrowRight size={14} />
-              </span>
-            </Link>
+              Explore Strategies
+            </Button>
           </div>
 
           {/* ── Center Card Arena (Card-on-Card Stacking) ── */}
@@ -215,27 +215,26 @@ export default function Projects() {
               {/* Left: Text Details */}
               <div className="lg:w-1/2 flex flex-col justify-between">
                 <div>
-                  <span className="inline-block text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
+                  <span className="inline-block text-xs font-bold text-[#111815] bg-[#0E1710]/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
                     {caseStudies[0].tag}
                   </span>
 
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-primary transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-[#111815] transition-colors">
                     <Link href={caseStudies[0].href}>{caseStudies[0].title}</Link>
                   </h3>
 
-                  <p className="text-body-text text-sm sm:text-base leading-relaxed mb-6">
+                  <p className="text-[#66706A] text-sm sm:text-base leading-relaxed mb-6">
                     {caseStudies[0].desc}
                   </p>
 
-                  <Link
+                  <Button
                     href={caseStudies[0].href}
-                    className="group inline-flex items-center gap-3 bg-primary hover:bg-primary-light text-white text-xs sm:text-sm font-bold font-figtree pl-6 pr-2.5 py-2 rounded-full transition-all duration-300 shadow-md hover:scale-105 mb-6"
+                    variant="dark"
+                    size="md"
+                    className="mb-6"
                   >
-                    <span>Explore Service Details</span>
-                    <span className="w-6 h-6 rounded-full bg-white text-dark flex items-center justify-center group-hover:rotate-45 transition-transform duration-300 text-xs">
-                      <FiArrowUpRight size={13} />
-                    </span>
-                  </Link>
+                    Explore Service Details
+                  </Button>
                 </div>
 
                 {/* Meta 3-Column Footer */}
@@ -299,27 +298,26 @@ export default function Projects() {
               {/* Left: Text Details */}
               <div className="lg:w-1/2 flex flex-col justify-between">
                 <div>
-                  <span className="inline-block text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
+                  <span className="inline-block text-xs font-bold text-[#111815] bg-[#0E1710]/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
                     {caseStudies[1].tag}
                   </span>
 
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-primary transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-[#111815] transition-colors">
                     <Link href={caseStudies[1].href}>{caseStudies[1].title}</Link>
                   </h3>
 
-                  <p className="text-body-text text-sm sm:text-base leading-relaxed mb-6">
+                  <p className="text-[#66706A] text-sm sm:text-base leading-relaxed mb-6">
                     {caseStudies[1].desc}
                   </p>
 
-                  <Link
+                  <Button
                     href={caseStudies[1].href}
-                    className="group inline-flex items-center gap-3 bg-primary hover:bg-primary-light text-white text-xs sm:text-sm font-bold font-figtree pl-6 pr-2.5 py-2 rounded-full transition-all duration-300 shadow-md hover:scale-105 mb-6"
+                    variant="dark"
+                    size="md"
+                    className="mb-6"
                   >
-                    <span>Explore Service Details</span>
-                    <span className="w-6 h-6 rounded-full bg-white text-dark flex items-center justify-center group-hover:rotate-45 transition-transform duration-300 text-xs">
-                      <FiArrowUpRight size={13} />
-                    </span>
-                  </Link>
+                    Explore Service Details
+                  </Button>
                 </div>
 
                 {/* Meta 3-Column Footer */}
@@ -382,27 +380,26 @@ export default function Projects() {
               {/* Left: Text Details */}
               <div className="lg:w-1/2 flex flex-col justify-between">
                 <div>
-                  <span className="inline-block text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
+                  <span className="inline-block text-xs font-bold text-[#111815] bg-[#0E1710]/10 border border-primary/20 px-3.5 py-1.5 rounded-lg mb-3 font-figtree">
                     {caseStudies[2].tag}
                   </span>
 
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-primary transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree mb-3 leading-tight hover:text-[#111815] transition-colors">
                     <Link href={caseStudies[2].href}>{caseStudies[2].title}</Link>
                   </h3>
 
-                  <p className="text-body-text text-sm sm:text-base leading-relaxed mb-6">
+                  <p className="text-[#66706A] text-sm sm:text-base leading-relaxed mb-6">
                     {caseStudies[2].desc}
                   </p>
 
-                  <Link
+                  <Button
                     href={caseStudies[2].href}
-                    className="group inline-flex items-center gap-3 bg-primary hover:bg-primary-light text-white text-xs sm:text-sm font-bold font-figtree pl-6 pr-2.5 py-2 rounded-full transition-all duration-300 shadow-md hover:scale-105 mb-6"
+                    variant="dark"
+                    size="md"
+                    className="mb-6"
                   >
-                    <span>Explore Service Details</span>
-                    <span className="w-6 h-6 rounded-full bg-white text-dark flex items-center justify-center group-hover:rotate-45 transition-transform duration-300 text-xs">
-                      <FiArrowUpRight size={13} />
-                    </span>
-                  </Link>
+                    Explore Service Details
+                  </Button>
                 </div>
 
                 {/* Meta 3-Column Footer */}

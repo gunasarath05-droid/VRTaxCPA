@@ -4,9 +4,9 @@ import ContactForm from "@/sections/Contact/ContactForm";
 import OfficeDetails from "@/sections/Contact/OfficeDetails";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Aegis Financial Advisory — Book a Free Consultation",
+  title: "Contact Us | VR Tax CPA LLC — Schedule an Initial Consultation",
   description:
-    "Schedule a confidential financial diagnostic session with our certified CPAs. Reach out to discuss tax planning, audit compliance, consulting, bookkeeping, or cost reporting services.",
+    "Schedule an initial tax strategy consultation with VR Tax CPA LLC in Irving, TX. Reach out to discuss tax planning, tax return compliance, accounting, payroll support, or CFO guidance.",
 };
 
 export default function ContactPage() {
@@ -14,7 +14,7 @@ export default function ContactPage() {
     <>
       <ContactHero />
       <ContactForm />
-      <OfficeDetails />
+      {/* <OfficeDetails /> */}
     </>
   );
 }

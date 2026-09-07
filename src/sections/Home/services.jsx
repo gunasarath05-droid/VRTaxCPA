@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/Button";
 import {
   FiArrowRight,
   FiFileText,
@@ -15,75 +16,75 @@ import {
   FiTag,
 } from "react-icons/fi";
 
-import bgbanner from "@/assets/images/home/hero/bgbanner.png";
 import img1 from "@/assets/images/home/services/about-2-1.png";
 import img2 from "@/assets/images/home/services/about-2-2.png";
 import img3 from "@/assets/images/home/services/about-2-3.png";
 import img4 from "@/assets/images/home/services/about-2-4.png";
 import img5 from "@/assets/images/home/services/about-2-5.png";
+import serviceBg from "@/assets/images/home/services/service-bg.png";
 
 const serviceList = [
   {
-    no: "001.",
+    no: "01",
     title: "Tax Compliance",
-    icon: <FiFileText size={24} />,
-    desc: "Accurate and timely federal and state tax return filing for individuals, businesses, trusts, and estates — with zero penalties.",
+    icon: <FiFileText size={22} />,
+    desc: "Accurate and timely federal and Texas tax return preparation and filing for individuals, businesses, trusts, and exempt organizations.",
     slug: "tax-compliance",
     image: img1,
   },
   {
-    no: "002.",
+    no: "02",
     title: "Tax Planning & Advisory",
-    icon: <FiTrendingUp size={24} />,
-    desc: "Year-round proactive tax strategy to minimize your liability, maximize deductions, and plan for retirement and business growth.",
+    icon: <FiTrendingUp size={22} />,
+    desc: "Proactive year-round tax planning and entity structuring to optimize tax obligations and prevent last-minute filing surprises.",
     slug: "tax-planning",
     image: img2,
   },
   {
-    no: "003.",
+    no: "03",
     title: "Business Entity Formation",
-    icon: <FiBriefcase size={24} />,
-    desc: "Expert guidance on LLC, S-Corp, and C-Corp formation, Texas state filings, EIN registration, and S-Corp election.",
+    icon: <FiBriefcase size={22} />,
+    desc: "Advisory on entity classification (LLC, S-Corp, C-Corp), Texas state formation filings, EIN setup, and S-Corp tax elections.",
     slug: "business-formation",
     image: img3,
   },
   {
-    no: "004.",
-    title: "Payroll Setup (Gusto)",
-    icon: <FiUsers size={24} />,
-    desc: "Complete Gusto payroll onboarding, pay run processing, payroll tax deposits, W-2 & 1099-NEC filings, and salary compliance.",
+    no: "04",
+    title: "Payroll Support",
+    icon: <FiUsers size={22} />,
+    desc: "We set up and train your team to manage payroll through partner platforms like QuickBooks, ensuring compliant withholding configuration.",
     slug: "payroll-services",
     image: img4,
   },
   {
-    no: "005.",
-    title: "Bookkeeping & Accounting",
-    icon: <FiBook size={24} />,
-    desc: "Monthly bookkeeping, bank reconciliations, financial statements (P&L, Balance Sheet, Cash Flow), and clean year-end books.",
-    slug: "bookkeeping",
+    no: "05",
+    title: "Accounting Services",
+    icon: <FiBook size={22} />,
+    desc: "Monthly and quarterly bookkeeping, bank reconciliations, management financials, and year-end ledger organization.",
+    slug: "accounting-services",
     image: img5,
   },
   {
-    no: "006.",
+    no: "06",
     title: "Fractional CFO",
-    icon: <FiCpu size={24} />,
-    desc: "Cash flow forecasting, KPI dashboards, budgeting, and lender/investor preparation — at a fraction of a full-time CFO cost.",
+    icon: <FiCpu size={22} />,
+    desc: "Cash flow modeling, KPI tracking dashboards, and internal management budgeting — tailored for growing businesses.",
     slug: "fractional-cfo",
     image: img1,
   },
   {
-    no: "007.",
+    no: "07",
     title: "IRS Representation",
-    icon: <FiShield size={24} />,
-    desc: "IRS notice response, audit representation, penalty abatement, unfiled return filing, and tax debt resolution.",
+    icon: <FiShield size={22} />,
+    desc: "Notice response, IRS representation, penalty abatement review, and unfiled prior-year tax return resolution.",
     slug: "irs-representation",
     image: img2,
   },
   {
-    no: "008.",
+    no: "08",
     title: "Sales Tax & 1099",
-    icon: <FiTag size={24} />,
-    desc: "Texas and multi-state sales tax returns, plus year-end 1099-NEC and 1099-MISC preparation, IRS e-filing, and delivery.",
+    icon: <FiTag size={22} />,
+    desc: "Texas sales tax return filings, plus year-end preparation and electronic filing of 1099s for contractors, rent, interest, and dividends.",
     slug: "sales-tax-1099",
     image: img3,
   },
@@ -95,73 +96,74 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="py-12 sm:py-16 mx-3 sm:mx-6 lg:mx-10 relative overflow-hidden rounded-2xl sm:rounded-3xl"
-      style={{
-        backgroundImage: `url(${bgbanner.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="py-8 md:py-16 relative overflow-hidden border-t border-[#E4E8E4] px-4 sm:px-6 bg-safe-fixed bg-no-repeat"
+      style={{ backgroundImage: `url(${serviceBg.src})` }}
     >
-      <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6">
+      {/* Subtle overlay to preserve clean corporate contrast */}
+      <div className="absolute inset-0 bg-white/60 pointer-events-none" />
 
-        {/* ── Section Header ── */}
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8 mb-8 sm:mb-10">
+      {/* ── Section Header (constrained to max-w-7xl) ── */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8">
           <div>
-            <span className="inline-flex items-center rounded-full bg-primary/8 text-primary border border-primary/15 px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest mb-3 sm:mb-4">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-3 block">
               Our Services
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight font-figtree tracking-tight max-w-xl">
-              Comprehensive CPA Services for Every Financial Need.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight max-w-xl">
+              Comprehensive Financial Solutions for Growing Businesses.
             </h2>
           </div>
 
-          <Link
-            href="/services/tax-compliance"
-            className="group inline-flex items-center gap-3 bg-secondary text-dark text-sm sm:text-base font-semibold font-figtree pl-6 sm:pl-8 pr-2.5 sm:pr-3 py-2.5 sm:py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0"
+          <Button
+            href="/services"
+            variant="accent"
+            size="lg"
+            className="shrink-0"
           >
-            <span>View All Services</span>
-            <span className="bg-dark text-white p-2.5 sm:p-3 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300 text-xs sm:text-sm">
-              <FiArrowRight />
-            </span>
-          </Link>
+            View All Services
+          </Button>
         </div>
+      </div>
+
+      {/* ── Service Cards: full width, no max-w constraint ── */}
+      <div className="relative z-10 w-full px-4 sm:px-6 mt-12 sm:mt-14">
 
         {/* ── Mobile/Tablet Grid (<lg) ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
           {serviceList.map((card, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col justify-between gap-4"
+              className="bg-white rounded-2xl p-5 shadow-2xs border border-[#E4E8E4] flex flex-col justify-between gap-4 hover:shadow-md hover:border-[#d3d663] transition-all"
             >
               <div className="flex items-start justify-between">
-                <div className="w-12 h-12 rounded-xl bg-primary text-secondary flex items-center justify-center flex-shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/30 flex items-center justify-center flex-shrink-0 shadow-2xs">
                   {card.icon}
                 </div>
-                <span className="text-xs font-bold font-mono text-slate-300">
+                <span className="text-xs font-bold font-mono text-[#66706A]">
                   {card.no}
                 </span>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 font-figtree mb-2">
+                <h3 className="text-lg font-bold text-[#0B1F3B] font-figtree mb-2">
                   {card.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3">
+                <p className="text-xs sm:text-sm text-[#66706A] leading-relaxed line-clamp-3 font-manrope">
                   {card.desc}
                 </p>
               </div>
               <Link
                 href={`/services/${card.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary hover:text-secondary-dark font-figtree pt-2 border-t border-slate-100"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B1F3B] hover:text-[#d3d663] font-figtree pt-2 border-t border-[#E4E8E4]"
               >
-                Learn More ↗
+                <span>Learn More</span>
+                <span>↗</span>
               </Link>
             </div>
           ))}
         </div>
 
-        {/* ── Desktop Accordion Cards (lg+) ── */}
-        <div className="hidden lg:flex flex-row gap-3 items-stretch h-[320px]">
+        {/* ── Desktop Accordion Cards (lg+): full width ── */}
+        <div className="hidden lg:flex flex-row gap-3 items-stretch h-[340px]">
           {serviceList.map((card, index) => {
             const isActive = activeIndex === index;
 
@@ -169,85 +171,77 @@ export default function Services() {
               <div
                 key={index}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`relative rounded-3xl overflow-hidden cursor-pointer bg-white ${isActive
-                  ? "shadow-[0_20px_56px_rgba(0,0,0,0.22)]"
-                  : "shadow-[0_2px_10px_rgba(0,0,0,0.08)]"
-                  }`}
+                className={`relative rounded-3xl overflow-hidden cursor-pointer bg-white border ${
+                  isActive
+                    ? "border-[#d3d663] shadow-[0_20px_45px_rgba(0,0,0,0.08)]"
+                    : "border-[#E4E8E4] shadow-2xs hover:border-[#d3d663]/60"
+                }`}
                 style={{
-                  flex: isActive ? "4" : "1",
+                  flex: isActive ? "4.5" : "1",
                   minWidth: isActive ? "0" : "88px",
-                  transition: "flex 0.65s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease",
+                  transition: "flex 0.65s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease",
                 }}
               >
                 {/* ── COLLAPSED LAYOUT ─── */}
                 <div
-                  className={`absolute inset-0 transition-opacity duration-[250ms] ${isActive
-                      ? "opacity-0 pointer-events-none"
-                      : "opacity-100 pointer-events-auto"
-                    }`}
+                  className={`absolute inset-0 transition-opacity duration-[250ms] p-3.5 ${
+                    isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+                  }`}
                 >
-                  {/* Number — absolute top-right */}
-                  <span className="absolute top-4 right-3.5 text-[10px] font-bold font-mono text-slate-300 tracking-[0.03em]">
+                  <span className="absolute top-4 right-3.5 text-xs font-bold font-mono text-[#66706A]">
                     {card.no}
                   </span>
 
-                  {/* Icon — fixed position from bottom */}
-                  <div className="absolute bottom-[98px] left-4 w-[52px] h-[52px] rounded-full bg-primary text-secondary flex items-center justify-center shrink-0">
+                  <div className="absolute bottom-[98px] left-3.5 w-12 h-12 rounded-2xl bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/30 flex items-center justify-center shrink-0 shadow-2xs">
                     {card.icon}
                   </div>
 
-                  {/* Title — fixed position at bottom */}
-                  <h3 className="absolute bottom-5 left-3.5 right-3.5 text-lg font-bold text-slate-900 leading-snug font-figtree">
+                  <h3 className="absolute bottom-5 left-3.5 right-3.5 text-base font-bold text-[#0B1F3B] leading-snug font-figtree">
                     {card.title}
                   </h3>
                 </div>
 
                 {/* ── ACTIVE / EXPANDED LAYOUT ─── */}
                 <div
-                  className={`absolute inset-0 flex flex-row transition-opacity duration-[150ms] px-4 ${isActive
-                      ? "opacity-100 pointer-events-auto"
-                      : "opacity-0 pointer-events-none"
-                    }`}
+                  className={`absolute inset-0 flex flex-row transition-opacity duration-[150ms] p-5 ${
+                    isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                  }`}
                 >
-                  {/* Left: Image */}
-                  <div className="relative w-[46%] shrink-0 overflow-hidden">
+                  {/* Left: Illustration / Image */}
+                  <div className="relative w-[44%] shrink-0 overflow-hidden flex items-center justify-center">
                     <Image
                       src={card.image}
                       alt={card.title}
                       fill
-                      sizes="280px"
-                      className="object-contain"
+                      sizes="300px"
+                      className="object-contain p-3"
                     />
                   </div>
 
                   {/* Right: Content */}
-                  <div className="flex-1 relative flex flex-col justify-center gap-3 px-5 py-6 overflow-hidden">
-                    {/* Number — absolute top-right */}
-                    <span className="absolute top-4 right-4 text-[10px] font-bold font-mono text-slate-300 tracking-[0.03em]">
+                  <div className="flex-1 relative flex flex-col justify-center gap-3 pl-6 pr-2 overflow-hidden">
+                    <span className="absolute top-0 right-1 text-xs font-bold font-mono text-[#66706A]">
                       {card.no}
                     </span>
 
-                    {/* Icon badge — solid colored circle */}
-                    <div className="w-[60px] h-[60px] rounded-full bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/40 flex items-center justify-center shrink-0 shadow-2xs">
                       {card.icon}
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-xl font-extrabold text-slate-900 leading-snug font-figtree">
+                    <h3 className="text-xl font-extrabold text-[#0B1F3B] leading-snug font-figtree">
                       {card.title}
                     </h3>
 
-                    {/* Description — line-clamped */}
-                    <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">
+                    <p className="text-sm text-[#66706A] leading-relaxed line-clamp-3 font-manrope">
                       {card.desc}
                     </p>
 
-                    {/* Learn More ↗ */}
                     <Link
                       href={`/services/${card.slug}`}
-                      className="inline-flex items-center gap-1 text-base font-bold text-slate-900 font-figtree hover:text-primary transition-colors duration-200"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-[#0B1F3B] font-figtree hover:text-[#d3d663] transition-colors duration-200 pt-1"
                     >
-                      Learn More ↗
+                      <span>Learn More</span>
+                      <FiArrowRight size={14} />
                     </Link>
                   </div>
                 </div>

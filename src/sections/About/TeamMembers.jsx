@@ -15,37 +15,37 @@ export default function TeamMembers() {
     {
       name: "Eleanor Pena",
       role: "Operations Head",
-      bg: "bg-[#06b6d4]", // Vibrant Cyan
+      bg: "bg-[#2D5A27]", // Rich Green
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
     },
     {
       name: "Cameron William",
       role: "Marketing & Tax Lead",
-      bg: "bg-[#f97316]", // Vibrant Orange
+      bg: "bg-[#4A6B22]", // Olive Green
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
     },
     {
       name: "Robert Fox",
       role: "Business Director",
-      bg: "bg-[#f472b6]", // Vibrant Pink
+      bg: "bg-[#1E3A24]", // Deep Forest
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
     },
     {
       name: "Dianne Russell",
       role: "Senior Tax Accountant",
-      bg: "bg-[#eab308]", // Vibrant Yellow
+      bg: "bg-[#9CB05A]", // Muted Olive
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
     },
     {
       name: "Jenny Wilson",
       role: "Payroll & Compliance Lead",
-      bg: "bg-[#10b981]", // Vibrant Emerald
+      bg: "bg-[#3D6B35]", // Sage Green
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80",
     },
     {
       name: "Guy Hawkins",
       role: "Advisory & CFO Manager",
-      bg: "bg-[#8b5cf6]", // Vibrant Purple
+      bg: "bg-[#28572E]", // Herbal Green
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
     },
   ];
@@ -88,7 +88,7 @@ export default function TeamMembers() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 mb-3 sm:mb-4 font-figtree backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] inline-block" />
               Our Teams
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight font-figtree tracking-tight">
@@ -152,7 +152,7 @@ export default function TeamMembers() {
 
                   {/* Name & Role below */}
                   <div className="text-center mt-4 sm:mt-5 transition-transform duration-300 group-hover:-translate-y-1">
-                    <h3 className="text-base sm:text-lg font-extrabold text-white font-figtree tracking-tight transition-colors duration-300 group-hover:text-secondary">
+                    <h3 className="text-base sm:text-lg font-extrabold text-white font-figtree tracking-tight transition-colors duration-300 group-hover:text-[#C5A880]">
                       {member.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-white/70 font-manrope mt-1">

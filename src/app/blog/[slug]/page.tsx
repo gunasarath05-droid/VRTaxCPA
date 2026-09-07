@@ -3,9 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { blogPosts } from "@/constants/blogData";
-import { FiClock, FiCalendar, FiUser, FiArrowLeft, FiArrowRight, FiCheckCircle, FiShare2, FiPhone, FiMail } from "react-icons/fi";
+import { FiClock, FiCalendar, FiArrowLeft, FiCheckCircle, FiPhone, FiMail } from "react-icons/fi";
 import { FaLinkedinIn } from "react-icons/fa";
 import ceoImg from "@/assets/images/ceo.png";
+import darkbg from "@/assets/images/darkbg.png";
+import Button from "@/components/Button";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -20,11 +22,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
-    return { title: "Article Not Found | VS Tax CPA LLC" };
+    return { title: "Article Not Found | VR Tax CPA LLC" };
   }
 
   return {
-    title: `${post.title} | VS Tax CPA LLC`,
+    title: `${post.title} | VR Tax CPA LLC`,
     description: post.summary,
     openGraph: {
       title: post.title,
@@ -53,12 +55,26 @@ export default async function BlogDetailPage({ params }: PageProps) {
     const elements: React.ReactNode[] = [];
     let currentParagraph: string[] = [];
 
+    const formatInline = (raw: string): React.ReactNode => {
+      const parts = raw.split(/(\*\*.*?\*\*)/g);
+      return parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return (
+            <strong key={i} className="font-bold text-[#0B1F3B]">
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
+        return part;
+      });
+    };
+
     const flushParagraph = (key: number) => {
       if (currentParagraph.length > 0) {
         const text = currentParagraph.join(" ");
         elements.push(
-          <p key={`p-${key}`} className="text-body-text text-sm sm:text-base leading-relaxed mb-5 font-manrope">
-            {text}
+          <p key={`p-${key}`} className="text-slate-600 text-sm sm:text-base leading-relaxed mb-5 font-manrope">
+            {formatInline(text)}
           </p>
         );
         currentParagraph = [];
@@ -71,30 +87,30 @@ export default async function BlogDetailPage({ params }: PageProps) {
       if (trimmed.startsWith("## ")) {
         flushParagraph(index);
         elements.push(
-          <h2 key={`h2-${index}`} className="text-2xl sm:text-3xl font-extrabold font-figtree text-dark mt-10 mb-4 tracking-tight">
+          <h2 key={`h2-${index}`} className="text-2xl sm:text-3xl font-extrabold font-figtree text-[#0B1F3B] mt-10 mb-4 tracking-tight">
             {trimmed.replace("## ", "")}
           </h2>
         );
       } else if (trimmed.startsWith("### ")) {
         flushParagraph(index);
         elements.push(
-          <h3 key={`h3-${index}`} className="text-xl sm:text-2xl font-bold font-figtree text-dark mt-7 mb-3">
+          <h3 key={`h3-${index}`} className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mt-7 mb-3">
             {trimmed.replace("### ", "")}
           </h3>
         );
       } else if (trimmed.startsWith("> ")) {
         flushParagraph(index);
         elements.push(
-          <blockquote key={`quote-${index}`} className="my-6 p-5 sm:p-6 bg-[#FAF9F5] border-l-4 border-secondary rounded-r-2xl text-slate-700 italic font-manrope text-sm sm:text-base leading-relaxed">
-            {trimmed.replace("> ", "")}
+          <blockquote key={`quote-${index}`} className="my-6 p-5 sm:p-6 bg-slate-50 border-l-4 border-[#d3d663] rounded-r-2xl text-slate-700 italic font-manrope text-sm sm:text-base leading-relaxed shadow-2xs">
+            {formatInline(trimmed.replace("> ", ""))}
           </blockquote>
         );
       } else if (trimmed.startsWith("- ")) {
         flushParagraph(index);
         elements.push(
-          <div key={`li-${index}`} className="flex items-start gap-3 my-2 text-sm sm:text-base text-slate-700 font-manrope">
-            <FiCheckCircle className="text-secondary mt-1 flex-shrink-0" size={16} />
-            <span>{trimmed.replace("- ", "")}</span>
+          <div key={`li-${index}`} className="flex items-start gap-3 my-2.5 text-sm sm:text-base text-slate-700 font-manrope">
+            <FiCheckCircle className="text-[#d3d663] mt-1 flex-shrink-0" size={16} />
+            <span>{formatInline(trimmed.replace("- ", ""))}</span>
           </div>
         );
       } else if (trimmed === "---") {
@@ -114,9 +130,13 @@ export default async function BlogDetailPage({ params }: PageProps) {
   return (
     <>
       {/* ── Blog Header Hero ── */}
-      <section className="relative pt-28 sm:pt-36 pb-14 sm:pb-20 bg-gradient-to-br from-[#122115] via-[#1e3a24] to-[#2d5234] text-white overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none bg-[radial-gradient(circle,#9CB05A,transparent_70%)]" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none bg-[radial-gradient(circle,#d4af37,transparent_70%)]" />
+      <section 
+        className="relative pt-28 sm:pt-36 pb-14 sm:pb-20 text-white overflow-hidden bg-safe-fixed bg-no-repeat"
+        style={{ backgroundImage: `url(${darkbg.src})` }}
+      >
+        <div className="absolute inset-0 bg-[#0B1F3B]/60 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-15 pointer-events-none bg-[radial-gradient(circle,#d3d663,transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none bg-[radial-gradient(circle,#d3d663,transparent_70%)]" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
           {/* Breadcrumbs */}
@@ -125,13 +145,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
             <span>/</span>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <span>/</span>
-            <span className="text-secondary line-clamp-1">{post.category}</span>
+            <span className="text-[#d3d663] line-clamp-1">{post.category}</span>
           </nav>
-
-          {/* Category Tag */}
-          <span className="inline-flex items-center rounded-full bg-secondary/20 text-secondary px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest border border-secondary/30 mb-4 font-figtree">
-            {post.category}
-          </span>
 
           {/* Title */}
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-figtree tracking-tight leading-tight max-w-3xl mx-auto mb-6 text-white">
@@ -148,12 +163,12 @@ export default async function BlogDetailPage({ params }: PageProps) {
             </div>
             <span className="text-white/40">•</span>
             <div className="flex items-center gap-1.5">
-              <FiCalendar className="text-secondary" />
+              <FiCalendar className="text-[#d3d663]" />
               <span>{post.date}</span>
             </div>
             <span className="text-white/40">•</span>
             <div className="flex items-center gap-1.5">
-              <FiClock className="text-secondary" />
+              <FiClock className="text-[#d3d663]" />
               <span>{post.readTime}</span>
             </div>
           </div>
@@ -161,7 +176,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── Main Content & Sidebar Layout ── */}
-      <section className="py-14 sm:py-20 bg-[#FAF9F5] relative overflow-hidden">
+      <section className="py-14 sm:py-20 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
@@ -182,15 +197,15 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
               {/* Key Takeaways Box */}
               {post.takeaways && post.takeaways.length > 0 && (
-                <div className="bg-[#FAF9F5] border border-secondary/30 rounded-2xl p-6 sm:p-7 mb-10 shadow-sm">
-                  <h4 className="text-base font-extrabold font-figtree text-dark uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-secondary inline-block" />
+                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-7 mb-10 shadow-sm">
+                  <h4 className="text-base font-extrabold font-figtree text-[#0B1F3B] uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#d3d663] inline-block" />
                     Key Executive Takeaways
                   </h4>
                   <div className="space-y-3">
                     {post.takeaways.map((point: string, idx: number) => (
                       <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 font-medium font-manrope">
-                        <FiCheckCircle className="text-secondary mt-0.5 flex-shrink-0" size={16} />
+                        <FiCheckCircle className="text-[#d3d663] mt-0.5 flex-shrink-0" size={16} />
                         <span>{point}</span>
                       </div>
                     ))}
@@ -203,78 +218,50 @@ export default async function BlogDetailPage({ params }: PageProps) {
                 {renderContent(post.content)}
               </div>
 
-              {/* Author Bio Card */}
-              <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center sm:items-start gap-5 p-6 rounded-2xl bg-[#FAF9F5] border border-slate-200/70">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-white shadow-md flex-shrink-0 relative">
-                  <Image src={ceoImg} alt={post.author} fill className="object-cover" sizes="80px" />
-                </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <h4 className="text-lg font-bold font-figtree text-dark">{post.author}</h4>
-                  <p className="text-xs text-primary font-semibold font-figtree uppercase tracking-wider mb-2">
-                    {post.authorRole}
-                  </p>
-                  <p className="text-xs sm:text-sm text-body-text font-manrope leading-relaxed mb-3">
-                    Licensed Certified Public Accountant (Texas) and Chartered Accountant (India) with 13+ years of expertise helping businesses and individuals minimize taxes and achieve financial clarity.
-                  </p>
-                  <div className="flex items-center justify-center sm:justify-start gap-3">
-                    <a
-                      href="https://linkedin.com/company/vstaxcpa"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-dark transition-colors font-figtree"
-                    >
-                      <FaLinkedinIn /> Connect on LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </div>
-
               {/* Back to Blog Navigation */}
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold font-figtree text-dark hover:text-primary transition-colors"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold font-figtree text-[#0B1F3B] hover:text-[#d3d663] transition-colors"
                 >
                   <FiArrowLeft /> Back to All Insights
                 </Link>
-                <Link
+                <Button
                   href="/contact"
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold font-figtree text-primary hover:text-dark transition-colors"
+                  variant="accent"
+                  size="sm"
                 >
-                  Book a Strategy Call <FiArrowRight />
-                </Link>
+                  Book a Strategy Call
+                </Button>
               </div>
 
             </article>
 
             {/* ── Right Column: Sticky Sidebar (lg:col-span-4) ── */}
-            <aside className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24">
+            <aside className="lg:col-span-4 flex flex-col gap-6 lg:sticky">
 
               {/* Strategy Consultation CTA */}
-              <div className="bg-gradient-to-br from-[#122115] via-[#1e3a24] to-[#2d5234] text-white p-7 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden text-center">
-                <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#9CB05A,transparent_70%)]" />
-                <span className="inline-flex items-center rounded-full bg-white/10 text-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-white/20 mb-3 font-figtree">
-                  Free Strategy Call
-                </span>
+              <div className="bg-[#0B1F3B] text-white p-7 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden text-center">
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#d3d663,transparent_70%)]" />
                 <h3 className="text-xl sm:text-2xl font-extrabold font-figtree text-white mb-2">
                   Need Help With Your Taxes?
                 </h3>
                 <p className="text-white/70 text-xs sm:text-sm font-manrope leading-relaxed mb-6">
-                  Schedule a 1-on-1 consultation with Vethavalli Ramakrishnan, CPA to customize your savings plan.
+                  Book a free consultation to discuss your tax strategy and get expert guidance.
                 </p>
-                <Link
+                <Button
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2.5 w-full bg-secondary hover:bg-[#8CA04A] text-dark font-bold font-figtree py-3 rounded-full text-xs sm:text-sm shadow-md transition-all duration-300"
+                  variant="accent"
+                  size="md"
+                  className="w-fit self-center"
                 >
-                  <span>Book Free Consultation</span>
-                  <FiArrowRight />
-                </Link>
+                  Schedule a Consultation
+                </Button>
               </div>
 
               {/* Related Insights */}
               <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 shadow-sm">
-                <h4 className="text-base font-extrabold font-figtree text-dark mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+                <h4 className="text-base font-extrabold font-figtree text-[#0B1F3B] mb-5 pb-3 border-b border-slate-100 flex items-center gap-2">
                   Related Insights
                 </h4>
                 <div className="flex flex-col gap-4">
@@ -288,10 +275,10 @@ export default async function BlogDetailPage({ params }: PageProps) {
                         <Image src={r.image} alt={r.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="64px" />
                       </div>
                       <div className="flex-1">
-                        <span className="text-[10px] font-bold text-primary block uppercase tracking-wider mb-0.5 font-figtree">
+                        <span className="text-[10px] font-bold text-[#d3d663] block uppercase tracking-wider mb-0.5 font-figtree">
                           {r.category}
                         </span>
-                        <h5 className="text-xs sm:text-sm font-bold font-figtree text-dark group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                        <h5 className="text-xs sm:text-sm font-bold font-figtree text-[#0B1F3B] group-hover:text-[#d3d663] transition-colors line-clamp-2 leading-snug">
                           {r.title}
                         </h5>
                         <span className="text-[10px] text-slate-400 font-manrope mt-1 block">
@@ -305,18 +292,18 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
               {/* Direct Reachout */}
               <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col gap-3.5">
-                <h4 className="text-sm font-extrabold font-figtree text-dark">Direct CPA Contact</h4>
-                <a href="tel:+14694716580" className="flex items-center gap-3 text-xs text-dark hover:text-primary transition-colors font-medium">
-                  <div className="w-8 h-8 rounded-full bg-secondary/15 text-dark flex items-center justify-center flex-shrink-0">
+                <h4 className="text-sm font-extrabold font-figtree text-[#0B1F3B]">Direct CPA Contact</h4>
+                <a href="tel:+14694716580" className="flex items-center gap-3 text-xs text-[#0B1F3B] hover:text-[#d3d663] transition-colors font-medium">
+                  <div className="w-8 h-8 rounded-full bg-[#d3d663]/15 text-[#0B1F3B] flex items-center justify-center flex-shrink-0">
                     <FiPhone size={14} />
                   </div>
                   <span>+1 (469) 471-6580</span>
                 </a>
-                <a href="mailto:info@vstaxcpa.com" className="flex items-center gap-3 text-xs text-dark hover:text-primary transition-colors font-medium">
-                  <div className="w-8 h-8 rounded-full bg-secondary/15 text-dark flex items-center justify-center flex-shrink-0">
+                <a href="mailto:info@vrtaxcpa.com" className="flex items-center gap-3 text-xs text-[#0B1F3B] hover:text-[#d3d663] transition-colors font-medium">
+                  <div className="w-8 h-8 rounded-full bg-[#d3d663]/15 text-[#0B1F3B] flex items-center justify-center flex-shrink-0">
                     <FiMail size={14} />
                   </div>
-                  <span>info@vstaxcpa.com</span>
+                  <span>info@vrtaxcpa.com</span>
                 </a>
               </div>
 

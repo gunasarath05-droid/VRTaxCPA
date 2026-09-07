@@ -3,167 +3,160 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { FiArrowRight, FiCheck } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
+import Button from "@/components/Button";
 import { FaArrowUp, FaStar, FaHeart } from "react-icons/fa";
 
-// Count Up component
-function CountUp({ value, duration = 2 }) {
+// Count Up component with smooth requestAnimationFrame & unified trigger
+function CountUp({ value, duration = 1.6, isTriggered = false }) {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
+    if (!isTriggered) return;
     const end = parseFloat(value);
-    if (isNaN(end)) return;
-    const totalMiliseconds = duration * 1000;
-    const incrementTime = 30;
-    const totalSteps = Math.ceil(totalMiliseconds / incrementTime);
-    const stepValue = end / totalSteps;
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      if (step >= totalSteps) {
-        clearInterval(timer);
-        setCount(end);
+    if (isNaN(end)) {
+      setCount(value);
+      return;
+    }
+
+    let startTime = null;
+    let animationFrameId;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      // smooth ease-out curve
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const currentVal = easeProgress * end;
+
+      setCount(currentVal);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
       } else {
-        setCount((prev) => {
-          const nextVal = prev + stepValue;
-          return nextVal > end ? end : nextVal;
-        });
+        setCount(end);
       }
-    }, incrementTime);
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [isTriggered, value, duration]);
 
   const isFloat = value.toString().includes(".");
-  const displayCount = isFloat ? count.toFixed(1) : Math.floor(count);
-  return <span ref={ref}>{displayCount}</span>;
+  const displayCount = isFloat ? count.toFixed(1) : Math.round(count);
+  return <span className="inline-block tabular-nums">{displayCount}</span>;
 }
 
 export default function About() {
+  const statsRef = useRef(null);
+  const isStatsInView = useInView(statsRef, { once: true, amount: 0.1 });
+
   const stats = [
     {
       value: "13",
-      suffix: "+",
-      label: "Years of Accounting Experience",
-      icon: <FaArrowUp className="inline ml-1 text-secondary text-sm rotate-45" />,
+      suffix: " Yrs",
+      label: "Accounting Experience",
+      icon: <FaArrowUp className="inline ml-1 text-[#d3d663] text-xs rotate-45" />,
     },
     {
       value: "10",
-      suffix: "+",
-      label: "Years of Tax Specialization",
-      badge: "CPA",
+      suffix: " Yrs",
+      label: "Tax Specialization",
+      icon: <FaStar className="inline ml-1 text-[#d3d663] text-xs" />,
     },
     {
       value: "100",
       suffix: "%",
-      label: "Compliance Track Record",
-      icon: <FaStar className="inline ml-1 text-supportive text-sm" />,
+      label: "CPA-Led Oversight",
+      icon: <FaHeart className="inline ml-1 text-[#d3d663] text-xs" />,
     },
     {
-      value: "8",
-      suffix: "",
-      label: "Core CPA Services Offered",
-      icon: <FaHeart className="inline ml-1 text-secondary text-sm" />,
+      value: "365",
+      suffix: " Days",
+      label: "Year-Round Partnership",
     },
   ];
 
   const pillars = [
-    "Licensed Texas CPA & Indian Chartered Accountant",
-    "Personalized, one-on-one client service",
-    "Year-round proactive tax guidance",
-    "Technology-forward accounting (Gusto, QuickBooks)",
+    "Personalized, genuine client care",
+    "Proactive year-round tax advisory — no last-minute scramble",
+    "Modern cloud accounting and payroll setup",
+    "Dedicated support for business owners and individuals",
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative overflow-hidden">
-      {/* Background subtle accent */}
-      <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-[0.04] pointer-events-none"
-        style={{ background: "radial-gradient(circle, #1e3a24, transparent 70%)" }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="py-8 md:py-16 bg-white relative overflow-hidden border-t border-[#E2E8F0]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* About Grid */}
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col items-start gap-5">
-            <span className="inline-flex items-center rounded-full bg-primary/8 text-primary px-4 py-2 text-xs font-bold uppercase tracking-widest border border-primary/15">
-              Who We Are
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree">
+              About VR Tax CPA LLC
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-[1.15] font-figtree tracking-tight">
-              A CPA Firm Built on Trust, Accuracy & Genuine Care.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-[1.15] font-figtree tracking-tight">
+              A Practice Built on Trust, Accuracy &amp; Genuine Care.
             </h2>
 
             {/* Pillar list */}
-            <ul className="flex flex-col gap-3 mt-2">
+            <ul className="flex flex-col gap-3 mt-2 w-full">
               {pillars.map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-body-text text-sm">
-                  <span className="w-5 h-5 rounded-full bg-secondary/15 flex items-center justify-center flex-shrink-0">
-                    <FiCheck size={10} className="text-primary" />
+                <li key={i} className="flex items-center gap-3 text-[#0B1F3B] text-sm sm:text-base font-medium">
+                  <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/50">
+                    <FiCheck size={12} className="stroke-[3] text-[#2D503B]" />
                   </span>
-                  {item}
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Right Column */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-8 lg:pl-8">
-            <p className="text-body-text text-lg leading-relaxed">
-              VS Tax CPA LLC is a forward-thinking CPA firm established in 2026, dedicated to delivering reliable, accurate, and strategic tax and accounting services for individuals and businesses. We combine deep financial expertise with a commitment to personalized service, ensuring every client receives clear guidance, compliant solutions, and year-round support.
+          <div className="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 lg:pl-6">
+            <p className="text-[#0B1F3B] text-base sm:text-lg leading-relaxed font-manrope font-medium">
+              We are not an average accounting firm filing taxes once a year and forgetting about you. We are your strategic partners who advise and support you throughout the year.
             </p>
-            <p className="text-body-text text-base leading-relaxed">
-              Whether it&apos;s tax planning, bookkeeping, payroll on Gusto, or fractional CFO advisory — our mission is to simplify complex financial matters and empower clients to make confident decisions that support long-term growth and stability.
+            <p className="text-[#334155] text-sm sm:text-base leading-relaxed font-manrope">
+              Whether you are an established enterprise, healthcare practice, contractor, or emerging entrepreneur, our team proactively reviews and implements strategies so your annual filings are never a surprise, but a meticulously devised plan.
             </p>
 
-            <div className="flex flex-wrap items-center gap-5">
-              <Link
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2">
+              <Button
                 href="/about"
-                className="group inline-flex items-center gap-3 bg-primary hover:bg-secondary text-white text-base font-semibold font-figtree pl-8 pr-3 py-3 rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300"
+                variant="accent"
+                size="lg"
+                className="shrink-0"
               >
-                <span>Meet Our Founder</span>
-                <span className="bg-white text-dark p-3 rounded-full flex items-center justify-center group-hover:translate-x-1 duration-300 transition-transform">
-                  <FiArrowRight />
-                </span>
-              </Link>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-dark font-bold hover:text-primary transition-all underline underline-offset-4 decoration-secondary font-figtree text-sm"
-              >
-                Book a Free Tax Strategy Call →
-              </Link>
+                Learn More About Us
+              </Button>
             </div>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
-          {stats.map((item, index) => (
+        <div
+          ref={statsRef}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-[#E2E8F0]"
+        >
+          {stats.map((stat, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="rounded-2xl border border-border-light bg-bg-light hover:bg-white p-8 text-center hover:shadow-xl hover:-translate-y-1.5 duration-300 transition-all border-b-4 border-b-transparent hover:border-b-primary"
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="p-3.5 sm:p-5 md:p-6 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col items-center justify-center text-center shadow-xs hover:border-[#d3d663]/40 transition-colors"
             >
-              <h3 className="text-6xl font-extrabold text-dark font-figtree mb-4 flex items-center justify-center tracking-tight">
-                <CountUp value={item.value} />
-                <span className="text-3xl ml-1 text-secondary">{item.suffix}</span>
-              </h3>
-
-              <p className="text-body-text font-semibold text-base flex items-center justify-center gap-1.5">
-                {item.label}
-                {item.icon && item.icon}
-                {item.badge && (
-                  <span className="rounded-full bg-secondary/20 text-primary px-2.5 py-0.5 text-xs font-black ml-1">
-                    {item.badge}
-                  </span>
-                )}
+              <p className="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-[#0B1F3B] font-figtree tracking-tight flex items-center justify-center flex-wrap gap-0.5">
+                <CountUp value={stat.value} isTriggered={isStatsInView} />
+                <span>{stat.suffix}</span>
+                {stat.icon}
+              </p>
+              <p className="text-xs sm:text-sm font-semibold text-[#334155] mt-1.5 font-manrope leading-snug">
+                {stat.label}
               </p>
             </motion.div>
           ))}

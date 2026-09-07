@@ -29,18 +29,6 @@ export default function Affiliations() {
       sub: "Electronic Filing Authority",
       tag: "Federal Authorized",
     },
-    {
-      icon: <FiUsers size={22} />,
-      name: "Gusto Certified Partner",
-      sub: "Small Business Payroll Specialist",
-      tag: "Payroll Technology",
-    },
-    {
-      icon: <FiDatabase size={22} />,
-      name: "QuickBooks ProAdvisor",
-      sub: "Certified Cloud Accounting",
-      tag: "Bookkeeping Platform",
-    },
   ];
 
   const milestones = [
@@ -57,20 +45,20 @@ export default function Affiliations() {
     {
       year: "2022",
       title: "Technology Integration",
-      desc: "Mastery of modern cloud tools like Gusto and QuickBooks to streamline payroll and bookkeeping.",
+      desc: "Mastery of modern cloud accounting tools to streamline payroll and bookkeeping workflows.",
     },
     {
       year: "2026",
-      title: "VS Tax CPA LLC Founded",
+      title: "VR Tax CPA LLC Founded",
       desc: "Established in Irving, TX to deliver genuine, personalized, year-round CPA guidance and strategic tax savings.",
     },
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-[#f5f7f2] relative overflow-hidden">
+    <section className="py-20 sm:py-28 bg-gradient-to-b from-[#F2EFE6] via-[#FAF8F2] to-[#F5F2EA] relative overflow-hidden">
       {/* Subtle bg glows */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04] pointer-events-none bg-[radial-gradient(circle,#9CB05A,transparent_70%)]" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-[0.04] pointer-events-none bg-[radial-gradient(circle,#1e3a24,transparent_70%)]" />
+      <div className="absolute top-0 right-0 w-[550px] h-[550px] rounded-full opacity-30 pointer-events-none bg-[radial-gradient(circle,#C5A88020,transparent_70%)] filter blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#0B1F3B15,transparent_70%)] filter blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col gap-20 sm:gap-28 relative z-10">
 
@@ -84,14 +72,14 @@ export default function Affiliations() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/8 text-primary px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-primary/15 mb-3 sm:mb-4 font-figtree">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#0B1F3B]/8 text-[#0B1F3B] px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#C5A880]/30 mb-3 sm:mb-4 font-figtree">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0B1F3B] inline-block" />
               Certifications &amp; Technology
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
               Professional Licenses &amp; Technology Partners
             </h2>
-            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-body-text max-w-xl mx-auto font-manrope leading-relaxed">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-[#66706A] max-w-xl mx-auto font-manrope leading-relaxed">
               Every credential reflects our commitment to the highest standards of accuracy, compliance, and professional excellence.
             </p>
           </motion.div>
@@ -108,23 +96,23 @@ export default function Affiliations() {
                 className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-400 overflow-hidden cursor-default"
               >
                 {/* Hover accent line */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-secondary to-primary rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#C5A880] to-[#0B1F3B] rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Top row: Icon + Tag */}
                 <div className="flex items-start justify-between mb-4 sm:mb-5">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/8 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0B1F3B]/8 text-[#0B1F3B] flex items-center justify-center flex-shrink-0 group-hover:bg-[#C5A880] group-hover:text-white transition-all duration-300 shadow-sm">
                     {item.icon}
                   </div>
-                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-primary bg-secondary/15 px-2 sm:px-2.5 py-1 rounded-full border border-secondary/20 font-figtree">
+                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-[#0B1F3B] bg-[#C5A880]/15 px-2 sm:px-2.5 py-1 rounded-full border border-[#C5A880]/20 font-figtree">
                     {item.tag}
                   </span>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-sm sm:text-base font-bold font-figtree text-dark mb-1 leading-snug group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-sm sm:text-base font-bold font-figtree text-[#0B1F3B] mb-1 leading-snug transition-colors duration-300">
                   {item.name}
                 </h3>
-                <p className="text-xs text-body-text font-manrope leading-relaxed">{item.sub}</p>
+                <p className="text-xs text-[#66706A] font-manrope leading-relaxed">{item.sub}</p>
               </motion.div>
             ))}
           </div>
@@ -140,12 +128,12 @@ export default function Affiliations() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/8 text-primary px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-primary/15 mb-3 sm:mb-4 font-figtree">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#0B1F3B]/8 text-[#0B1F3B] px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#C5A880]/30 mb-3 sm:mb-4 font-figtree">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0B1F3B] inline-block" />
               Our Story &amp; Expertise
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight">
-              13+ Years of Accounting &amp; Tax Excellence
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
+              13 Years of Accounting &amp; Tax Excellence
             </h2>
           </motion.div>
 
@@ -166,20 +154,20 @@ export default function Affiliations() {
                 >
                   {/* Year + dot */}
                   <div className="flex items-center gap-3 mb-5 sm:mb-6">
-                    <div className="w-5 h-5 rounded-full border-2 border-secondary bg-white flex items-center justify-center flex-shrink-0 group-hover:bg-secondary transition-colors duration-300 shadow-md">
-                      <div className="w-2 h-2 rounded-full bg-secondary/60 group-hover:bg-white transition-colors duration-300" />
+                    <div className="w-5 h-5 rounded-full border-2 border-[#C5A880] bg-white flex items-center justify-center flex-shrink-0 group-hover:bg-[#C5A880] transition-colors duration-300 shadow-md">
+                      <div className="w-2 h-2 rounded-full bg-[#C5A880]/60 group-hover:bg-white transition-colors duration-300" />
                     </div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-secondary font-figtree leading-none">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-[#C5A880] font-figtree leading-none">
                       {item.year}
                     </span>
                   </div>
 
                   {/* Card */}
-                  <div className="flex-1 bg-white rounded-2xl p-5 sm:p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 group-hover:border-secondary/30 group-hover:-translate-y-1">
-                    <h3 className="text-sm sm:text-base font-bold font-figtree text-dark mb-2 group-hover:text-primary transition-colors duration-300">
+                  <div className="flex-1 bg-white rounded-2xl p-5 sm:p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 group-hover:border-[#C5A880]/30 group-hover:-translate-y-1">
+                    <h3 className="text-sm sm:text-base font-bold font-figtree text-[#0B1F3B] mb-2 transition-colors duration-300">
                       {item.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-body-text font-manrope leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#66706A] font-manrope leading-relaxed">
                       {item.desc}
                     </p>
                   </div>

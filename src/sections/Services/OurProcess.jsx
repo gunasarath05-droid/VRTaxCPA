@@ -1,131 +1,103 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiCheckCircle, FiShield } from "react-icons/fi";
+import { FiFileText, FiSearch, FiUploadCloud, FiUserCheck, FiHeadphones, FiArrowRight } from "react-icons/fi";
+
+const defaultSteps = [
+  {
+    num: "01",
+    title: "Information Collection",
+    desc: "We gather your documents securely and efficiently.",
+    icon: <FiFileText size={18} />,
+  },
+  {
+    num: "02",
+    title: "Review & Validation",
+    desc: "We review for accuracy, deductions, and compliance.",
+    icon: <FiSearch size={18} />,
+  },
+  {
+    num: "03",
+    title: "Preparation & Filing",
+    desc: "We prepare and e-file your returns on-time.",
+    icon: <FiUploadCloud size={18} />,
+  },
+  {
+    num: "04",
+    title: "Client Review & Approval",
+    desc: "You review and approve before submission.",
+    icon: <FiUserCheck size={18} />,
+  },
+  {
+    num: "05",
+    title: "Post-Filing Support",
+    desc: "We're here for questions and future planning.",
+    icon: <FiHeadphones size={18} />,
+  },
+];
 
 export default function OurProcess({ steps }) {
-  const [activeStep, setActiveStep] = useState(0);
-
-  if (!steps || steps.length === 0) return null;
-
-  // Calculate the progress line width percentage (0% to 100%)
-  const progressPercent = steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0;
+  const currentSteps = steps && steps.length > 0 ? steps : defaultSteps;
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      {/* Decorative ambient background glows */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full opacity-[0.03] pointer-events-none bg-[radial-gradient(circle,#1e3a24,transparent_70%)]" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-
-        {/* ── Section Header ── */}
-        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/8 text-primary px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-primary/15 mb-3 sm:mb-4 font-figtree">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
-            Our Workflow
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FAF9F5] border border-slate-200 px-4 py-1 text-[11px] font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-4 font-figtree shadow-2xs">
+            • OUR PROCESS •
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-dark leading-tight font-figtree tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
             How We Execute This Service Step-by-Step
           </h2>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-body-text font-manrope">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-[#66706A] font-manrope">
             A structured, transparent roadmap from initial onboarding to completed filing.
           </p>
         </div>
 
-        {/* ── Desktop Horizontal Connected Workflow with Filling Line ── */}
-        <div className="relative max-w-6xl mx-auto">
-
-          {/* Background Track Line (Desktop) */}
-          <div className="hidden lg:block absolute top-7 left-[12%] right-[12%] h-[3px] bg-slate-100 rounded-full z-0" />
-
-          {/* Dynamic Filling Line on Hover / Progress (Desktop) */}
-          <div
-            className="hidden lg:block absolute top-7 left-[12%] h-[3px] bg-gradient-to-r from-primary via-secondary to-primary rounded-full transition-all duration-500 ease-out z-0"
-            style={{
-              width: `calc(${progressPercent * 0.76}%)`,
-            }}
-          />
-
-          {/* 4 Connected Step Columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6 relative z-10">
-            {steps.map((step, idx) => {
-              const isActive = activeStep === idx;
-              const isPassed = activeStep >= idx;
-
-              return (
-                <div
-                  key={idx}
-                  onMouseEnter={() => setActiveStep(idx)}
-                  className="flex flex-col items-center group cursor-pointer"
-                >
-                  {/* Step Number Circle Sitting on Line */}
-                  <div
-                    className={`w-14 h-14 rounded-full flex items-center justify-center font-extrabold text-base font-figtree transition-all duration-400 mb-6 shadow-sm ${
-                      isActive
-                        ? "bg-primary text-secondary ring-4 ring-primary/20 scale-110 shadow-lg"
-                        : isPassed
-                        ? "bg-primary text-white shadow-md"
-                        : "bg-white border-2 border-slate-200 text-slate-400 group-hover:border-primary group-hover:text-primary"
-                    }`}
-                  >
-                    {step.num || String(idx + 1).padStart(2, "0")}
+        {/* 5 Connected Step Card Container */}
+        <div className="bg-[#FAF9F5] border border-slate-200/70 rounded-[32px] sm:rounded-[36px] p-6 sm:p-10 shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 items-start">
+            {currentSteps.map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="flex flex-col items-center text-center relative group"
+              >
+                {/* Arrow connector between steps (desktop only) */}
+                {idx < currentSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-6 -right-3 text-slate-300 pointer-events-none z-10">
+                    <FiArrowRight size={14} />
                   </div>
+                )}
 
-                  {/* Step Card Below */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.1 }}
-                    className={`w-full h-full p-6 sm:p-7 rounded-3xl border transition-all duration-400 flex flex-col justify-between text-center ${
-                      isActive
-                        ? "bg-[#FAF9F5] border-primary/40 shadow-xl -translate-y-1.5 ring-1 ring-primary/10"
-                        : "bg-white border-slate-200/80 hover:bg-[#FAF9F5]/70 hover:border-slate-300 hover:shadow-md"
-                    }`}
-                  >
-                    <div>
-                      {/* Step Subtag */}
-                      <span
-                        className={`text-[10px] font-extrabold uppercase tracking-widest font-figtree block mb-2 transition-colors ${
-                          isActive ? "text-primary" : "text-slate-400"
-                        }`}
-                      >
-                        Step {idx + 1}
-                      </span>
-
-                      {/* Title */}
-                      <h3
-                        className={`text-base sm:text-lg font-bold font-figtree mb-2.5 leading-snug transition-colors ${
-                          isActive ? "text-primary" : "text-dark group-hover:text-primary"
-                        }`}
-                      >
-                        {step.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-body-text text-xs sm:text-sm leading-relaxed font-manrope">
-                        {step.desc}
-                      </p>
-                    </div>
-
-                    {/* Step Complete / Active status */}
-                    <div className="pt-4 mt-4 border-t border-slate-100/80 flex items-center justify-center gap-1.5 text-xs">
-                      {isPassed ? (
-                        <span className="text-primary font-bold font-figtree flex items-center gap-1">
-                          <FiCheckCircle size={13} className="text-secondary" /> Ready
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 font-manrope text-[11px]">Phase {idx + 1}</span>
-                      )}
-                    </div>
-                  </motion.div>
+                {/* Hexagon/Circle Step Icon */}
+                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-white border border-[#C5A880]/60 text-[#0B1F3B] flex items-center justify-center mb-3.5 group-hover:bg-[#C5A880] transition-all duration-300 shadow-sm">
+                  {step.icon || defaultSteps[idx % defaultSteps.length].icon}
                 </div>
-              );
-            })}
+
+                {/* Step Number */}
+                <span className="text-[11px] font-extrabold text-[#C5A880] uppercase tracking-wider font-figtree mb-1">
+                  {step.num || String(idx + 1).padStart(2, "0")}
+                </span>
+
+                {/* Step Title */}
+                <h3 className="text-sm sm:text-base font-bold font-figtree text-[#0B1F3B] mb-1.5 leading-snug">
+                  {step.title}
+                </h3>
+
+                {/* Step Desc */}
+                <p className="text-[#66706A] text-xs leading-relaxed font-manrope">
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
-
 
       </div>
     </section>

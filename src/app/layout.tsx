@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Figtree, Manrope } from "next/font/google";
 
 const figtree = Figtree({
@@ -19,17 +19,17 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "VS Tax CPA LLC | Certified Public Accountant in Irving, TX",
-  description: "VS Tax CPA LLC provides strategic tax planning, tax compliance, bookkeeping, Gusto payroll, business entity formation, and fractional CFO advisory services in Irving, TX.",
+  title: "VR Tax CPA LLC | Professional Tax, Accounting & Advisory Services",
+  description: "VR Tax CPA LLC provides proactive tax compliance, strategic planning, payroll support, accounting services, and fractional CFO advisory in Irving, TX and nationwide.",
   keywords: [
-    "VS Tax CPA LLC",
-    "CPA Irving TX",
-    "Tax Compliance",
-    "Tax Planning",
-    "Gusto Payroll",
-    "Bookkeeping Irving",
-    "Fractional CFO",
-    "IRS Representation",
+    "VR Tax CPA LLC",
+    "Tax Compliance Irving TX",
+    "Small Business Tax Advisory",
+    "Proactive Tax Planning",
+    "Payroll Support Setup",
+    "Bookkeeping and Accounting",
+    "Fractional CFO Irving",
+    "IRS Notice Representation",
     "Vethavalli Ramakrishnan CPA"
   ],
   icons: {
@@ -53,7 +53,14 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${figtree.variable} ${manrope.variable}`}
     >
-      <body suppressHydrationWarning className="font-manrope antialiased bg-white text-body-text">
+      <body suppressHydrationWarning className="font-manrope antialiased bg-white text-[#334155]">
+        {/* ADA Accessible Skip to Content Link */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only bg-[#0B1F3B] text-[#C5A880] border border-[#C5A880] font-bold rounded-lg shadow-2xl top-4 left-4 z-[9999]"
+        >
+          Skip to main content
+        </a>
         <Header />
         {children}
         <Footer />
