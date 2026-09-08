@@ -206,7 +206,7 @@ export default function Header() {
                 width={260}
                 height={80}
                 priority
-                className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+                className="h-12 sm:h-13 lg:h-14 w-auto object-contain"
               />
             </Link>
 
@@ -498,7 +498,7 @@ export default function Header() {
             width={140}
             height={40}
             style={{ width: "auto", height: "auto" }}
-            className="h-9 w-auto object-contain"
+            className="h-11 w-auto object-contain"
           />
           <button
             onClick={() => setIsMobileMenuOpen(false)}

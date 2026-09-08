@@ -9,9 +9,10 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Our Services", href: "/services" },
-  { label: "Knowledge Base", href: "/blog" },
-  { label: "Contact Us", href: "/contact" },
   { label: "Client Portal", href: "https://vrtaxcpa.taxdome.com", target: "_blank" },
+  { label: "Knowledge Base", href: "/blog" },
+  { label: "FAQ", href: "/faq"},
+  { label: "Contact Us", href: "/contact" }
 ];
 
 const serviceLinks = [

@@ -42,9 +42,9 @@ export default function WhyChooseUs() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="relative w-full max-w-[380px] sm:max-w-[480px] lg:max-w-[520px] flex items-center justify-center"
+              className="relative w-full max-w-[380px] sm:max-w-[480px] lg:max-w-[520px] flex items-center justify-center hidden md:block"
             >
-              <div className="relative z-10 w-full h-[280px] sm:h-[400px] lg:h-[500px] flex items-center justify-center hidden md:block image-anime">
+              <div className="relative z-10 w-full h-[280px] sm:h-[400px] lg:h-[500px] flex items-center justify-center hidden md:block image-anime ">
                 <Image
                   src={leftPersonImg}
                   alt="Why Choose VR Tax CPA LLC"
