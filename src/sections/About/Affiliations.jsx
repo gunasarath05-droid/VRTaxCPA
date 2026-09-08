@@ -93,7 +93,7 @@ export default function Affiliations() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-400 overflow-hidden cursor-default"
+                className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-slate-100 shadow-sm hover-lift overflow-hidden cursor-default"
               >
                 {/* Hover accent line */}
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#C5A880] to-[#0B1F3B] rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

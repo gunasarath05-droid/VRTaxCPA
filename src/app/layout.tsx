@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Figtree, Manrope } from "next/font/google";
 
 const figtree = Figtree({
@@ -50,7 +52,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      style={{ scrollBehavior: "smooth" }}
       className={`${figtree.variable} ${manrope.variable}`}
     >
       <body suppressHydrationWarning className="font-manrope antialiased bg-white text-[#334155]">
@@ -61,9 +62,12 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Header />
-        {children}
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          {children}
+          <Footer />
+          <ScrollToTop />
+        </SmoothScroll>
       </body>
     </html>
   );

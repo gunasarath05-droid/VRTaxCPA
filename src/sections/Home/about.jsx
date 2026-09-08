@@ -7,6 +7,8 @@ import { FiCheck } from "react-icons/fi";
 import Button from "@/components/Button";
 import { FaArrowUp, FaStar, FaHeart } from "react-icons/fa";
 
+import ScrollReveal from "@/components/ScrollReveal";
+
 // Count Up component with smooth requestAnimationFrame & unified trigger
 function CountUp({ value, duration = 1.6, isTriggered = false }) {
   const [count, setCount] = useState(0);
@@ -93,7 +95,7 @@ export default function About() {
         {/* About Grid */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column */}
-          <div className="lg:col-span-5 flex flex-col items-start gap-5">
+          <ScrollReveal direction="up" delay={0.1} className="lg:col-span-5 flex flex-col items-start gap-5">
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree">
               About VR Tax CPA LLC
             </span>
@@ -104,18 +106,23 @@ export default function About() {
             {/* Pillar list */}
             <ul className="flex flex-col gap-3 mt-2 w-full">
               {pillars.map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-[#0B1F3B] text-sm sm:text-base font-medium">
+                <ScrollReveal
+                  key={i}
+                  direction="up"
+                  delay={0.15 + i * 0.08}
+                  className="flex items-center gap-3 text-[#0B1F3B] text-sm sm:text-base font-medium"
+                >
                   <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/50">
                     <FiCheck size={12} className="stroke-[3] text-[#2D503B]" />
                   </span>
                   <span>{item}</span>
-                </li>
+                </ScrollReveal>
               ))}
             </ul>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column */}
-          <div className="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 lg:pl-6">
+          <ScrollReveal direction="up" delay={0.2} className="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 lg:pl-6">
             <p className="text-[#0B1F3B] text-base sm:text-lg leading-relaxed font-manrope font-medium">
               We are not an average accounting firm filing taxes once a year and forgetting about you. We are your strategic partners who advise and support you throughout the year.
             </p>
@@ -133,7 +140,7 @@ export default function About() {
                 Learn More About Us
               </Button>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Stats Grid */}

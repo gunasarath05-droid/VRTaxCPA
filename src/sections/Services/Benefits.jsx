@@ -53,7 +53,7 @@ export default function Benefits({ benefits }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="group bg-white border border-gray-100/90 p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 relative z-10"
+                className="group bg-white border border-gray-100/90 p-5 rounded-2xl shadow-sm hover-lift relative z-10"
               >
                 <h3 className="text-lg sm:text-xl font-bold font-figtree text-[#0B1F3B] mb-2.5 leading-snug">
                   {benefit.title}
@@ -76,20 +76,20 @@ export default function Benefits({ benefits }) {
             {/* Subtle soft backdrop glow */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-64 sm:h-80 bg-[#0B1F3B]/5 rounded-full blur-3xl pointer-events-none -z-0" />
 
-            <div className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[460px] lg:max-w-[500px] h-[400px] sm:h-[480px] md:h-[540px] lg:h-[580px] mx-auto">
+            <div className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[460px] lg:max-w-[500px] h-[400px] sm:h-[480px] md:h-[540px] lg:h-[580px] mx-auto image-anime">
               <Image
                 src={whyChooseImg}
-                alt="VR Tax CPA Professional Advisor"
+                alt="Why choose VR Tax CPA LLC"
                 fill
-                priority={false}
-                className="object-contain object-bottom"
-                sizes="(max-width: 1024px) 90vw, 500px"
+                priority
+                className="object-contain object-bottom drop-shadow-2xl"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
               />
             </div>
           </motion.div>
 
           {/* Right Column Items */}
-          <div className="lg:col-span-3 flex flex-col justify-center gap-8 sm:gap-14 text-center lg:text-left order-3 lg:order-3 relative">
+          <div className="lg:col-span-3 flex flex-col justify-center gap-8 sm:gap-12 text-center lg:text-left order-3 relative">
 
             {rightBenefits.map((benefit, idx) => (
               <motion.div
@@ -98,7 +98,7 @@ export default function Benefits({ benefits }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="group bg-white border border-gray-100/90 p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 relative z-10"
+                className="group bg-white border border-gray-100/90 p-5 rounded-2xl shadow-sm hover-lift relative z-10"
               >
                 <h3 className="text-lg sm:text-xl font-bold font-figtree text-[#0B1F3B] mb-2.5 leading-snug">
                   {benefit.title}

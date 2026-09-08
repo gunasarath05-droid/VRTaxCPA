@@ -46,7 +46,7 @@ export default function OfficeDetails() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm flex flex-col justify-between gap-6"
+            className="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm hover-lift flex flex-col justify-between gap-6"
           >
             <div>
               <div className="flex items-center gap-3 pb-4 border-b border-slate-100 mb-6">

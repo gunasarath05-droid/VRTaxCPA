@@ -35,7 +35,7 @@ export default function WhatWeOffer({ offers }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end shadow-sm group cursor-default"
+              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
             >
               <Image
                 src={imgOffer1}
@@ -64,7 +64,7 @@ export default function WhatWeOffer({ offers }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#F4EFEA] border border-[#EBE3D8] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#F4EFEA] border border-[#EBE3D8] shadow-xs hover-lift group cursor-default"
             >
               <div className="relative z-10">
                 <h3 className="text-xl sm:text-2xl font-bold font-figtree text-[#1E293B] mb-2.5 leading-snug">
@@ -84,7 +84,7 @@ export default function WhatWeOffer({ offers }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#C1B29D] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+              className="col-span-12 md:col-span-5 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[220px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-center sm:justify-end bg-[#C1B29D] shadow-xs hover-lift group cursor-default"
             >
               <div className="relative z-10">
                 <h3 className="text-xl sm:text-2xl font-bold font-figtree text-white mb-2.5 leading-snug">
@@ -99,12 +99,12 @@ export default function WhatWeOffer({ offers }) {
 
           {/* ── Card 4: Bottom Right (Wide Olive Green Card with Professional Woman Photo) ── */}
           {offers[3] && (
-             <motion.div
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end shadow-sm group cursor-default"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end bg-[#2D503B] shadow-sm hover-lift group cursor-default"
             >
               <Image
                 src={imgOffer2}

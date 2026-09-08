@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative w-full max-w-[380px] sm:max-w-[480px] lg:max-w-[520px] flex items-center justify-center"
             >
-              <div className="relative z-10 w-full h-[280px] sm:h-[400px] lg:h-[500px] flex items-center justify-center hidden md:block">
+              <div className="relative z-10 w-full h-[280px] sm:h-[400px] lg:h-[500px] flex items-center justify-center hidden md:block image-anime">
                 <Image
                   src={leftPersonImg}
                   alt="Why Choose VR Tax CPA LLC"
@@ -78,7 +78,7 @@ export default function WhyChooseUs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
-                  className="bg-[#F8FAFC] p-5 sm:p-6 rounded-2xl border border-[#E2E8F0] shadow-xs hover:shadow-md hover:bg-white hover:border-[#d3d663] duration-300 transition-all flex items-start gap-4"
+                  className="bg-[#F8FAFC] p-5 sm:p-6 rounded-2xl border border-[#E2E8F0] shadow-xs hover-lift hover:bg-white hover:border-[#d3d663] flex items-start gap-4 cursor-default"
                 >
                   {/* Circular Icon Badge */}
                   <div className="w-11 h-11 rounded-xl bg-[#0B1F3B]/5 text-[#0B1F3B] border border-[#d3d663]/30 flex items-center justify-center shrink-0 shadow-xs">

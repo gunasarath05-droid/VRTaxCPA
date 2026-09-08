@@ -98,12 +98,12 @@ export default function MissionVision() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {pillars.map((pillar, idx) => (
             <motion.div
-              key={idx}
+              key={pillar.number}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className={`group relative bg-white rounded-3xl p-7 sm:p-8 lg:p-9 border border-slate-200/80 ${pillar.borderColor} shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between overflow-hidden cursor-default`}
+              className={`group relative bg-[#F8FAFC] rounded-3xl p-6 sm:p-8 border border-slate-200/80 ${pillar.borderColor} hover:bg-white hover-lift overflow-hidden cursor-default`}
             >
               {/* Card top decorative ambient glow on hover */}
               <div className={`absolute top-0 right-0 w-44 h-44 rounded-full transition-colors duration-500 pointer-events-none filter blur-2xl -z-0 ${pillar.glowColor}`} />

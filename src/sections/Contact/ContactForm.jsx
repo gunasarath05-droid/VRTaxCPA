@@ -95,11 +95,12 @@ export default function ContactForm() {
               </motion.div>
             ) : (
               <motion.form
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
                 onSubmit={handleSubmit}
-                className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-5 shadow-sm"
+                className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-5 shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Row 1: Name & Company */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
