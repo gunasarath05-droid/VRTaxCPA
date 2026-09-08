@@ -76,7 +76,7 @@ export default function Benefits({ benefits }) {
             {/* Subtle soft backdrop glow */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-64 sm:h-80 bg-[#0B1F3B]/5 rounded-full blur-3xl pointer-events-none -z-0" />
 
-            <div className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[460px] lg:max-w-[500px] h-[400px] sm:h-[480px] md:h-[540px] lg:h-[580px]">
+            <div className="relative w-full max-w-[320px] sm:max-w-[420px] md:max-w-[460px] lg:max-w-[500px] h-[400px] sm:h-[480px] md:h-[540px] lg:h-[580px] mx-auto">
               <Image
                 src={whyChooseImg}
                 alt="VR Tax CPA Professional Advisor"
