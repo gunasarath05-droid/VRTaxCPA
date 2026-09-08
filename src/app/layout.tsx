@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-scroll-behavior="smooth"
+      style={{ scrollBehavior: "smooth" }}
       className={`${figtree.variable} ${manrope.variable}`}
     >
       <body suppressHydrationWarning className="font-manrope antialiased bg-white text-[#334155]">

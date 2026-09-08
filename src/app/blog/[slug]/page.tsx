@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { blogPosts } from "@/constants/blogData";
-import { FiClock, FiCalendar, FiArrowLeft, FiCheckCircle, FiPhone, FiMail } from "react-icons/fi";
+import { FiClock, FiCalendar, FiArrowLeft, FiCheckCircle, FiPhone, FiMail, FiUser } from "react-icons/fi";
 import { FaLinkedinIn } from "react-icons/fa";
 import ceoImg from "@/assets/images/ceo.png";
 import darkbg from "@/assets/images/darkbg.png";
@@ -156,18 +156,16 @@ export default async function BlogDetailPage({ params }: PageProps) {
           {/* Meta Info */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-white/80 font-manrope">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full overflow-hidden border border-white/40 relative">
-                <Image src={ceoImg} alt={post.author} fill className="object-cover" sizes="24px" />
-              </div>
-              <span className="font-semibold text-white">{post.author}</span>
+              <FiUser className="text-[#d3d663]" />
+              <span>{post.author}</span>
             </div>
             <span className="text-white/40">•</span>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <FiCalendar className="text-[#d3d663]" />
               <span>{post.date}</span>
             </div>
             <span className="text-white/40">•</span>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <FiClock className="text-[#d3d663]" />
               <span>{post.readTime}</span>
             </div>
@@ -176,12 +174,12 @@ export default async function BlogDetailPage({ params }: PageProps) {
       </section>
 
       {/* ── Main Content & Sidebar Layout ── */}
-      <section className="py-14 sm:py-20 bg-white relative overflow-hidden">
+      <section className="py-8 sm:py-20 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
             {/* ── Left Column: Article Body (lg:col-span-8) ── */}
-            <article className="lg:col-span-8 bg-white p-6 sm:p-10 lg:p-12 rounded-3xl border border-slate-200/80 shadow-sm">
+            <article className="lg:col-span-8 bg-white p-0 sm:p-10 lg:p-12 md:rounded-3xl md:border md:border-slate-200/80 md:shadow-sm">
 
               {/* Featured Image */}
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden mb-8 shadow-md bg-slate-100">
@@ -219,7 +217,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               </div>
 
               {/* Back to Blog Navigation */}
-              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="mt-8 pt-6 border-t border-slate-100 flex  items-center justify-between gap-4">
                 <Link
                   href="/blog"
                   className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold font-figtree text-[#0B1F3B] hover:text-[#d3d663] transition-colors"
@@ -291,7 +289,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               </div>
 
               {/* Direct Reachout */}
-              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col gap-3.5">
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col gap-3.5 hidden md:block">
                 <h4 className="text-sm font-extrabold font-figtree text-[#0B1F3B]">Direct CPA Contact</h4>
                 <a href="tel:+14694716580" className="flex items-center gap-3 text-xs text-[#0B1F3B] hover:text-[#d3d663] transition-colors font-medium">
                   <div className="w-8 h-8 rounded-full bg-[#d3d663]/15 text-[#0B1F3B] flex items-center justify-center flex-shrink-0">

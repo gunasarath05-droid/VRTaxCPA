@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Autoplay, Pagination, Navigation } from "swiper/modules";
 import { FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -65,14 +66,20 @@ export default function IndustriesWeServe({ industries }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Section Header (Compact & Crisp) */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-8 sm:mb-10"
+        >
           <span className="inline-flex items-center gap-1.5 text-[#d3d663] text-sm font-extrabold uppercase tracking-widest mb-3 font-figtree">
             INDUSTRY EXPERTISE
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight font-figtree tracking-tight">
             Tailored Financial Expertise Across Sectors
           </h2>
-        </div>
+        </motion.div>
 
         {/* ── 3D Coverflow Smooth Auto-Slider (Reduced Card Height) ── */}
         <div className="relative industry-coverflow-wrapper">

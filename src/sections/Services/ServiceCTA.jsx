@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import { FiArrowRight, FiCalendar, FiCheckCircle } from "react-icons/fi";
 import { LuCalendarCheck } from "react-icons/lu";
@@ -9,7 +10,13 @@ export default function ServiceCTA({ title = "tax compliance" }) {
   return (
     <section className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[28px] sm:rounded-[36px] bg-[#0B1F3B] text-white p-8 sm:p-12 lg:p-14 overflow-hidden shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative rounded-[28px] sm:rounded-[36px] bg-[#0B1F3B] text-white p-8 sm:p-12 lg:p-14 overflow-hidden shadow-2xl"
+        >
           
           {/* Subtle decorative background glow */}
           <div className="absolute right-0 top-0 w-96 h-96 rounded-full bg-[#C5A880]/10 blur-3xl pointer-events-none -z-0" />
@@ -45,7 +52,7 @@ export default function ServiceCTA({ title = "tax compliance" }) {
 
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

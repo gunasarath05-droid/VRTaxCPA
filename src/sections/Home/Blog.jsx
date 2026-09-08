@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { FiArrowRight, FiClock, FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -45,7 +46,13 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 sm:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-10 sm:mb-12"
+        >
           <div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-2.5 block">
               Knowledge Base
@@ -81,7 +88,7 @@ export default function Blog() {
               View All Articles
             </Button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Smooth X-Axis Horizontal Slider */}
         <Swiper

@@ -155,7 +155,7 @@ export default function Header() {
             isSubPage && !isSticky
               ? "bg-transparent py-3 sm:py-4"
               : isSticky
-                ? "bg-[#0B1F3B] shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5 sm:py-3"
+                ? "bg-[#0B1F3B]/90 shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5 sm:py-3 backdrop-blur-xl"
                 : "bg-[#0B1F3B] py-3 sm:py-4 border-b border-white/10"
           }`}
         >

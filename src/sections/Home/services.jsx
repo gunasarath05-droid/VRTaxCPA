@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -104,7 +105,13 @@ export default function Services() {
 
       {/* ── Section Header (constrained to max-w-7xl) ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8"
+        >
           <div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-3 block">
               Our Services
@@ -122,14 +129,20 @@ export default function Services() {
           >
             View All Services
           </Button>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Service Cards: full width, no max-w constraint ── */}
       <div className="relative z-10 w-full px-4 sm:px-6 mt-10 sm:mt-14">
 
         {/* ── Mobile/Tablet Grid (<lg): Clean Icon + Title Grid ── */}
-        <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-7 sm:gap-y-9 lg:hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-7 sm:gap-y-9 lg:hidden"
+        >
           {serviceList.map((card, index) => (
             <Link
               key={index}
@@ -156,10 +169,16 @@ export default function Services() {
               <span className="w-7 h-[3px] rounded-full bg-[#d3d663] group-hover:w-10 group-hover:bg-[#0B1F3B] transition-all duration-300 mt-2.5" />
             </Link>
           ))}
-        </div>
+        </motion.div>
 
         {/* ── Desktop Accordion Cards (lg+): full width ── */}
-        <div className="hidden lg:flex flex-row gap-3 items-stretch h-[340px]">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="hidden lg:flex flex-row gap-3 items-stretch h-[340px]"
+        >
           {serviceList.map((card, index) => {
             const isActive = activeIndex === index;
 
@@ -256,7 +275,7 @@ export default function Services() {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

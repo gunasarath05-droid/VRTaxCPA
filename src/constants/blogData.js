@@ -1,3 +1,25 @@
+/**
+ * Blog Posts Data
+ * ──────────────────────────────────────────────────────────────
+ * To publish a new blog post, simply ADD a new object to the
+ * array below. The BlogGrid will automatically sort all posts
+ * newest-first by `date`, so the latest post will appear first.
+ *
+ * Required fields per post:
+ *   slug        – URL slug (e.g. "my-new-post")
+ *   image       – Banner image URL
+ *   category    – Display category label
+ *   date        – Human-readable date string (e.g. "Sep 15, 2026")
+ *   readTime    – Reading time (e.g. "5 min read")
+ *   author      – Author display name
+ *   authorRole  – Author role/team label
+ *   title       – Post title
+ *   summary     – Short excerpt shown on card
+ *   featured    – Set true for ONE post to pin it as Featured Article
+ *   takeaways   – Array of bullet-point key takeaways
+ *   content     – Full article body (supports ## headings, - bullets, > blockquotes, **bold**, ---)
+ * ──────────────────────────────────────────────────────────────
+ */
 export const blogPosts = [
   {
     slug: "tax-savings",

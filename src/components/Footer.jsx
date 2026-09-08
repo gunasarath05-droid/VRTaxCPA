@@ -152,13 +152,6 @@ export default function Footer() {
 
         </div>
 
-        {/* ── CPA Regulatory & Non-Attest Disclaimer ── */}
-        <div className="py-6 border-b border-white/10 text-[11px] text-slate-400 leading-relaxed font-manrope">
-          <p>
-            <strong className="text-slate-300 font-figtree">Regulatory Disclosure:</strong> VR Tax CPA LLC is a public accounting and financial advisory firm organized in Texas. The firm provides non-attest tax compliance, tax planning, bookkeeping, and management advisory services. In compliance with professional standards, we do not provide attest, audit, review, or compilation services for public or third-party reliance. Content on this website is for educational and general informational purposes and does not establish a formal CPA-client relationship until an engagement agreement is countersigned.
-          </p>
-        </div>
-
         {/* ── Bottom Bar ── */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-manrope">
           <p className="text-center sm:text-left">

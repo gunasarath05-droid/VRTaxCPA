@@ -11,7 +11,7 @@ export default function WhatWeOffer({ offers }) {
   return (
     <section id="what-we-offer" className="py-8 md:py-16 bg-white relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-3 font-figtree">
@@ -27,7 +27,7 @@ export default function WhatWeOffer({ offers }) {
 
         {/* ── Bento Mosaic Grid ── */}
         <div className="grid grid-cols-12 gap-4 sm:gap-6">
-          
+
           {/* ── Card 1: Top Left (Wide with Team Photo Background) ── */}
           {offers[0] && (
             <motion.div
@@ -99,17 +99,15 @@ export default function WhatWeOffer({ offers }) {
 
           {/* ── Card 4: Bottom Right (Wide Olive Green Card with Professional Woman Photo) ── */}
           {offers[3] && (
-            <motion.div
+             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end bg-[#495B43] shadow-xs hover:shadow-md transition-all duration-300 group cursor-default"
+              transition={{ duration: 0.5 }}
+              className="col-span-12 md:col-span-7 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-6 sm:p-8 flex flex-col justify-end shadow-sm group cursor-default"
             >
-              {/* Image Cutout on Right */}
-              <div className="absolute right-0 bottom-0 top-0 w-[42%] sm:w-[38%] overflow-hidden pointer-events-none">
-                <Image
-                src={imgOffer1}
+              <Image
+                src={imgOffer2}
                 alt={offers[3].title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"

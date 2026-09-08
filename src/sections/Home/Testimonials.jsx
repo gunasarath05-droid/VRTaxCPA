@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
@@ -101,14 +102,20 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="text-center max-w-2xl mx-auto mb-16"
+        >
           <span className="inline-flex items-center text-[#0B1F3B] text-xs font-extrabold uppercase tracking-widest mb-4">
             Client Success Stories
           </span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
             Real Clients. Real Tax Savings. Real Results.
           </h2>
-        </div>
+        </motion.div>
 
         {/* Carousel wrapper */}
         <div className="relative">

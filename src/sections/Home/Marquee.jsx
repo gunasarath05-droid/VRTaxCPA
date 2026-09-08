@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function Marquee() {
   const marqueeItems = [
     "Tax Compliance",
@@ -15,7 +17,13 @@ export default function Marquee() {
   const repeatedItems = [...marqueeItems, ...marqueeItems, ...marqueeItems];
 
   return (
-    <section className="py-3.5 overflow-hidden relative z-20 bg-[#0B1F3B] border-y border-white/10">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="py-3.5 overflow-hidden relative z-20 bg-[#0B1F3B] border-y border-white/10"
+    >
       <div className="marquee-container flex">
         <div className="marquee-content flex gap-8 sm:gap-10 items-center">
           {repeatedItems.map((item, index) => (
@@ -28,6 +36,6 @@ export default function Marquee() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
