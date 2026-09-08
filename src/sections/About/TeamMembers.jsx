@@ -8,7 +8,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import darkGreenBg from "@/assets/images/about/darkgreen.png";
+import darkGreenBg from "@/assets/images/darkbg.png";
 
 export default function TeamMembers() {
   const team = [
@@ -88,7 +88,6 @@ export default function TeamMembers() {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-white/20 mb-3 sm:mb-4 font-figtree backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] inline-block" />
               Our Teams
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight font-figtree tracking-tight">
@@ -152,7 +151,7 @@ export default function TeamMembers() {
 
                   {/* Name & Role below */}
                   <div className="text-center mt-4 sm:mt-5 transition-transform duration-300 group-hover:-translate-y-1">
-                    <h3 className="text-base sm:text-lg font-extrabold text-white font-figtree tracking-tight transition-colors duration-300 group-hover:text-[#C5A880]">
+                    <h3 className="text-base sm:text-lg font-extrabold text-white font-figtree tracking-tight transition-colors duration-300 group-hover:text-[#d3d663]">
                       {member.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-white/70 font-manrope mt-1">

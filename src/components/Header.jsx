@@ -21,9 +21,11 @@ import {
   FiArrowRight,
   FiLock,
   FiExternalLink,
+  FiHelpCircle,
 } from "react-icons/fi";
 import { LuCalculator, LuFileCheck } from "react-icons/lu";
 import { usePathname } from "next/navigation";
+import dropdownImg from "@/assets/images/dropdown.png";
 
 const serviceLinks = [
   { name: "Tax Compliance", desc: "Individual & corporate returns", href: "/services/tax-compliance", icon: <FiFileText className="text-base" /> },
@@ -36,12 +38,34 @@ const serviceLinks = [
   { name: "Sales Tax & 1099 Filing", desc: "Texas sales tax & annual 1099 returns", href: "/services/sales-tax-1099", icon: <LuFileCheck className="text-base" /> },
 ];
 
+const clientResourceLinks = [
+  {
+    name: "Client Portal",
+    desc: "Secure document exchange & portal",
+    href: "https://vrtaxcpa.taxdome.com",
+    target: "_blank",
+    icon: <FiLock className="text-base" />,
+    isExternal: true,
+  },
+  {
+    name: "Knowledge Base",
+    desc: "Tax guides, insights & updates",
+    href: "/blog",
+    icon: <FiFileText className="text-base" />,
+  },
+  {
+    name: "FAQ",
+    desc: "Frequently asked questions",
+    href: "/faq",
+    icon: <FiHelpCircle className="text-base" />,
+  },
+];
+
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services", hasDropdown: true },
-  { name: "Knowledge Base", href: "/blog" },
-  { name: "Client Portal", href: "https://taxdome.com", target: "_blank" },
+  { name: "About us", href: "/about" },
+  { name: "Services", href: "/services", hasDropdown: "services" },
+  { name: "Client Resources", href: "/faq", hasDropdown: "resources" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -64,8 +88,13 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false);
+  const [hoveredService, setHoveredService] = useState(serviceLinks[0]);
+  const [hoveredResource, setHoveredResource] = useState(clientResourceLinks[0]);
   const dropdownRef = useRef(null);
+  const resourcesDropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setIsSticky(window.scrollY > 30);
@@ -78,6 +107,9 @@ export default function Header() {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsServicesOpen(false);
       }
+      if (resourcesDropdownRef.current && !resourcesDropdownRef.current.contains(e.target)) {
+        setIsResourcesOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -86,12 +118,17 @@ export default function Header() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsServicesOpen(false);
+    setIsResourcesOpen(false);
   }, [pathname]);
 
-  const isActive = (href) => {
+  const isActive = (item) => {
+    if (item.hasDropdown === "services") return pathname.startsWith("/services");
+    if (item.hasDropdown === "resources") {
+      return pathname.startsWith("/blog") || pathname.startsWith("/faq");
+    }
+    const href = item.href;
     if (!href || href.startsWith("http")) return false;
     if (href === "/") return pathname === "/";
-    if (href === "/services") return pathname.startsWith("/services");
     return pathname.startsWith(href);
   };
 
@@ -176,13 +213,13 @@ export default function Header() {
             {/* ── Desktop Nav ── */}
             <nav className="hidden lg:flex items-center gap-7 xl:gap-8" aria-label="Main Navigation">
               {navLinks.map((item) => {
-                const active = isActive(item.href);
+                const active = isActive(item);
 
-                if (item.hasDropdown) {
+                if (item.hasDropdown === "services") {
                   return (
                     <div
                       key={item.name}
-                      className="relative"
+                      className="relative group flex items-center"
                       ref={dropdownRef}
                       onMouseEnter={() => setIsServicesOpen(true)}
                       onMouseLeave={() => setIsServicesOpen(false)}
@@ -191,60 +228,192 @@ export default function Header() {
                         onClick={() => setIsServicesOpen((prev) => !prev)}
                         aria-expanded={isServicesOpen}
                         aria-haspopup="true"
-                        className={`flex items-center gap-1.5 text-[15px] font-semibold font-figtree transition-all duration-200 py-2 cursor-pointer text-white/85 hover:text-[#d3d663] ${active ? "!text-[#d3d663] font-bold" : ""
-                          }`}
+                        className={`flex items-center gap-1.5 text-[15px] font-semibold font-figtree transition-all duration-200 py-2 cursor-pointer text-white/85 hover:text-[#d3d663] ${
+                          active || isServicesOpen ? "!text-[#d3d663] font-bold" : ""
+                        }`}
                       >
                         <span>{item.name}</span>
                         <FiChevronDown
                           size={14}
-                          className={`transition-transform duration-300 ${isServicesOpen ? "rotate-180 text-[#d3d663]" : ""
-                            }`}
+                          className={`transition-transform duration-300 ${
+                            isServicesOpen ? "rotate-180 text-[#d3d663]" : ""
+                          }`}
                         />
                       </button>
                       <span
-                        className={`absolute bottom-0 left-0 h-[2px] bg-[#d3d663] transition-all duration-300 ${active ? "w-full" : "w-0"
-                          }`}
+                        className={`absolute bottom-0 left-0 h-[2px] bg-[#d3d663] transition-all duration-300 ${
+                          active || isServicesOpen ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
                       />
 
-                      {/* Mega Dropdown */}
+                      {/* Services Mega Dropdown — Glassmorphism */}
                       <div
-                        className={`absolute top-[calc(100%+6px)] left-1/2 -translate-x-1/2 w-[740px] bg-[#0B1F3B] border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-200 origin-top p-4 ${isServicesOpen
+                        className={`absolute top-full pt-2 left-1/2 -translate-x-1/2 w-[720px] transition-all duration-200 origin-top z-50 ${
+                          isServicesOpen
                             ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
-                            : "opacity-0 scale-95 pointer-events-none -translate-y-1"
-                          }`}
+                            : "opacity-0 scale-[0.97] pointer-events-none -translate-y-1"
+                        }`}
                       >
-                        <div className="grid grid-cols-3 gap-2">
-                          {serviceLinks.map((service) => {
-                            const isCurrent = pathname === service.href;
-                            return (
-                              <Link
-                                key={service.href}
-                                href={service.href}
-                                onClick={() => setIsServicesOpen(false)}
-                                className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-all"
-                              >
-                                <div
-                                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border transition-all ${isCurrent
-                                      ? "bg-[#d3d663] text-[#0B1F3B] border-[#d3d663]"
-                                      : "bg-white/5 text-[#d3d663] border-white/10 group-hover:border-[#d3d663]/50"
+                        <div className="bg-[#0B1F3B]/95 border border-white/20 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6),0_4px_12px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)] overflow-hidden backdrop-blur-2xl">
+                          {/* Gold accent top bar */}
+                          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#d3d663] to-transparent" />
+                          <div className="flex">
+                            {/* Left: Service List */}
+                            <div className="flex-1 p-4 grid grid-cols-2 gap-1">
+                              {serviceLinks.map((service) => {
+                                const isCurrent = pathname === service.href;
+                                const isHovered = hoveredService?.href === service.href;
+                                return (
+                                  <Link
+                                    key={service.href}
+                                    href={service.href}
+                                    onClick={() => setIsServicesOpen(false)}
+                                    onMouseEnter={() => setHoveredService(service)}
+                                    className={`flex items-center px-3.5 py-2.5 rounded-xl transition-all duration-150 ${
+                                      isHovered || isCurrent
+                                        ? "bg-white/[0.12] text-[#d3d663] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                                        : "text-white/85 hover:text-[#d3d663] hover:bg-white/[0.06]"
                                     }`}
-                                >
-                                  {service.icon}
-                                </div>
-                                <div className="flex flex-col">
-                                  <h5
-                                    className={`text-[13px] font-bold font-figtree transition-colors group-hover:text-[#d3d663] ${isCurrent ? "text-[#d3d663]" : "text-white"
-                                      }`}
                                   >
-                                    {service.name}
-                                  </h5>
-                                  <span className="text-[11px] text-slate-400 line-clamp-1 font-manrope">
-                                    {service.desc}
-                                  </span>
-                                </div>
-                              </Link>
-                            );
-                          })}
+                                    <span className="text-[13.5px] font-semibold font-figtree leading-tight">
+                                      {service.name}
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+
+                            {/* Right: Glass Image Panel */}
+                            <div className="w-[200px] shrink-0 flex flex-col border-l border-white/10">
+                              <div className="relative w-full h-full min-h-[140px] overflow-hidden">
+                                <Image
+                                  src={dropdownImg}
+                                  alt="Services preview"
+                                  fill
+                                  className="object-cover object-center scale-105"
+                                  sizes="200px"
+                                />
+                                {/* Dark + glass overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3B]/60 via-[#0B1F3B]/30 to-transparent backdrop-blur-[1px]" />
+                                {/* Inner border glow */}
+                                <div className="absolute inset-0 rounded-r-2xl ring-1 ring-inset ring-white/10" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (item.hasDropdown === "resources") {
+                  return (
+                    <div
+                      key={item.name}
+                      className="relative group flex items-center"
+                      ref={resourcesDropdownRef}
+                      onMouseEnter={() => setIsResourcesOpen(true)}
+                      onMouseLeave={() => setIsResourcesOpen(false)}
+                    >
+                      <button
+                        onClick={() => setIsResourcesOpen((prev) => !prev)}
+                        aria-expanded={isResourcesOpen}
+                        aria-haspopup="true"
+                        className={`flex items-center gap-1.5 text-[15px] font-semibold font-figtree transition-all duration-200 py-2 cursor-pointer text-white/85 hover:text-[#d3d663] ${
+                          active || isResourcesOpen ? "!text-[#d3d663] font-bold" : ""
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        <FiChevronDown
+                          size={14}
+                          className={`transition-transform duration-300 ${
+                            isResourcesOpen ? "rotate-180 text-[#d3d663]" : ""
+                          }`}
+                        />
+                      </button>
+                      <span
+                        className={`absolute bottom-0 left-0 h-[2px] bg-[#d3d663] transition-all duration-300 ${
+                          active || isResourcesOpen ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+
+                      {/* Client Resources Dropdown — Glassmorphism */}
+                      <div
+                        className={`absolute top-full pt-2 right-0 w-[440px] transition-all duration-200 origin-top-right z-50 ${
+                          isResourcesOpen
+                            ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
+                            : "opacity-0 scale-[0.97] pointer-events-none -translate-y-2"
+                        }`}
+                      >
+                        <div className="bg-[#0B1F3B]/95 border border-white/20 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6),0_4px_12px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)] overflow-hidden backdrop-blur-2xl">
+                          {/* Gold accent top bar */}
+                          <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#d3d663] to-transparent" />
+                          <div className="flex">
+                            {/* Left: Links list */}
+                            <div className="flex-1 p-3.5 flex flex-col gap-1">
+                              {clientResourceLinks.map((res) => {
+                                const isCurrent = pathname === res.href;
+                                const isHovered = hoveredResource?.name === res.name;
+
+                                const inner = (
+                                  <div className="flex items-center justify-between w-full">
+                                    <span className="text-[13.5px] font-semibold font-figtree">{res.name}</span>
+                                    {res.isExternal && (
+                                      <FiExternalLink size={12} className="text-white/40 group-hover:text-[#d3d663]/70 shrink-0" />
+                                    )}
+                                  </div>
+                                );
+
+                                const cls = `group flex items-center px-3.5 py-2.5 rounded-xl transition-all duration-150 cursor-pointer ${
+                                  isHovered || isCurrent
+                                    ? "bg-white/[0.12] text-[#d3d663] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                                    : "text-white/85 hover:text-[#d3d663] hover:bg-white/[0.06]"
+                                }`;
+
+                                if (res.target === "_blank") {
+                                  return (
+                                    <a
+                                      key={res.name}
+                                      href={res.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={() => setIsResourcesOpen(false)}
+                                      onMouseEnter={() => setHoveredResource(res)}
+                                      className={cls}
+                                    >
+                                      {inner}
+                                    </a>
+                                  );
+                                }
+                                return (
+                                  <Link
+                                    key={res.name}
+                                    href={res.href}
+                                    onClick={() => setIsResourcesOpen(false)}
+                                    onMouseEnter={() => setHoveredResource(res)}
+                                    className={cls}
+                                  >
+                                    {inner}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+
+                            {/* Right: Glass Image Panel */}
+                            <div className="w-[160px] shrink-0 border-l border-white/10">
+                              <div className="relative w-full h-full min-h-[120px] overflow-hidden">
+                                <Image
+                                  src={dropdownImg}
+                                  alt="Resource preview"
+                                  fill
+                                  className="object-cover object-center scale-105"
+                                  sizes="160px"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3B]/60 via-[#0B1F3B]/30 to-transparent backdrop-blur-[1px]" />
+                                <div className="absolute inset-0 rounded-r-2xl ring-1 ring-inset ring-white/10" />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -252,18 +421,20 @@ export default function Header() {
                 }
 
                 return (
-                  <div key={item.name} className="relative group">
+                  <div key={item.name} className="relative group flex items-center">
                     <Link
                       href={item.href}
                       target={item.target}
-                      className={`text-[15px] font-semibold font-figtree transition-all duration-200 py-2 block text-white/85 hover:text-[#d3d663] ${active ? "!text-[#d3d663] font-bold" : ""
-                        }`}
+                      className={`text-[15px] font-semibold font-figtree transition-all duration-200 py-2 block text-white/85 hover:text-[#d3d663] ${
+                        active ? "!text-[#d3d663] font-bold" : ""
+                      }`}
                     >
                       {item.name}
                     </Link>
                     <span
-                      className={`absolute bottom-0 left-0 h-[2px] bg-[#d3d663] transition-all duration-300 ${active ? "w-full" : "w-0 group-hover:w-full"
-                        }`}
+                      className={`absolute bottom-0 left-0 h-[2px] bg-[#d3d663] transition-all duration-300 ${
+                        active ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
                     />
                   </div>
                 );
@@ -341,8 +512,9 @@ export default function Header() {
         <nav className="flex-1 overflow-y-auto px-6 py-4">
           <ul className="flex flex-col gap-1">
             {navLinks.map((item) => {
-              const active = isActive(item.href);
-              if (item.hasDropdown) {
+              const active = isActive(item);
+
+              if (item.hasDropdown === "services") {
                 return (
                   <li key={item.name} className="border-b border-white/10 pb-1">
                     <button
@@ -383,6 +555,71 @@ export default function Header() {
                   </li>
                 );
               }
+
+              if (item.hasDropdown === "resources") {
+                return (
+                  <li key={item.name} className="border-b border-white/10 pb-1">
+                    <button
+                      onClick={() => setIsMobileResourcesOpen((p) => !p)}
+                      aria-expanded={isMobileResourcesOpen}
+                      className={`w-full flex items-center justify-between text-[15px] font-semibold font-figtree py-3 transition-colors cursor-pointer ${active ? "text-[#d3d663] font-bold" : "text-white/80 hover:text-[#d3d663]"
+                        }`}
+                    >
+                      <span>{item.name}</span>
+                      <FiChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${isMobileResourcesOpen ? "rotate-180 text-[#d3d663]" : ""
+                          }`}
+                      />
+                    </button>
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ${isMobileResourcesOpen ? "max-h-[300px]" : "max-h-0"
+                        }`}
+                    >
+                      <ul className="pl-3 flex flex-col gap-1 pb-2">
+                        {clientResourceLinks.map((res) => {
+                          const isCurrent = pathname === res.href;
+                          if (res.target === "_blank") {
+                            return (
+                              <li key={res.name}>
+                                <a
+                                  href={res.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                  className="flex items-center justify-between text-sm py-1.5 font-medium text-white/70 hover:text-[#d3d663] transition-colors"
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#d3d663]" />
+                                    <span>{res.name}</span>
+                                  </div>
+                                  <FiExternalLink size={12} className="text-white/50" />
+                                </a>
+                              </li>
+                            );
+                          }
+                          return (
+                            <li key={res.name}>
+                              <Link
+                                href={res.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`flex items-center gap-2 text-sm py-1.5 font-medium transition-colors ${isCurrent
+                                    ? "text-[#d3d663] font-bold"
+                                    : "text-white/70 hover:text-[#d3d663]"
+                                  }`}
+                              >
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#d3d663]" />
+                                {res.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.name}>
                   <Link
@@ -396,22 +633,6 @@ export default function Header() {
                 </li>
               );
             })}
-
-            {/* TaxDome Portal in Mobile Menu */}
-            <li>
-              <a
-                href="https://vrtaxcpa.taxdome.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between text-[15px] font-semibold font-figtree py-3 text-[#d3d663] border-b border-white/10"
-              >
-                <span className="flex items-center gap-2">
-                  Client Portal
-                </span>
-                <FiExternalLink size={14} />
-              </a>
-            </li>
           </ul>
         </nav>
 
