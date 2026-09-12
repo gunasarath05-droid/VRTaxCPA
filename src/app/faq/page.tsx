@@ -6,6 +6,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiPlus, FiMinus, FiHelpCircle, FiArrowRight, FiSearch } from "react-icons/fi";
 import darkbg from "@/assets/images/darkbg.png";
 
+import { servicesData } from "@/constants/servicesData";
+import { homeFaqs } from "@/sections/Home/FAQHome";
+
+export interface FAQItem {
+  q: string;
+  a: string;
+  category: string;
+  serviceTitle?: string;
+}
+
+const serviceCategories = Object.values(servicesData).map((service: any) => ({
+  id: service.slug,
+  name: service.title,
+}));
+
 const faqCategories = [
   {
     id: "all",
@@ -13,92 +28,26 @@ const faqCategories = [
   },
   {
     id: "general",
-    name: "General & CPA Advisory",
+    name: "General Overview",
   },
-  {
-    id: "tax",
-    name: "Tax Planning & Filing",
-  },
-  {
-    id: "business",
-    name: "Business Formation & Entities",
-  },
-  {
-    id: "payroll",
-    name: "Payroll & Bookkeeping",
-  },
-  {
-    id: "irs",
-    name: "IRS & Notice Resolution",
-  },
+  ...serviceCategories,
 ];
 
-const allFaqs = [
-  {
+const allFaqs: FAQItem[] = [
+  ...homeFaqs.map((faq: { q: string; a: string }) => ({
     category: "general",
-    q: "Why should I choose VR Tax CPA LLC over generic online tax software?",
-    a: "Online software is backward-looking — it simply inputs what already happened. As a licensed Texas CPA and Indian Chartered Accountant, Vethavalli Ramakrishnan provides proactive, forward-looking strategy. We uncover deductions, optimize entity structures, prevent costly IRS penalties, and remain available all 12 months of the year.",
-  },
-  {
-    category: "general",
-    q: "Do you serve clients outside of Irving, Texas?",
-    a: "Yes! While our office is based in Irving, TX (serving the entire Dallas-Fort Worth metroplex), we work seamlessly with individuals and businesses across all 50 states through our secure, encrypted client portal and virtual video consultations.",
-  },
-  {
-    category: "general",
-    q: "What does dual CPA & CA qualification mean for my business?",
-    a: "Vethavalli is both a licensed Certified Public Accountant (CPA) in Texas and a Chartered Accountant (CA) from India. This dual certification gives our clients world-class analytical rigor, high-level corporate accounting depth, and specialized capability in handling US-India cross-border tax considerations (FBAR, FATCA, foreign income/assets).",
-  },
-  {
-    category: "tax",
-    q: "When should I start tax planning for the year?",
-    a: "The best time for tax planning is right now. Effective tax minimization strategies — such as retirement plan contributions, equipment expensing (Section 179), entity restructuring, and reasonable compensation adjustments — must be implemented before December 31st of the tax year.",
-  },
-  {
-    category: "tax",
-    q: "What is an S-Corporation and how can it reduce self-employment tax?",
-    a: "An S-Corp election allows small business owners and LLC members to split company profits between a 'reasonable W-2 salary' (subject to FICA payroll taxes) and 'shareholder distributions' (exempt from the 15.3% self-employment tax). For profitable businesses earning over $70,000 net, this can save thousands of dollars annually.",
-  },
-  {
-    category: "tax",
-    q: "Do you handle multi-state corporate and individual tax returns?",
-    a: "Absolutely. We routinely file complex multi-state returns for businesses with remote workers, multi-state sales tax nexus, or individuals who relocated, worked across state lines, or hold rental properties in multiple states.",
-  },
-  {
-    category: "business",
-    q: "Which entity structure is best for my new business: LLC or S-Corp?",
-    a: "There is no one-size-fits-all answer. We analyze your expected revenue, liability risks, ownership structure, and growth plans during a Strategy Consultation. Often, forming an LLC with a timely S-Corp election offers the ideal balance of legal protection and tax efficiency.",
-  },
-  {
-    category: "business",
-    q: "What is the Texas Franchise Tax, and do I have to file it?",
-    a: "Every taxable entity formed or doing business in Texas (including LLCs and Corporations) must file an Annual Franchise Tax Report with the Texas Comptroller by May 15th each year, even if no tax is owed under the 'No Tax Due' threshold.",
-  },
-  {
-    category: "payroll",
-    q: "How does VR Tax CPA LLC help with payroll setup?",
-    a: "We provide payroll platform setup and management training using payroll software partners such as Gusto or QuickBooks Payroll. We configure your payroll account, assist with employee onboarding, train your team to run payroll independently, and guide you on Texas Workforce Commission compliance requirements.",
-  },
-  {
-    category: "payroll",
-    q: "What is the difference between a W-2 employee and a 1099 contractor?",
-    a: "Classification depends on behavioral control, financial control, and relationship type. Misclassifying workers can lead to severe IRS back-tax penalties. We review your worker agreements and ensure correct 1099-NEC vs W-2 filing every January.",
-  },
-  {
-    category: "payroll",
-    q: "How often should my QuickBooks bookkeeping be reconciled?",
-    a: "We recommend monthly reconciliations. Keeping your books clean and reconciled month-over-month prevents tax-season panics, gives you accurate financial statements for lenders or investors, and ensures no deductible business expenses are forgotten.",
-  },
-  {
-    category: "irs",
-    q: "I received a notice or audit letter from the IRS. What should I do?",
-    a: "Do not panic, but do not ignore it. IRS notices have strict response deadlines (often 30 days). Contact us immediately with a copy of the notice. As a licensed CPA, Vethavalli can represent you directly before the IRS via Power of Attorney (Form 2848) so you never have to speak to the IRS alone.",
-  },
-  {
-    category: "irs",
-    q: "Can you help if I haven't filed tax returns for multiple years?",
-    a: "Yes. We frequently help clients get back into full compliance. We pull official IRS transcripts, reconstruct your accounting records, prepare and file all missing years, and apply for First-Time Penalty Abatement whenever possible.",
-  },
+    q: faq.q,
+    a: faq.a,
+    serviceTitle: "General Overview",
+  })),
+  ...Object.values(servicesData).flatMap((service: any) =>
+    (service.faqs || []).map((faq: { q: string; a: string }) => ({
+      category: service.slug,
+      q: faq.q,
+      a: faq.a,
+      serviceTitle: service.title,
+    }))
+  ),
 ];
 
 export default function FAQPage() {
@@ -201,10 +150,12 @@ export default function FAQPage() {
                       onClick={() => toggleFAQ(idx)}
                       className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer transition-colors group"
                     >
-                      <span className="text-sm sm:text-base font-bold text-[#111815] font-figtree pr-4 group-hover:text-[#111815] transition-colors flex items-center gap-3">
-                        <FiHelpCircle className="text-[#B8BA4A] flex-shrink-0 hidden sm:block" size={20} />
-                        {faq.q}
-                      </span>
+                      <div className="flex flex-col items-start gap-1.5 pr-4">
+                        <span className="text-sm sm:text-base font-bold text-[#111815] font-figtree group-hover:text-[#0B1F3B] transition-colors flex items-center gap-3">
+                          <FiHelpCircle className="text-[#B8BA4A] flex-shrink-0 hidden sm:block" size={20} />
+                          {faq.q}
+                        </span>
+                      </div>
                       <span
                         className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                           isExpanded ? "bg-[#0B1F3B] text-white" : "bg-slate-100 text-[#111815] group-hover:bg-slate-200"

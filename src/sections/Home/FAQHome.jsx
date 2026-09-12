@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiHelpCircle, FiArrowRight } from "react-icons/fi";
 import faqImg from "@/assets/images/FAQ.png";
 
-const faqs = [
+export const faqs = [
   {
     q: "What types of businesses do you work with?",
     a: "We work with small to medium-sized businesses, startups, solo entrepreneurs, S-Corps, LLCs, and professionals across healthcare & dental practices, IT & tech services, real estate, construction contractors, restaurants, and manufacturing.",
@@ -29,6 +29,8 @@ const faqs = [
     a: "Yes. We assist clients with formal IRS and Texas tax notice responses, transcript reviews, penalty abatement requests where eligible under IRS criteria, and unfiled prior-year tax returns.",
   },
 ];
+
+export const homeFaqs = faqs;
 
 export default function FAQHome() {
   const [openIndex, setOpenIndex] = useState(0);
