@@ -38,7 +38,7 @@ export default function ContactHero() {
           </h1>
 
           <p className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-manrope">
-            Schedule an initial consultation with VR Tax CPA LLC. Whether you need Tax Planning, Tax Return Filing, Accounting, Payroll Support, or Fractional CFO guidance — we&apos;re here to serve as reliable partners in your growth.
+            Schedule an initial consultation with our team. Whether you need Tax Planning, Tax Return Filing, Accounting, Payroll Support, or Fractional CFO guidance, we are here to serve as reliable partners in your growth.
           </p>
         </motion.div>
       </div>

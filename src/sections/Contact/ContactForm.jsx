@@ -52,17 +52,17 @@ export default function ContactForm() {
                 Schedule an Initial Consultation
               </h2>
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-manrope">
-                Tell us about your tax situation or business advisory needs. VR Tax CPA LLC will personally review your inquiry and reach out within 1 business day.
+                Tell us about your tax situation or business advisory needs. Our team will review your request and reach out to you at the earliest.
               </p>
             </div>
 
             {/* Trust signals */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3 mt-1 sm:mt-3">
               {[
-                "100% confidential & secure",
-                "Direct communication with us",
-                "Virtual & phone consultations available",
-                "Fast response within 1 business day",
+                "Confidential & Secure Consultations",
+                "Professional Guidance & Expertise",
+                "Flexible Virtual & Phone Consultations",
+                "Prompt Response & Dedicated Support",
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-[#0B1F3B] font-medium font-manrope">
                   <span className="w-5 h-5 rounded-full bg-[#d3d663]/20 text-[#0B1F3B] flex items-center justify-center flex-shrink-0 text-[10px]">
@@ -90,7 +90,7 @@ export default function ContactForm() {
                   Thank You for Reaching Out!
                 </h3>
                 <p className="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed font-manrope">
-                  Your consultation request has been received. Vethavalli Ramakrishnan, CPA will review your details and contact you via email or phone within one business day.
+                  Your consultation request has been received.
                 </p>
               </motion.div>
             ) : (

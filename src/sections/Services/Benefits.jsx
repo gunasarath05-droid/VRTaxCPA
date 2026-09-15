@@ -15,17 +15,13 @@ export default function Benefits({ benefits }) {
   return (
     <section id="benefits" className="py-12 sm:py-16 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-3 font-figtree">
-            KEY ADVANTAGES
-          </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
             Why Our Clients Choose This Service
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#66706A] font-manrope">
-            Diligence, peace of mind, and professional guidance delivered by our dedicated CPA team.
+            Diligence, peace of mind, and professional guidance you can rely on every step of the way.
           </p>
         </div>
 

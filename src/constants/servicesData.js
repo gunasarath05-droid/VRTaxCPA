@@ -15,7 +15,7 @@ export const servicesData = {
       { title: "Timely Filing & Compliance", desc: "We track federal and state filing deadlines to keep your returns submitted on time." },
       { title: "Thorough Deduction Review", desc: "Our thorough review ensures allowable deductions and credits are properly accounted for." },
       { title: "Reviewed by Our Expert Team", desc: "Every return is reviewed with care by our experienced team of tax professionals." },
-      { title: "Organized Documentation", desc: "We maintain clear digital copies of your tax filings and support for your records." },
+      { title: "Personalized Attention for Every Client", desc: "We provide personalized attention to every client, ensuring their unique needs are understood and addressed." },
     ],
     process: [
       { num: "01", title: "Document Collection", desc: "We provide a clear checklist and securely collect all required financial documents, W-2s, 1099s, and business records." },
@@ -68,7 +68,7 @@ export const servicesData = {
       { title: "Year-Round Tax Strategy", desc: "Ongoing advisory throughout the year to help you prepare for estimated tax deadlines and evaluate potential deductions." },
       { title: "Entity Structure Advisory", desc: "Evaluation of business structures (LLC, S-Corp, C-Corp) to determine tax implications for your situation." },
       { title: "Estimated Tax Calculations", desc: "Help calculating quarterly estimated tax payments to avoid underpayment penalties." },
-      { title: "Retirement Contribution Planning", desc: "Guidance on utilizing tax-advantaged retirement accounts such as SEP-IRA, Solo 401(k), and SIMPLE IRA." },
+      { title: "Retirement Contribution Planning", desc: "Guidance on utilizing tax-advantaged retirement accounts such as SEP-IRA, Solo 401(k), Simple IRA, etc." },
     ],
     benefits: [
       { title: "Proactive Planning", desc: "Stay ahead of tax deadlines with planned reviews and timely payment estimates." },
@@ -177,13 +177,13 @@ export const servicesData = {
       { title: "Payroll Partner Account Setup", desc: "Initial configuration of your payroll account on platforms such as Gusto or QuickBooks, including company info, direct deposit, and tax configuration." },
       { title: "Employee & Contractor Onboarding", desc: "Guidance on properly collecting W-4 and W-9 forms and adding team members to the payroll system." },
       { title: "Payroll Training & Workflow Setup", desc: "Step-by-step training on how to enter hours, run payroll, and track tax reports within your software." },
-      { title: "S-Corp Reasonable Salary Guidance", desc: "Advisory on determining appropriate reasonable salary benchmarks for S-Corp owner-employees." },
+      { title: "Quarterly Payroll Reporting", desc: "Preparation of quarterly payroll reports, including Form 941, Form 940, state unemployment tax reports, and Texas quarterly wage reports." },
     ],
     benefits: [
       { title: "Proper Initial Configuration", desc: "Ensure your state and federal payroll tax accounts and withholding settings are configured correctly from day one." },
       { title: "Self-Sufficient Management", desc: "Gain the confidence and training needed to run and manage payroll smoothly within your organization." },
       { title: "Worker Classification Guidance", desc: "Guidance on distinguishing between W-2 employees and 1099 contractors to support compliant operations." },
-      { title: "Expert Advisory Support", desc: "Access to our team for questions regarding payroll setup and owner compensation rules." },
+      { title: "Expert Advisory Support", desc: "Access to our team for questions regarding payroll setup." },
     ],
     process: [
       { num: "01", title: "Payroll Needs Review", desc: "Review your team structure, pay schedule, and compensation model to select the appropriate platform settings." },
@@ -383,8 +383,8 @@ export const servicesData = {
     whatWeOffer: [
       { title: "Texas Sales Tax Return Filing", desc: "Accurate preparation and electronic filing of monthly, quarterly, or annual Texas sales and use tax returns." },
       { title: "Annual 1099 Preparation & Filing", desc: "Year-end preparation and electronic filing of 1099 forms (1099-NEC, 1099-MISC, 1099-DIV, 1099-INT) for contractors, rent, interest, and dividends." },
-      { title: "1099 Recipient Delivery", desc: "Preparation and delivery of recipient copies by the January 31 deadline with complete electronic filing records." },
-      { title: "W-9 Verification Assistance", desc: "Review of vendor and payee W-9 information to ensure valid Tax Identification Numbers (TINs) before filing." },
+      { title: "1099 Recipient Delivery", desc: "Preparation and delivery of recipient copies." },
+      { title: "Dedicated Filing Support", desc: "Practical support throughout the filing process to help keep your tax reporting organized and on track." },
     ],
     benefits: [
       { title: "Timely Submission", desc: "Meet all Texas Comptroller and IRS reporting deadlines without last-minute stress." },

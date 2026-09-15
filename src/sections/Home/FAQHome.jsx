@@ -14,7 +14,7 @@ export const faqs = [
   },
   {
     q: "How does VR Tax CPA LLC support small businesses throughout the year?",
-    a: "We proactively review and implement strategies throughout the year, analyzing allowable deductions, optimizing entity classifications, calculating quarterly estimates, and maintaining accurate management financials so your annual filing is a meticulously planned process.",
+    a: "For our Tax Advisory clients, we proactively review and implement strategies throughout the year—analyzing allowable deductions, optimizing entity classifications, calculating quarterly estimates, and guiding tax-impacting decisions. We also offer separate Accounting services that keep your books accurate and up-to-date, ensuring your annual filing is a meticulously planned process rather than a rushed one.",
   },
   {
     q: "Is my financial information secure?",

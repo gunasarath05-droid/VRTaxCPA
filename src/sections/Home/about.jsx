@@ -85,7 +85,6 @@ export default function About() {
   const pillars = [
     "Personalized, genuine client care",
     "Proactive year-round tax advisory — no last-minute scramble",
-    "Modern cloud accounting and payroll setup",
     "Dedicated support for business owners and individuals",
   ];
 
@@ -104,6 +103,14 @@ export default function About() {
             </h2>
 
             {/* Pillar list */}
+
+          </ScrollReveal>
+
+          {/* Right Column */}
+          <ScrollReveal direction="up" delay={0.2} className="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 lg:pl-6">
+            <p className="text-[#0B1F3B] text-base sm:text-lg leading-relaxed font-manrope font-medium">
+              We are not an average accounting firm filing taxes once a year and forgetting about you. We are your strategic partners who advise and support you throughout the year.
+            </p>
             <ul className="flex flex-col gap-3 mt-2 w-full">
               {pillars.map((item, i) => (
                 <ScrollReveal
@@ -119,16 +126,6 @@ export default function About() {
                 </ScrollReveal>
               ))}
             </ul>
-          </ScrollReveal>
-
-          {/* Right Column */}
-          <ScrollReveal direction="up" delay={0.2} className="lg:col-span-7 flex flex-col items-start gap-6 sm:gap-8 lg:pl-6">
-            <p className="text-[#0B1F3B] text-base sm:text-lg leading-relaxed font-manrope font-medium">
-              We are not an average accounting firm filing taxes once a year and forgetting about you. We are your strategic partners who advise and support you throughout the year.
-            </p>
-            <p className="text-[#334155] text-sm sm:text-base leading-relaxed font-manrope">
-              Whether you are an established enterprise, healthcare practice, contractor, or emerging entrepreneur, our team proactively reviews and implements strategies so your annual filings are never a surprise, but a meticulously devised plan.
-            </p>
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2">
               <Button
@@ -144,7 +141,7 @@ export default function About() {
         </div>
 
         {/* Stats Grid */}
-        <div
+        {/* <div
           ref={statsRef}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-[#E2E8F0]"
         >
@@ -167,7 +164,7 @@ export default function About() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

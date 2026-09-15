@@ -1,7 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiTarget, FiEye, FiHeart, FiCheckCircle, FiAward, FiLock, FiShield, FiTrendingUp } from "react-icons/fi";
+import { FiTarget, FiEye, FiHeart, FiCheckCircle } from "react-icons/fi";
+
+import missionImg from "@/assets/images/about/mission-v2.jpg";
+import visionImg from "@/assets/images/about/vision-v2.jpg";
+import valuesImg from "@/assets/images/about/values-v2.jpg";
 
 export default function MissionVision() {
   const pillars = [
@@ -9,45 +14,26 @@ export default function MissionVision() {
       number: "01",
       tag: "Purpose & Promise",
       title: "Our Mission",
-      icon: <FiTarget size={24} />,
-      accentBg: "bg-[#0B1F3B]/10",
-      accentText: "text-[#0B1F3B]",
-      borderColor: "hover:border-[#d3d663]/60",
-      glowColor: "group-hover:bg-[#d3d663]/10",
-      headline: "Unwavering Commitment to Your Growth",
-      desc: "Our purpose is to serve with unwavering commitment — providing peace of mind and standing as a reliable partner in our clients’ growth. Through strategic tax and financial guidance, we help businesses and individuals thrive with clarity and confidence.",
-      bullets: [
-        "Reliable partners in your growth at every milestone",
-        "Proactive year-round tax planning and advisory",
-        "Clear financial insight without complexity or stress",
-      ],
+      icon: <FiTarget size={22} />,
+      bgImage: missionImg,
+      headline: " is to serve with unwavering dedication",
+      desc: "Our mission is to serve with unwavering dedication, guided by the IECS Framework. Inspired by the Bhagavad Gita’s teaching of selfless service and duty performed with sincerity, we approach every client relationship with devotion, integrity, and clarity. Our purpose is to lift financial stress, bring confidence to every decision, and stand beside our clients year-round as a trusted partner in their growth and peace of mind.",
     },
     {
       number: "02",
       tag: "Guiding Philosophy",
       title: "Our Vision",
-      icon: <FiEye size={24} />,
-      accentBg: "bg-[#2D503B]/10",
-      accentText: "text-[#2D503B]",
-      borderColor: "hover:border-[#2D503B]/50",
-      glowColor: "group-hover:bg-[#2D503B]/10",
-      headline: "Dedication, Service & Lasting Success",
-      desc: "We are dedicated to supporting businesses and individuals, guiding them through financial and tax decisions to help them reach their goals. Inspired by the timeless philosophy of 'Do your best and leave the rest,' we focus on serving with commitment and integrity, leaving the results in higher hands.",
-      bullets: [
-        "Commitment to service above self and client-first ethics",
-        "Boutique, personalized attention for every business owner",
-        "Empowering long-term stability and sustainable success",
-      ],
+      icon: <FiEye size={22} />,
+      bgImage: visionImg,
+      headline: "Empowering our clients' growth as a reliable partner",
+      desc: "Our vision is to become the reliable partner businesses and individuals turn to for clarity, confidence, and long-term success. We strive to create a future where every client feels supported and empowered to grow, knowing they have a steadfast advisor who stands with them through every stage of their financial journey.",
     },
     {
       number: "03",
       tag: "The I E C S Framework",
       title: "Our Core Values",
-      icon: <FiHeart size={24} />,
-      accentBg: "bg-[#d3d663]/15",
-      accentText: "text-[#8C6D3F]",
-      borderColor: "hover:border-[#d3d663]/60",
-      glowColor: "group-hover:bg-[#d3d663]/10",
+      icon: <FiHeart size={22} />,
+      bgImage: valuesImg,
       headline: "Inspire • Empower • Care • Serve",
       desc: "Our daily practice is anchored in four foundational commitments that govern every engagement, calculation, and consultation:",
       bullets: [
@@ -59,119 +45,162 @@ export default function MissionVision() {
     },
   ];
 
-  const highlights = [
-    { icon: <FiAward className="text-[#d3d663]" size={18} />, label: "13 Years Professional Accounting" },
-    { icon: <FiLock className="text-[#d3d663]" size={18} />, label: "100% Confidential & Secure" },
-    { icon: <FiTrendingUp className="text-[#d3d663]" size={18} />, label: "Year-Round Proactive Advisory" },
-    { icon: <FiShield className="text-[#d3d663]" size={18} />, label: "Uncompromising Integrity" },
-  ];
-
   return (
     <section id="mission" className="py-8 md:py-16 bg-white relative overflow-hidden">
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-30 pointer-events-none bg-[radial-gradient(circle,#d3d66325,transparent_70%)] filter blur-3xl" />
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#0B1F3B18,transparent_70%)] filter blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ── Section Header ── */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 text-[#0B1F3B] text-xs font-extrabold uppercase tracking-widest mb-4 font-figtree">
-              Purpose &amp; Philosophy
+            <span className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0B1F3B] mb-3 font-figtree">
+              PURPOSE &amp; PHILOSOPHY
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
               Reliable Partners in Your Growth
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 font-manrope leading-relaxed max-w-2xl mx-auto">
+            <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto font-manrope leading-relaxed">
               Our firm is built on personal dedication, deep financial expertise, and a genuine commitment to lifting the weight of tax and financial complexity off your shoulders.
             </p>
           </motion.div>
         </div>
 
-        {/* ── 3-Column Pillar Cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {pillars.map((pillar, idx) => (
+        {/* ── Pillar Cards Grid: 2 Top + 1 Full-Width Bottom ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {/* Card 1: Our Mission */}
+          {pillars[0] && (
             <motion.div
-              key={pillar.number}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              className={`group relative bg-[#F8FAFC] rounded-3xl p-6 sm:p-8 border border-slate-200/80 ${pillar.borderColor} hover:bg-white hover-lift overflow-hidden cursor-default`}
+              transition={{ duration: 0.5 }}
+              className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[340px] sm:min-h-[400px] p-6 sm:p-8 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
             >
-              {/* Card top decorative ambient glow on hover */}
-              <div className={`absolute top-0 right-0 w-44 h-44 rounded-full transition-colors duration-500 pointer-events-none filter blur-2xl -z-0 ${pillar.glowColor}`} />
+              <Image
+                src={pillars[0].bgImage}
+                alt={pillars[0].title}
+                fill
+                className="object-cover object-right group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#061220]/95 via-[#061220]/65 to-black/15 pointer-events-none" />
 
-              <div className="relative z-10">
-                {/* Header Row: Icon + Number */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className={`w-13 h-13 sm:w-14 sm:h-14 rounded-2xl ${pillar.accentBg} ${pillar.accentText} flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
-                    {pillar.icon}
-                  </div>
-                  <span className="text-3xl sm:text-4xl font-extrabold text-slate-200 font-figtree group-hover:text-[#0B1F3B]/20 transition-colors duration-300">
-                    {pillar.number}
-                  </span>
-                </div>
-
-                {/* Subtag + Title */}
-                <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 font-figtree block mb-1">
-                  {pillar.tag}
+              <div className="relative z-10 max-w-lg">
+                <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-[#d3d663] font-figtree mb-2">
+                  {pillars[0].tag}
                 </span>
-                <h3 className="text-2xl font-extrabold font-figtree text-[#0B1F3B] mb-2 tracking-tight">
-                  {pillar.title}
+                <h3 className="text-2xl sm:text-3xl font-bold font-figtree text-white mb-2 leading-snug">
+                  {pillars[0].title}
                 </h3>
-                <p className="text-sm font-bold text-black font-figtree mb-3">
-                  {pillar.headline}
+                <p className="text-xs sm:text-sm font-semibold text-white/95 font-figtree mb-2">
+                  {pillars[0].headline}
                 </p>
-
-                {/* Description */}
-                <p className="text-sm text-slate-600 font-manrope leading-relaxed mb-6">
-                  {pillar.desc}
+                <p className="text-white/85 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {pillars[0].desc}
                 </p>
+              </div>
+            </motion.div>
+          )}
 
-                {/* Key Points */}
-                <div className="pt-5 border-t border-slate-100 space-y-2.5 hidden md:block">
-                  {pillar.bullets.map((bullet, bIdx) => (
-                    <div key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium font-manrope">
-                      <FiCheckCircle className="text-[#2D503B] mt-0.5 flex-shrink-0" size={16} />
-                      <span>{bullet}</span>
+          {/* Card 2: Our Vision */}
+          {pillars[1] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[340px] sm:min-h-[400px] p-6 sm:p-8 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
+            >
+              <Image
+                src={pillars[1].bgImage}
+                alt={pillars[1].title}
+                fill
+                className="object-cover object-right group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#061220]/95 via-[#061220]/65 to-black/15 pointer-events-none" />
+
+              <div className="relative z-10 max-w-lg">
+                <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-[#d3d663] font-figtree mb-2">
+                  {pillars[1].tag}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold font-figtree text-white mb-2 leading-snug">
+                  {pillars[1].title}
+                </h3>
+                <p className="text-xs sm:text-sm font-semibold text-white/95 font-figtree mb-2">
+                  {pillars[1].headline}
+                </p>
+                <p className="text-white/85 text-xs sm:text-sm font-manrope leading-relaxed">
+                  {pillars[1].desc}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Card 3: Our Core Values (Full Width) */}
+          {pillars[2] && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="md:col-span-2 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[360px] p-6 sm:p-8 md:p-10 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
+            >
+              <Image
+                src={pillars[2].bgImage}
+                alt={pillars[2].title}
+                fill
+                className="object-cover object-right sm:object-[center_right] group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#061220]/95 via-[#061220]/75 to-black/20 lg:bg-gradient-to-r lg:from-[#061220]/95 lg:via-[#061220]/80 lg:to-black/30 pointer-events-none" />
+
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end">
+
+                <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                  {pillars[2].bullets?.map((bullet, bIdx) => (
+                    <div
+                      key={bIdx}
+                      className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-black/35 backdrop-blur-md border border-white/10 hover:border-[#d3d663]/40 transition-all duration-300"
+                    >
+                      <FiCheckCircle className="text-[#d3d663] mt-0.5 flex-shrink-0" size={16} />
+                      <span className="text-xs sm:text-sm text-white/90 font-medium font-manrope leading-relaxed">
+                        {bullet}
+                      </span>
                     </div>
                   ))}
                 </div>
+
+                <div className="lg:col-span-6">
+                  <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-[#d3d663] font-figtree mb-2">
+                    {pillars[2].tag}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-bold font-figtree text-white mb-2 leading-snug">
+                    {pillars[2].title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-white/95 font-figtree mb-2">
+                    {pillars[2].headline}
+                  </p>
+                  <p className="text-white/85 text-xs sm:text-sm font-manrope leading-relaxed">
+                    {pillars[2].desc}
+                  </p>
+                </div>
+
               </div>
             </motion.div>
-          ))}
+          )}
         </div>
-
-        {/* ── Bottom Trust Strip ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 sm:mt-16 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm"
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
-            {highlights.map((item, i) => (
-              <div key={i} className="flex items-center gap-3 justify-center sm:justify-start px-2">
-                <div className="w-8 h-8 rounded-full bg-[#d3d663]/20 flex items-center justify-center flex-shrink-0">
-                  {item.icon}
-                </div>
-                <span className="text-xs sm:text-sm font-bold text-[#0B1F3B] font-figtree">
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
 
       </div>
     </section>
   );
 }
+

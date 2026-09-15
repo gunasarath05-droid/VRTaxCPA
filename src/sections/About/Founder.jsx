@@ -32,7 +32,7 @@ export default function Founder() {
             Founder &amp; Leadership
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
-            Meet Vethavalli Ramakrishnan, CPA
+            Meet Vetha Ram, CPA
           </h2>
         </div>
 
@@ -53,7 +53,7 @@ export default function Founder() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] w-full border-4 border-white">
                 <Image
                   src={ceo}
-                  alt="Vethavalli Ramakrishnan, CPA — Founder & CEO of VR Tax CPA LLC"
+                  alt="Vetha Ram, CPA — Founder & CEO of VR Tax CPA LLC"
                   fill
                   className="object-cover object-top"
                   priority
@@ -63,7 +63,7 @@ export default function Founder() {
                 <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-[#071526]/95 to-transparent z-10" />
                 {/* Name overlay */}
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-5 sm:p-6">
-                  <p className="text-white font-extrabold text-base sm:text-lg font-figtree leading-tight">Vethavalli Ramakrishnan</p>
+                  <p className="text-white font-extrabold text-base sm:text-lg font-figtree leading-tight">Vetha Ram</p>
                   <p className="text-[#d3d663] text-xs font-bold uppercase tracking-wider mt-0.5 font-figtree">CPA · CA · Founder &amp; CEO</p>
                 </div>
               </div>
@@ -110,34 +110,18 @@ export default function Founder() {
             <div className="flex flex-col gap-3 sm:gap-4">
               <div className="space-y-3 sm:space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed font-manrope">
                 <p>
-                  I&apos;m <strong className="text-[#0B1F3B] font-figtree">Vethavalli Ramakrishnan, CPA</strong>, Founder and CEO of <strong className="text-[#0B1F3B] font-figtree">VR Tax CPA LLC</strong>. With <strong className="text-[#0B1F3B] font-figtree">13 years of accounting experience</strong> and <strong className="text-[#0B1F3B] font-figtree">10 years of specialized tax expertise</strong>, I partner with business owners and individuals to navigate tax complexities with precision, clarity, and peace of mind.
+                  <strong className="text-[#0B1F3B] font-figtree">Vetha Ram, CPA</strong>, is the Founder and CEO of <strong className="text-[#0B1F3B] font-figtree">VR Tax CPA LLC</strong>. With <strong className="text-[#0B1F3B] font-figtree">13 years of comprehensive accounting experience</strong> including <strong className="text-[#0B1F3B] font-figtree">10 years of specialized tax expertise</strong>, she partners with business owners and individuals to navigate tax complexities with precision, clarity, and peace of mind.
                 </p>
                 <p>
-                  My dual qualification as a <strong className="text-[#0B1F3B]">Texas State Board Licensed CPA</strong> and a <strong className="text-[#0B1F3B]">Chartered Accountant (India)</strong> brings a rigorous, global analytical perspective to every client engagement. I treat our clients&apos; businesses with the personal dedication and attention of a trusted partner, never treating anyone as just a file number.
+                  Her dual qualification as a <strong className="text-[#0B1F3B]">Texas State Board Licensed CPA</strong> and a <strong className="text-[#0B1F3B]">Chartered Accountant (India)</strong> brings a rigorous, global analytical perspective to every client engagement. She treats each client&apos;s business with the dedication and attention of a trusted partner&mdash;never as a file number or transaction. Every relationship is built on integrity, accuracy, and genuine care.
                 </p>
                 <p>
-                  Guided by the principle of serving with integrity and dedication, our firm is committed to lifting financial stress so you can focus wholeheartedly on scaling your business and enjoying your life.
+                  Guided by the principle of serving with unwavering dedication, her commitment is simple: to lift financial stress so clients can focus wholeheartedly on scaling their businesses and enjoying their lives.
                 </p>
                 <blockquote className="italic text-slate-700 text-sm border-l-2 border-[#d3d663] pl-4 py-1.5 font-manrope bg-slate-50/80 rounded-r-lg">
-                  &ldquo;Outside the firm, I am an active volunteer at the ISKCON Dallas temple and cherish spending quality time cooking, traveling, and being with my husband and our two boys. If you are seeking an advisor who truly listens and stands by your side year-round — our doors are always open.&rdquo;
+                  Outside the firm, she is an active volunteer at the ISKCON Dallas Temple and cherishes spending time cooking, traveling, and being with her husband and their two boys. For those seeking an advisor who truly listens and stands by their side year-round, her doors are always open.
                 </blockquote>
               </div>
-            </div>
-
-            {/* Key Credentials */}
-            <div className="hidden md:block">
-              <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0B1F3B] font-figtree mb-3 flex items-center gap-2">
-                <FiAward className="text-[#d3d663]" size={16} />
-                Professional Qualifications &amp; Commitments
-              </h4>
-              <ul className="flex flex-col gap-2">
-                {credentials.map((cred, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium font-manrope">
-                    <FiCheckCircle className="text-[#2D503B] mt-0.5 flex-shrink-0" size={15} />
-                    <span>{cred}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             {/* CTA */}
