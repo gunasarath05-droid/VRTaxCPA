@@ -152,7 +152,7 @@ export default function MissionVision() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="md:col-span-2 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[360px] p-6 sm:p-8 md:p-10 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
+              className="md:col-span-2 relative rounded-[28px] sm:rounded-[32px] overflow-hidden min-h-[360px] p-6 sm:p-8 flex flex-col justify-end shadow-sm hover-lift group cursor-default"
             >
               <Image
                 src={pillars[2].bgImage}
@@ -181,7 +181,7 @@ export default function MissionVision() {
                     {pillars[2].desc}
                   </p>
                 </div>
-                <div className="lg:col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="lg:col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-1">
                   {pillars[2].bullets?.map((bullet, bIdx) => (
                     <div
                       key={bIdx}
