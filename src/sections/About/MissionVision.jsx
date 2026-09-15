@@ -167,7 +167,7 @@ export default function MissionVision() {
 
 
 
-                <div className="lg:col-span-6">
+                <div className="md:col-span-6">
                   <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-[#d3d663] font-figtree mb-2">
                     {pillars[2].tag}
                   </span>
@@ -181,7 +181,7 @@ export default function MissionVision() {
                     {pillars[2].desc}
                   </p>
                 </div>
-                <div className="lg:col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-1">
+                <div className="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-1">
                   {pillars[2].bullets?.map((bullet, bIdx) => (
                     <div
                       key={bIdx}

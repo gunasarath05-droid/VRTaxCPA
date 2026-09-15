@@ -16,28 +16,28 @@ import "swiper/css/navigation";
 const getIndustryImage = (name = "") => {
   const lower = name.toLowerCase();
   if (lower.includes("real estate") || lower.includes("rental") || lower.includes("property")) {
-    return "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("restaurant") || lower.includes("hospitality") || lower.includes("hotel") || lower.includes("franchise")) {
-    return "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("dental") || lower.includes("healthcare") || lower.includes("medical")) {
-    return "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("it") || lower.includes("tech") || lower.includes("software") || lower.includes("saas")) {
-    return "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("staffing") || lower.includes("consultant")) {
-    return "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("manufacturing") || lower.includes("industrial")) {
-    return "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("contractor") || lower.includes("construction") || lower.includes("trades")) {
-    return "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80";
   }
   if (lower.includes("artist") || lower.includes("creator") || lower.includes("creative") || lower.includes("freelance")) {
-    return "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80";
+    return "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80";
   }
   return "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80";
 };

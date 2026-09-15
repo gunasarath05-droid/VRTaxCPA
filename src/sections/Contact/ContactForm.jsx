@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/Button";
-import { FiSend, FiCheck } from "react-icons/fi";
+import { FiSend, FiCheck, FiChevronDown } from "react-icons/fi";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -15,6 +18,30 @@ export default function ContactForm() {
     service: "",
     message: "",
   });
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setServiceDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Auto-hide thank you card after 4 seconds and reset
+  useEffect(() => {
+    let timer;
+    if (submitted) {
+      timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 4000);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [submitted]);
 
   const services = [
     "Tax Compliance (Individual & Business Returns)",
@@ -34,7 +61,15 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTimeout(() => setSubmitted(true), 500);
+    setSubmitted(true);
+    setForm({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: "",
+    });
   };
 
   return (
@@ -76,32 +111,36 @@ export default function ContactForm() {
 
           {/* Right: Form */}
           <div className="lg:col-span-8 w-full">
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-8 sm:p-14 text-center flex flex-col items-center gap-4 sm:gap-5 shadow-sm"
-              >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B1F3B] flex items-center justify-center text-[#d3d663] text-2xl sm:text-3xl shadow-lg">
-                  <FiCheck />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold font-figtree text-[#0B1F3B]">
-                  Thank You for Reaching Out!
-                </h3>
-                <p className="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed font-manrope">
-                  Your consultation request has been received.
-                </p>
-              </motion.div>
-            ) : (
-              <motion.form
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                onSubmit={handleSubmit}
-                className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-5 shadow-sm hover:shadow-md transition-shadow"
-              >
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="thank-you-card"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-8 sm:p-14 text-center flex flex-col items-center gap-4 sm:gap-5 shadow-sm"
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B1F3B] flex items-center justify-center text-[#d3d663] text-2xl sm:text-3xl shadow-lg">
+                    <FiCheck />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-extrabold font-figtree text-[#0B1F3B]">
+                    Thank You for Reaching Out!
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed font-manrope">
+                    Your consultation request has been received.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="contact-form"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  onSubmit={handleSubmit}
+                  className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-5 shadow-sm hover:shadow-md transition-shadow"
+                >
                 {/* Row 1: Name & Company */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="flex flex-col gap-1.5 sm:gap-2">
@@ -166,21 +205,80 @@ export default function ContactForm() {
                 </div>
 
                 {/* Service selector */}
-                <div className="flex flex-col gap-1.5 sm:gap-2">
+                <div className="flex flex-col gap-1.5 sm:gap-2 relative" ref={dropdownRef}>
                   <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                     Service Needed
                   </label>
-                  <select
+                  <button
+                    type="button"
+                    onClick={() => setServiceDropdownOpen((prev) => !prev)}
+                    className={`w-full flex items-center justify-between bg-white border rounded-xl px-4 py-3 sm:py-3.5 text-sm text-left transition-all cursor-pointer shadow-xs ${
+                      serviceDropdownOpen
+                        ? "border-[#d3d663] ring-2 ring-[#d3d663]/30"
+                        : "border-slate-200 hover:border-slate-300"
+                    }`}
+                    aria-haspopup="listbox"
+                    aria-expanded={serviceDropdownOpen}
+                  >
+                    <span className={form.service ? "text-[#0B1F3B] font-semibold truncate" : "text-slate-400 font-normal"}>
+                      {form.service || "Select a service category..."}
+                    </span>
+                    <FiChevronDown
+                      className={`text-base text-slate-500 transition-transform duration-300 shrink-0 ml-2 ${
+                        serviceDropdownOpen ? "rotate-180 text-[#0B1F3B]" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <input
+                    type="text"
                     name="service"
                     value={form.service}
-                    onChange={handleChange}
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all cursor-pointer"
-                  >
-                    <option value="">Select a service category...</option>
-                    {services.map((s, idx) => (
-                      <option key={idx} value={s}>{s}</option>
-                    ))}
-                  </select>
+                    tabIndex={-1}
+                    className="sr-only"
+                    onChange={() => {}}
+                  />
+
+                  {/* Dropdown Menu Popup */}
+                  <AnimatePresence>
+                    {serviceDropdownOpen && (
+                      <motion.div
+                        data-lenis-prevent="true"
+                        onWheel={(e) => e.stopPropagation()}
+                        onTouchMove={(e) => e.stopPropagation()}
+                        initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                        transition={{ duration: 0.16, ease: "easeOut" }}
+                        className="absolute top-full left-0 right-0 mt-2 z-50 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(11,31,59,0.18)] p-2 max-h-56 overflow-y-auto dropdown-scroll overscroll-contain space-y-1"
+                        role="listbox"
+                      >
+                        {services.map((s, idx) => {
+                          const isSelected = form.service === s;
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              role="option"
+                              aria-selected={isSelected}
+                              onClick={() => {
+                                setForm((prev) => ({ ...prev, service: s }));
+                                setServiceDropdownOpen(false);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-left transition-all cursor-pointer ${
+                                isSelected
+                                  ? "bg-[#0B1F3B] text-white font-bold shadow-xs"
+                                  : "text-slate-700 hover:bg-slate-100 hover:text-[#0B1F3B]"
+                              }`}
+                            >
+                              <span className="truncate">{s}</span>
+                              {isSelected && <FiCheck className="text-base shrink-0 ml-2 text-[#d3d663]" />}
+                            </button>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Message */}
@@ -212,6 +310,7 @@ export default function ContactForm() {
                 </div>
               </motion.form>
             )}
+            </AnimatePresence>
           </div>
 
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   FiArrowRight,
   FiSend,
   FiCheck,
+  FiChevronDown,
 } from "react-icons/fi";
 
 import heroBgImg from "@/assets/images/home/hero/Herobg.png";
@@ -38,6 +39,9 @@ const trustItems = ["Client Focused", "Secure & Confidential", "Year-Round Suppo
 export default function Hero() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -46,6 +50,17 @@ export default function Hero() {
     service: "",
     message: "",
   });
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setServiceDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Auto-dismiss the success card after 4 seconds and return to the form
   useEffect(() => {
@@ -97,7 +112,7 @@ export default function Hero() {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="relative min-h-[92vh] pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 flex items-center bg-slate-50 text-[#111815] overflow-hidden"
+      className="relative min-h-[90vh] pt-20 sm:pt-28 lg:pt-36 pb-10 sm:pb-14 lg:pb-20 flex items-center bg-slate-50 text-[#111815] overflow-hidden"
     >
       {/* ── Background Image Layer ── */}
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
@@ -112,7 +127,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 min-w-0">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center min-w-0 w-full">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-8 xl:gap-12 items-center min-w-0 w-full">
 
           {/* ── Left Column: Content ── */}
           <motion.div
@@ -125,7 +140,7 @@ export default function Hero() {
             <motion.h1
               id="hero-heading"
               variants={itemVariants}
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-[#0B1F3B] leading-[1.18] sm:leading-[1.14] tracking-tight mb-4 sm:mb-5 font-figtree w-full break-words"
+              className="text-3xl xs:text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-[#0B1F3B] leading-[1.18] sm:leading-[1.14] tracking-tight mb-3 sm:mb-5 font-figtree w-full break-words"
             >
               You&apos;ve got a business. <br className="hidden sm:inline" />
               We have <span className="text-[#d3d663]">your back.</span>
@@ -134,7 +149,7 @@ export default function Hero() {
             {/* 2. Description */}
             <motion.p
               variants={itemVariants}
-              className="text-[#334155] text-sm sm:text-base lg:text-lg leading-relaxed mb-5 sm:mb-7 max-w-lg font-normal font-manrope break-words w-full"
+              className="text-[#334155] text-xs sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 max-w-lg font-normal font-manrope break-words w-full"
             >
               Strategic tax planning, proactive IRS compliance, precision accounting, payroll support, and fractional CFO guidance to minimize tax stress and fuel sustainable financial growth.
             </motion.p>
@@ -142,7 +157,7 @@ export default function Hero() {
             {/* 3. Trust badges */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-lg mb-6 sm:mb-8"
+              className="grid grid-cols-3 gap-1.5 sm:gap-2 w-full max-w-lg mb-5 sm:mb-7"
               aria-label="Key firm credentials and guarantees"
             >
               {trustItems.map((label) => (
@@ -159,13 +174,13 @@ export default function Hero() {
             {/* 4. CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex-1 sm:flex-none justify-center"
+              className="w-full sm:w-auto flex justify-center lg:justify-start mb-4 lg:mb-0"
             >
               <Button
                 href="/services"
                 variant="dark"
                 size="lg"
-                className="flex-1 sm:flex-none justify-center"
+                className="w-full sm:w-auto justify-center"
                 ariaLabel="Explore our tax compliance and accounting practice areas"
               >
                 Explore Services
@@ -181,7 +196,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
             className="lg:col-span-5 w-full flex justify-center lg:justify-end"
           >
-            <div className="w-full max-w-[460px] bg-white/80 backdrop-blur-xl rounded-[28px] p-5 sm:p-6 lg:p-7 shadow-[0_20px_50px_rgba(11,31,59,0.12)] border border-white/90 ring-1 ring-black/[0.03] relative overflow-hidden">
+            <div className="w-full max-w-[460px] bg-white/80 backdrop-blur-xl rounded-2xl sm:rounded-[28px] p-4 sm:p-6 lg:p-7 shadow-[0_20px_50px_rgba(11,31,59,0.12)] border border-white/90 ring-1 ring-black/[0.03] relative">
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div
@@ -198,8 +213,8 @@ export default function Hero() {
                     <h3 className="text-xl font-bold font-figtree text-[#0B1F3B]">
                       Inquiry Received!
                     </h3>
-                    <p className="text-xs text-slate-600 font-manrope leading-relaxed max-w-xs">
-                      Thank you for reaching out. Vethavalli Ramakrishnan, CPA will review your details and connect with you within 1 business day.
+                    <p className="text-sm text-slate-600 font-manrope leading-relaxed max-w-xs">
+                      Thank you for reaching out.
                     </p>
                   </motion.div>
                 ) : (
@@ -249,7 +264,6 @@ export default function Hero() {
                       </div>
                     </div>
 
-                    {/* 2-Col Inputs: Email & Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div className="flex flex-col gap-1">
                         <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
@@ -280,26 +294,87 @@ export default function Hero() {
                       </div>
                     </div>
 
-                    {/* Service Needed */}
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 relative" ref={dropdownRef}>
                       <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                         Service Needed <span className="text-rose-500">*</span>
                       </label>
-                      <select
+                      <button
+                        type="button"
+                        onClick={() => setServiceDropdownOpen((prev) => !prev)}
+                        className={`w-full flex items-center justify-between bg-white/70 backdrop-blur-xs border rounded-xl px-3.5 py-2.5 text-xs transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)] text-left cursor-pointer ${
+                          serviceDropdownOpen
+                            ? "bg-white border-[#d3d663] ring-2 ring-[#d3d663]/30"
+                            : "border-slate-200/80 hover:border-slate-300"
+                        }`}
+                        aria-haspopup="listbox"
+                        aria-expanded={serviceDropdownOpen}
+                      >
+                        <span className={form.service ? "text-[#0B1F3B] font-semibold truncate" : "text-slate-400 font-normal"}>
+                          {form.service || "Select a service category..."}
+                        </span>
+                        <FiChevronDown
+                          className={`text-sm text-slate-500 transition-transform duration-300 shrink-0 ml-2 ${
+                            serviceDropdownOpen ? "rotate-180 text-[#0B1F3B]" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <input
+                        type="text"
                         name="service"
                         value={form.service}
-                        onChange={handleChange}
                         required
-                        className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all cursor-pointer shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
-                      >
-                        <option value="">Select a service...</option>
-                        {services.map((s, idx) => (
-                          <option key={idx} value={s}>{s}</option>
-                        ))}
-                      </select>
+                        tabIndex={-1}
+                        className="sr-only"
+                        onChange={() => {}}
+                        onInvalid={(e) => {
+                          e.target.setCustomValidity("Please select a service from the list");
+                        }}
+                        onInput={(e) => e.target.setCustomValidity("")}
+                      />
+
+                      {/* Dropdown Menu Popup */}
+                      <AnimatePresence>
+                        {serviceDropdownOpen && (
+                          <motion.div
+                            data-lenis-prevent="true"
+                            onWheel={(e) => e.stopPropagation()}
+                            onTouchMove={(e) => e.stopPropagation()}
+                            initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                            transition={{ duration: 0.16, ease: "easeOut" }}
+                            className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(11,31,59,0.2)] p-1.5 max-h-52 overflow-y-auto dropdown-scroll overscroll-contain space-y-0.5"
+                            role="listbox"
+                          >
+                            {services.map((s, idx) => {
+                              const isSelected = form.service === s;
+                              return (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  role="option"
+                                  aria-selected={isSelected}
+                                  onClick={() => {
+                                    setForm((prev) => ({ ...prev, service: s }));
+                                    setServiceDropdownOpen(false);
+                                  }}
+                                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs text-left transition-all cursor-pointer ${
+                                    isSelected
+                                      ? "bg-[#0B1F3B] text-white font-bold shadow-xs"
+                                      : "text-slate-700 hover:bg-slate-100 hover:text-[#0B1F3B]"
+                                  }`}
+                                >
+                                  <span className="truncate">{s}</span>
+                                  {isSelected && <FiCheck className="text-sm shrink-0 ml-2 text-[#d3d663]" />}
+                                </button>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
-                    {/* Message / Brief Description */}
                     <div className="flex flex-col gap-1">
                       <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                         How Can We Help You? (Brief Description)
@@ -312,8 +387,6 @@ export default function Hero() {
                         className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all resize-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
                       />
                     </div>
-
-                    {/* Submit Button with Site Kinetic Wipe & Rolling Text Animation */}
                     <div className="pt-1">
                       <Button
                         type="submit"

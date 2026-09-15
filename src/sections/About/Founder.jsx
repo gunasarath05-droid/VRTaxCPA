@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
 import { FiCheckCircle, FiAward, FiArrowRight } from "react-icons/fi";
-import ceo from "../../assets/images/ceo.png";
+import ceo from "../../assets/images/ceo.jpeg";
 
 export default function Founder() {
   const credentials = [

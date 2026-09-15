@@ -99,7 +99,7 @@ export default function About() {
               About VR Tax CPA LLC
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-[1.15] font-figtree tracking-tight">
-              A Practice Built on Trust, Accuracy &amp; Genuine Care.
+             Your Trusted Partner for Clarity, Confidence & Long-Term Success.
             </h2>
 
             {/* Pillar list */}
