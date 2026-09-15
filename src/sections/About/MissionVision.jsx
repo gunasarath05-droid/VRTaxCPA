@@ -51,7 +51,7 @@ export default function MissionVision() {
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-30 pointer-events-none bg-[radial-gradient(circle,#d3d66325,transparent_70%)] filter blur-3xl" />
       <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none bg-[radial-gradient(circle,#0B1F3B18,transparent_70%)] filter blur-3xl" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ── Section Header ── */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
@@ -163,21 +163,9 @@ export default function MissionVision() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#061220]/95 via-[#061220]/75 to-black/20 lg:bg-gradient-to-r lg:from-[#061220]/95 lg:via-[#061220]/80 lg:to-black/30 pointer-events-none" />
 
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end">
+              <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-end">
 
-                <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                  {pillars[2].bullets?.map((bullet, bIdx) => (
-                    <div
-                      key={bIdx}
-                      className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-black/35 backdrop-blur-md border border-white/10 hover:border-[#d3d663]/40 transition-all duration-300"
-                    >
-                      <FiCheckCircle className="text-[#d3d663] mt-0.5 flex-shrink-0" size={16} />
-                      <span className="text-xs sm:text-sm text-white/90 font-medium font-manrope leading-relaxed">
-                        {bullet}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+
 
                 <div className="lg:col-span-6">
                   <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-[#d3d663] font-figtree mb-2">
@@ -193,6 +181,20 @@ export default function MissionVision() {
                     {pillars[2].desc}
                   </p>
                 </div>
+                <div className="lg:col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {pillars[2].bullets?.map((bullet, bIdx) => (
+                    <div
+                      key={bIdx}
+                      className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-black/35 backdrop-blur-md border border-white/10 hover:border-[#d3d663]/40 transition-all duration-300"
+                    >
+                      <FiCheckCircle className="text-[#d3d663] mt-0.5 flex-shrink-0" size={16} />
+                      <span className="text-xs sm:text-sm text-white/90 font-medium font-manrope leading-relaxed">
+                        {bullet}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
 
               </div>
             </motion.div>
