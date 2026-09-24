@@ -352,7 +352,7 @@ export default function AdminPage() {
         <main
           data-lenis-prevent="true"
           tabIndex={0}
-          className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 lg:p-8 overscroll-contain focus:outline-none admin-scroll bg-[#F4F7FB]"
+          className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-6 lg:p-8 overscroll-contain focus:outline-none admin-scroll bg-[#F4F7FB]"
         >
           <div className="max-w-7xl mx-auto w-full pb-16">
             {activeTab === "overview" && (

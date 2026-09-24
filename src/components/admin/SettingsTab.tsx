@@ -73,7 +73,7 @@ export default function SettingsTab({
       </div>
 
       {/* Passcode Protection */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+      <div className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xs">
         <h3 className="text-base font-extrabold text-[#0B1F3B] font-figtree mb-2 flex items-center gap-2">
           <FiKey className="text-[#1D61E7]" /> Change Admin Password
         </h3>
@@ -94,7 +94,7 @@ export default function SettingsTab({
           />
           <button
             type="submit"
-            className="px-6 py-3 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-xs sm:text-sm font-figtree transition-all cursor-pointer shadow-md shadow-blue-500/20"
+            className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-xs sm:text-sm font-figtree transition-all cursor-pointer shadow-md shadow-blue-500/20 text-center justify-center"
           >
             Update Password
           </button>
@@ -102,7 +102,7 @@ export default function SettingsTab({
       </div>
 
       {/* Backup & Restore */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-xs">
+      <div className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xs">
         <h3 className="text-base font-extrabold text-[#0B1F3B] font-figtree mb-2 flex items-center gap-2">
           <FiDownload className="text-emerald-600" /> Backup &amp; Restore Data (JSON)
         </h3>
@@ -110,15 +110,15 @@ export default function SettingsTab({
           Export all your edited website content into a single JSON file, or restore a previous backup.
         </p>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           <button
             onClick={exportBackup}
-            className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold font-figtree flex items-center gap-2 transition-all cursor-pointer shadow-xs"
+            className="flex-1 sm:flex-initial justify-center px-4 sm:px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold font-figtree flex items-center gap-2 transition-all cursor-pointer shadow-xs whitespace-nowrap"
           >
             <FiDownload size={14} className="text-[#1D61E7]" /> Export Backup (.json)
           </button>
 
-          <label className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold font-figtree flex items-center gap-2 transition-all cursor-pointer shadow-xs">
+          <label className="flex-1 sm:flex-initial justify-center px-4 sm:px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold font-figtree flex items-center gap-2 transition-all cursor-pointer shadow-xs whitespace-nowrap">
             <FiUpload size={14} className="text-[#1D61E7]" /> Import Backup (.json)
             <input
               type="file"
@@ -130,7 +130,7 @@ export default function SettingsTab({
 
           <button
             onClick={handleResetData}
-            className="px-5 py-2.5 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold font-figtree flex items-center gap-1.5 transition-all cursor-pointer sm:ml-auto shadow-xs"
+            className="w-full sm:w-auto justify-center px-4 sm:px-5 py-2.5 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold font-figtree flex items-center gap-1.5 transition-all cursor-pointer sm:ml-auto shadow-xs"
           >
             <FiRefreshCw size={13} /> Reset to Defaults
           </button>
@@ -138,7 +138,7 @@ export default function SettingsTab({
       </div>
 
       {/* Future Backend API Ready */}
-      <div className="bg-[#0B1F3B] rounded-3xl p-6 sm:p-8 text-white shadow-md relative overflow-hidden border border-slate-800">
+      <div className="bg-[#0B1F3B] rounded-2xl sm:rounded-3xl p-4 sm:p-8 text-white shadow-md relative overflow-hidden border border-slate-800">
         <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#1D61E7]/20 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10">

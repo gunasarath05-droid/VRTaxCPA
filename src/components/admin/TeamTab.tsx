@@ -52,15 +52,15 @@ export default function TeamTab({
         </div>
       ) : (
         /* Team Cards Grid matching User Reference Exactly */
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {(team || []).map((m: any) => (
             <div
               key={m.id}
-              className="relative h-[200px] sm:h-[212px] rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 bg-white flex flex-col group"
+              className="relative h-[190px] sm:h-[212px] rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 bg-white flex flex-col group"
             >
               {/* Top Section (~52% height) */}
-              <div className="h-[52%] bg-slate-50/80 border-b border-slate-100 flex flex-col justify-center pl-[152px] sm:pl-[172px] pr-5">
-                <h4 className="font-extrabold text-slate-900 text-lg sm:text-xl font-figtree leading-tight truncate">
+              <div className="h-[52%] bg-slate-50/80 border-b border-slate-100 flex flex-col justify-center pl-[124px] sm:pl-[152px] md:pl-[172px] pr-4 sm:pr-5">
+                <h4 className="font-extrabold text-slate-900 text-base sm:text-lg md:text-xl font-figtree leading-tight truncate">
                   {m.name}
                 </h4>
                 <p className="text-xs sm:text-sm text-[#1D61E7] font-semibold font-manrope mt-1 truncate">
@@ -69,13 +69,13 @@ export default function TeamTab({
               </div>
 
               {/* Bottom White Section (~48% height) */}
-              <div className="h-[48%] bg-white flex items-center pl-[152px] sm:pl-[172px] pr-5">
-                <div className="flex items-center gap-6 sm:gap-8">
+              <div className="h-[48%] bg-white flex items-center pl-[124px] sm:pl-[152px] md:pl-[172px] pr-4 sm:pr-5">
+                <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
                   <button
                     onClick={() => openEditTeamModal(m)}
-                    className="flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-[#1D61E7] cursor-pointer transition-colors font-figtree"
+                    className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-[#1D61E7] cursor-pointer transition-colors font-figtree"
                   >
-                    <FiEdit size={16} className="shrink-0 stroke-[2.2]" />
+                    <FiEdit size={15} className="shrink-0 stroke-[2.2]" />
                     <span>Edit</span>
                   </button>
 
@@ -86,16 +86,16 @@ export default function TeamTab({
                         showToast(`Deleted ${m.name}`);
                       }
                     }}
-                    className="flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-rose-600 cursor-pointer transition-colors font-figtree"
+                    className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-rose-600 cursor-pointer transition-colors font-figtree"
                   >
-                    <FiTrash2 size={16} className="shrink-0 stroke-[2.2]" />
+                    <FiTrash2 size={15} className="shrink-0 stroke-[2.2]" />
                     <span>Remove</span>
                   </button>
                 </div>
               </div>
 
               {/* Overlapping Avatar spanning both sections */}
-              <div className="absolute left-4 sm:left-5 top-4 sm:top-5 bottom-4 sm:bottom-5 w-[118px] sm:w-[132px] rounded-[22px] overflow-hidden shadow-sm border border-slate-200/80 bg-slate-100 z-10">
+              <div className="absolute left-3.5 sm:left-5 top-3.5 sm:top-5 bottom-3.5 sm:bottom-5 w-[96px] sm:w-[118px] md:w-[132px] rounded-xl sm:rounded-[22px] overflow-hidden shadow-sm border border-slate-200/80 bg-slate-100 z-10">
                 {m.image ? (
                   <img
                     src={m.image}

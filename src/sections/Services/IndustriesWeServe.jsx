@@ -48,10 +48,10 @@ const getIndustryImage = (name = "") => {
 export default function IndustriesWeServe({ industries }) {
   if (!industries || industries.length === 0) return null;
 
-  // Ensure enough items for smooth infinite loop
+  // Ensure enough items for smooth infinite loop without Swiper warnings
   const displayIndustries =
-    industries.length < 5
-      ? [...industries, ...industries, ...industries]
+    industries.length < 8
+      ? [...industries, ...industries]
       : industries;
 
   return (
@@ -87,7 +87,8 @@ export default function IndustriesWeServe({ industries }) {
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
-            loop={true}
+            loop={displayIndustries.length >= 8}
+            rewind={displayIndustries.length < 8}
             speed={700}
             autoplay={{
               delay: 2800,

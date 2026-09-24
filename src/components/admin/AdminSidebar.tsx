@@ -14,6 +14,7 @@ import {
   FiFileText,
   FiSettings,
   FiTrendingUp,
+  FiX,
 } from "react-icons/fi";
 
 export interface NavItem {
@@ -99,13 +100,13 @@ export default function AdminSidebar({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed lg:static top-0 bottom-0 left-0 h-full w-64 xl:w-72 bg-white border-r border-slate-100 z-50 transition-transform duration-300 ease-in-out flex flex-col justify-between shrink-0 ${
+        className={`fixed lg:static top-0 bottom-0 left-0 h-full w-[280px] sm:w-72 max-w-[85vw] bg-white border-r border-slate-100 z-50 transition-transform duration-300 ease-in-out flex flex-col justify-between shrink-0 ${
           sidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="flex flex-col flex-1 min-h-0">
           {/* Brand Header */}
-          <div className="h-20 px-6 flex items-center justify-between shrink-0">
+          <div className="h-16 sm:h-20 px-5 sm:px-6 flex items-center justify-between shrink-0 border-b border-slate-50 lg:border-none">
             <button
               onClick={() => {
                 setActiveTab("overview");
@@ -120,8 +121,17 @@ export default function AdminSidebar({
                 width={175}
                 height={46}
                 priority
-                className="h-10 sm:h-11 w-auto object-contain"
+                className="h-9 sm:h-11 w-auto object-contain"
               />
+            </button>
+
+            {/* Mobile Close Button */}
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              aria-label="Close menu"
+            >
+              <FiX size={19} />
             </button>
           </div>
 

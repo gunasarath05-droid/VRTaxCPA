@@ -143,7 +143,7 @@ export default function TestimonialsTab({
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {filteredTestimonials.map((t: any) => {
             const initials =
               t.initials ||
@@ -159,10 +159,10 @@ export default function TestimonialsTab({
             return (
               <div
                 key={t.id}
-                className="rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 bg-white flex flex-col justify-between group"
+                className="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 bg-white flex flex-col justify-between group"
               >
                 {/* ── Top Header (Clean Professional SaaS Header) ── */}
-                <div className="p-5 sm:p-6 pb-2 flex items-start justify-between gap-4">
+                <div className="p-4 sm:p-6 pb-2 flex items-start justify-between gap-3 sm:gap-4">
                   <div className="flex items-center gap-3.5 min-w-0">
                     {/* Initials Avatar */}
                     <div className="w-11 h-11 rounded-2xl bg-[#EBF2FE] border border-blue-100 text-[#1D61E7] font-black text-sm flex items-center justify-center shrink-0 font-figtree shadow-2xs">

@@ -153,7 +153,8 @@ export default function Testimonials() {
             modules={[Pagination, Autoplay, Navigation]}
             spaceBetween={24}
             centeredSlides={true}
-            loop={listToRender.length > 2}
+            loop={listToRender.length >= 5}
+            rewind={listToRender.length < 5}
             speed={750}
             autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
             pagination={{ clickable: true }}

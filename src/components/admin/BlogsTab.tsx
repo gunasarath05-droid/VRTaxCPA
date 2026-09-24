@@ -148,11 +148,11 @@ export default function BlogsTab({
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredBlogs.map((post: any) => (
             <div
               key={post.slug}
-              className="bg-white border border-slate-100 rounded-3xl overflow-hidden flex flex-col justify-between group shadow-xs hover:shadow-md transition-all duration-300"
+              className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col justify-between group shadow-xs hover:shadow-md transition-all duration-300"
             >
               <div>
                 {/* Image Thumbnail Container */}

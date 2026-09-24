@@ -49,11 +49,11 @@ export default function OverviewTab({
     totalInquiries > 0 ? Math.round((repliedCount / totalInquiries) * 100) : 100;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* ── Executive Hero Banner (Matching Image) ── */}
-      <div className="bg-gradient-to-r from-[#EBF3FD] via-[#F0F6FE] to-[#F7FAFF] rounded-3xl p-6 sm:p-8 border border-blue-100/60 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-[#EBF3FD] via-[#F0F6FE] to-[#F7FAFF] rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-blue-100/60 shadow-xs relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6">
         <div className="relative z-10 max-w-xl">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-figtree tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 font-figtree tracking-tight">
             Welcome back, Vetha Ram 👋
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1 font-manrope leading-relaxed">
@@ -62,24 +62,24 @@ export default function OverviewTab({
         </div>
 
         {/* Quick Action Button Group */}
-        <div className="relative z-10 flex flex-wrap items-center gap-2.5 shrink-0">
+        <div className="relative z-10 flex flex-wrap items-center gap-2 sm:gap-2.5 shrink-0 w-full sm:w-auto">
           <button
             onClick={openAddBlogModal}
-            className="px-5 py-2.5 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-1.5 font-figtree"
+            className="flex-1 sm:flex-initial justify-center px-4 sm:px-5 py-2.5 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-xs tracking-wide transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-1.5 font-figtree"
           >
             <FiPlus size={15} />
             <span>New Article</span>
           </button>
           <button
             onClick={openAddTestimonialModal}
-            className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-200/80 shadow-xs transition-all cursor-pointer flex items-center gap-1.5 font-figtree"
+            className="flex-1 sm:flex-initial justify-center px-4 sm:px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-200/80 shadow-xs transition-all cursor-pointer flex items-center gap-1.5 font-figtree"
           >
             <FiPlus size={15} />
             <span>Add Review</span>
           </button>
           <button
             onClick={() => setActiveTab("settings")}
-            className="px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-200/80 shadow-xs transition-all cursor-pointer flex items-center gap-1.5 font-figtree"
+            className="px-3.5 sm:px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 active:scale-[0.98] text-slate-700 font-bold text-xs border border-slate-200/80 shadow-xs transition-all cursor-pointer flex items-center gap-1.5 font-figtree"
             title="Manage Settings & Backup"
           >
             <FiSettings size={14} />
@@ -89,14 +89,14 @@ export default function OverviewTab({
       </div>
 
       {/* ── 4 KPI Stat Cards Grid (Matching Image) ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Card 1: Inquiries */}
         <div
           onClick={() => setActiveTab("inquiries")}
-          className="p-5 rounded-3xl bg-white border border-slate-100 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+          className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-100 shadow-xs hover:shadow-md transition-all cursor-pointer group"
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 font-figtree">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 font-figtree">
               INQUIRIES
             </span>
             <div className="w-8 h-8 rounded-lg bg-blue-100/70 text-[#1D61E7] flex items-center justify-center transition-transform group-hover:scale-105">
@@ -250,7 +250,7 @@ export default function OverviewTab({
         </div>
 
         {/* Card B: Inquiry Response Analytics */}
-        <div className="lg:col-span-6 bg-white rounded-3xl p-6 border border-slate-100 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-6 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-base text-slate-900 font-figtree tracking-tight">
@@ -283,7 +283,7 @@ export default function OverviewTab({
             </div>
 
             {/* Metrics breakdown (4 columns from image) */}
-            <div className="grid grid-cols-4 gap-2 pt-4 border-t border-slate-100 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-2 pt-4 border-t border-slate-100 text-center">
               <div>
                 <span className="text-[10px] font-extrabold uppercase text-slate-400 block font-figtree tracking-wider">
                   TOTAL

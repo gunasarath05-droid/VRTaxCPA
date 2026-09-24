@@ -120,7 +120,8 @@ export default function TeamMembers() {
             spaceBetween={20}
             slidesPerView={1.2}
             centeredSlides={false}
-            loop={team.length > 2}
+            loop={team.length >= 8}
+            rewind={team.length < 8}
             speed={800}
             autoplay={{
               delay: 3500,

@@ -33,28 +33,27 @@ export default function AdminHeader({
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <header className="h-20 shrink-0 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 flex items-center justify-between z-30 transition-all">
+    <header className="h-16 sm:h-20 shrink-0 bg-white border-b border-slate-100 px-3 sm:px-6 lg:px-8 flex items-center justify-between z-30 transition-all">
       {/* Left: Mobile Toggle & Page Title with Search */}
-      <div className="flex items-center gap-3 sm:gap-6 min-w-0">
+      <div className="flex items-center gap-2.5 sm:gap-6 min-w-0 flex-1 sm:flex-initial mr-2 sm:mr-0">
         {/* Mobile hamburger menu */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-label="Toggle navigation menu"
-          className="lg:hidden p-2.5 rounded-2xl bg-slate-100 border border-slate-200 shadow-xs hover:bg-slate-200 text-[#0B1F3B] cursor-pointer transition-colors"
+          className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 shadow-2xs hover:bg-slate-200 text-[#0B1F3B] cursor-pointer transition-colors shrink-0"
         >
-          {sidebarOpen ? <FiX size={19} /> : <FiMenu size={19} />}
+          {sidebarOpen ? <FiX size={18} /> : <FiMenu size={18} />}
         </button>
 
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 font-figtree tracking-tight">
+        <div className="flex items-center gap-4 min-w-0">
+          <h1 className="text-base sm:text-2xl font-bold text-slate-900 font-figtree tracking-tight truncate max-w-[160px] xs:max-w-[220px] sm:max-w-none">
             {activeTabTitle}
           </h1>
-          
         </div>
       </div>
 
       {/* Right Header Actions (Icons + Profile + Controls) */}
-      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
         {/* Notifications Bell */}
         {setActiveTab && (
           <button

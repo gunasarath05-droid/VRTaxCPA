@@ -112,14 +112,14 @@ export default function ContactTab({
   return (
     <form onSubmit={handleSaveAll} className="space-y-8 pb-12">
       {/* ── Section 1: Office & Credentials (Clean White SaaS Card) ── */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xs space-y-5 sm:space-y-6">
         {/* Card Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 sm:pb-5">
           <div>
             <span className="inline-flex items-center gap-2 text-[#1D61E7] text-xs font-bold font-figtree uppercase tracking-widest mb-1">
               <FiMapPin size={14} /> Main Office &amp; Contact Credentials
             </span>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-figtree tracking-tight">
+            <h3 className="text-lg sm:text-2xl font-extrabold text-slate-900 font-figtree tracking-tight">
               Primary Location Details
             </h3>
             <p className="text-slate-500 text-xs font-manrope mt-0.5">
@@ -427,7 +427,7 @@ export default function ContactTab({
       <div className="pt-6 flex justify-end border-t border-slate-100">
         <button
           type="submit"
-          className="px-8 py-3 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-sm font-figtree transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
+          className="w-full sm:w-auto justify-center px-8 py-3 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-sm font-figtree transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"
         >
           <FiSave size={16} />
           <span>Save Contact &amp; Social Details</span>

@@ -53,9 +53,9 @@ export default function InquiriesTab({
     <div className="space-y-6 font-manrope">
 
       {/* Filter Row & Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         {/* Rounded Capsule Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white border border-slate-200/80 rounded-full shadow-xs max-w-fit">
+        <div className="flex items-center gap-1.5 p-1 bg-white border border-slate-200/80 rounded-2xl sm:rounded-full shadow-xs overflow-x-auto scrollbar-none max-w-full">
           {[
             { id: "all", label: "All Inquiries", count: totalCount },
             { id: "new", label: "New / Unread", count: newCount },
@@ -66,7 +66,7 @@ export default function InquiriesTab({
               <button
                 key={f.id}
                 onClick={() => setInquiryFilter(f.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer font-figtree ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer font-figtree whitespace-nowrap shrink-0 ${
                   isActive
                     ? "bg-[#1D61E7] text-white shadow-md shadow-blue-500/20"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
@@ -86,8 +86,8 @@ export default function InquiriesTab({
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center gap-2">
-          <div className="relative flex items-center">
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <div className="relative flex items-center w-full md:w-auto">
             <FiSearch
               className="absolute left-3.5 text-slate-400 pointer-events-none"
               size={14}
@@ -97,7 +97,7 @@ export default function InquiriesTab({
               placeholder="Search inquiries..."
               value={inquirySearch}
               onChange={(e) => setInquirySearch(e.target.value)}
-              className="pl-9 pr-4 py-2 bg-white border border-slate-200/80 rounded-full text-xs text-slate-800 placeholder-slate-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-[#1D61E7]/20 focus:border-[#1D61E7] w-full sm:w-64 transition-all font-manrope"
+              className="pl-9 pr-4 py-2 bg-white border border-slate-200/80 rounded-full text-xs text-slate-800 placeholder-slate-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-[#1D61E7]/20 focus:border-[#1D61E7] w-full md:w-64 transition-all font-manrope"
             />
           </div>
         </div>
@@ -117,11 +117,11 @@ export default function InquiriesTab({
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {filteredInquiries.map((inq: any) => (
             <div
               key={inq.id}
-              className="bg-white border border-slate-100 rounded-3xl p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
             >
               <div>
                 {/* Header: Circle Avatar, Name, Company & Status Badge */}
@@ -217,11 +217,11 @@ export default function InquiriesTab({
               </div>
 
               {/* Actions Footer */}
-              <div className="flex items-center justify-between gap-2 pt-1">
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pt-1">
                 <a
                   href={`mailto:${inq.email}?subject=RE: Inquiry on VR Tax CPA LLC - ${inq.service || "Tax Consultation"}`}
                   onClick={() => updateInquiryStatus(inq.id, "replied")}
-                  className="flex-1 py-2.5 px-4 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer font-figtree shadow-md shadow-blue-500/20"
+                  className="flex-1 min-w-[120px] py-2 sm:py-2.5 px-3 sm:px-4 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white text-xs font-bold flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer font-figtree shadow-md shadow-blue-500/20"
                 >
                   <FiSend size={13} />
                   <span>Reply Email</span>
@@ -233,7 +233,7 @@ export default function InquiriesTab({
                       updateInquiryStatus(inq.id, "replied");
                       showToast("Marked as replied");
                     }}
-                    className="py-2.5 px-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 font-figtree shadow-xs"
+                    className="py-2 sm:py-2.5 px-3 sm:px-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 font-figtree shadow-xs shrink-0"
                     title="Mark as Replied"
                   >
                     <FiCheckCircle size={13} className="text-emerald-600" />
@@ -245,7 +245,7 @@ export default function InquiriesTab({
                       updateInquiryStatus(inq.id, "new");
                       showToast("Marked as new");
                     }}
-                    className="py-2.5 px-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 font-figtree shadow-xs"
+                    className="py-2 sm:py-2.5 px-3 sm:px-4 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 font-figtree shadow-xs shrink-0"
                     title="Mark as New"
                   >
                     <FiRotateCcw size={13} className="text-amber-500" />
@@ -260,7 +260,7 @@ export default function InquiriesTab({
                       showToast("Inquiry deleted");
                     }
                   }}
-                  className="p-2.5 text-rose-500 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all cursor-pointer shrink-0 border border-slate-200 hover:border-rose-200"
+                  className="p-2 sm:p-2.5 text-rose-500 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all cursor-pointer shrink-0 border border-slate-200 hover:border-rose-200"
                   title="Delete Inquiry"
                 >
                   <FiTrash2 size={14} />

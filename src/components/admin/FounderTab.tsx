@@ -172,7 +172,7 @@ export default function FounderTab({
   return (
     <form onSubmit={handleSaveFounder} className="space-y-8 pb-10">
       {/* ── Top Section: Founder Card (Clean White SaaS Card) ── */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-6 sm:gap-8 shadow-xs">
+      <div className="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-8 flex flex-col lg:flex-row items-center gap-5 sm:gap-8 shadow-xs">
         {/* Hidden Native File Input */}
         <input
           ref={fileInputRef}
@@ -190,7 +190,7 @@ export default function FounderTab({
         {/* Left Column: Founder Photo */}
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="w-[240px] sm:w-[270px] lg:w-[290px] aspect-[4/4.8] rounded-2xl overflow-hidden border border-slate-200 relative shadow-sm group shrink-0 cursor-pointer bg-slate-100"
+          className="w-[200px] sm:w-[270px] lg:w-[290px] aspect-[4/4.8] rounded-2xl overflow-hidden border border-slate-200 relative shadow-sm group shrink-0 cursor-pointer bg-slate-100"
           title="Click to change founder photo"
         >
           <img
@@ -341,7 +341,7 @@ export default function FounderTab({
           <div className="sm:col-span-2 pt-2 flex justify-end">
             <button
               type="submit"
-              className="px-8 py-2.5 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-sm font-figtree transition-all shadow-md shadow-blue-500/20 cursor-pointer"
+              className="w-full sm:w-auto text-center justify-center px-8 py-2.5 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-sm font-figtree transition-all shadow-md shadow-blue-500/20 cursor-pointer"
             >
               Save Founder Details
             </button>
