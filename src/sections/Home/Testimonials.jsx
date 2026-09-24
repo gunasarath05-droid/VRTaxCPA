@@ -8,9 +8,11 @@ import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export default function Testimonials() {
-  const testimonialsList = [
+  const { testimonials } = useSiteData();
+  const defaultList = [
     {
       name: "Marcus T.",
       desig: "Real Estate Investor · Irving, TX",
@@ -52,6 +54,8 @@ export default function Testimonials() {
       desc: "Before VR Tax CPA LLC, I was leaving money on the table every year. Vethavalli found deductions I'd never claimed — home office, vehicle, tools, and retirement contributions. My tax bill dropped by over $12,000 last year. Wish I'd found her sooner!",
     },
   ];
+
+  const listToRender = testimonials?.length ? testimonials : defaultList;
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
@@ -120,11 +124,17 @@ export default function Testimonials() {
         {/* Carousel wrapper */}
         <div className="relative">
           {/* Prev / Next arrows */}
-          <button className="testi-prev-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer">
-            <FaChevronLeft size={14} />
+          <button
+            aria-label="Previous testimonial"
+            className="testi-prev-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B]"
+          >
+            <FaChevronLeft size={14} aria-hidden="true" />
           </button>
-          <button className="testi-next-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer">
-            <FaChevronRight size={14} />
+          <button
+            aria-label="Next testimonial"
+            className="testi-next-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-20 hidden sm:flex w-11 h-11 rounded-full border border-slate-200 bg-white text-slate-500 hover:text-white hover:bg-[#0B1F3B] hover:border-[#0B1F3B] items-center justify-center transition-all shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B]"
+          >
+            <FaChevronRight size={14} aria-hidden="true" />
           </button>
 
           <Swiper
@@ -133,7 +143,7 @@ export default function Testimonials() {
             centeredSlides={true}
             loop={true}
             speed={750}
-            autoplay={{ delay: 5500, disableOnInteraction: false }}
+            autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
             pagination={{ clickable: true }}
             navigation={{ prevEl: ".testi-prev-btn", nextEl: ".testi-next-btn" }}
             className="testi-swiper pb-20"
@@ -144,15 +154,15 @@ export default function Testimonials() {
               1280: { slidesPerView: 1.7 },
             }}
           >
-            {testimonialsList.map((t, i) => (
-              <SwiperSlide key={i} className="pt-2 pb-12">
+            {listToRender.map((t, i) => (
+              <SwiperSlide key={t.id || i} className="pt-2 pb-12">
                 <div className="relative bg-white border border-[#E2E8F0] rounded-3xl p-7 md:p-10 pb-9 md:pb-11 shadow-md">
 
                   {/* Top: avatar + name + stars */}
                   <div className="flex items-start justify-between mb-5">
                     <div className="flex items-center gap-4">
                       {/* Avatar */}
-                      <div className="relative hidden md:block">
+                      <div className="relative hidden md:block" aria-hidden="true">
                         <div
                           className={`w-14 h-14 rounded-2xl bg-[#0B1F3B] flex items-center justify-center text-white font-extrabold text-lg font-figtree flex-shrink-0 shadow-sm`}
                         >
@@ -161,16 +171,20 @@ export default function Testimonials() {
                       </div>
 
                       <div>
-                        <h5 className="text-lg font-bold font-figtree text-[#0B1F3B] leading-tight">
+                        <h3 className="text-lg font-bold font-figtree text-[#0B1F3B] leading-tight">
                           {t.name}
-                        </h5>
+                        </h3>
                         <p className="text-sm text-slate-500 mt-0.5">{t.desig}</p>
                       </div>
                     </div>
 
                     {/* Stars */}
-                    <div className="flex gap-1 text-amber-400 text-2xl sm:text-3xl mt-1">
-                      {"★".repeat(t.rating)}
+                    <div
+                      className="flex gap-1 text-amber-500 text-2xl sm:text-3xl mt-1"
+                      role="img"
+                      aria-label={`${t.rating} out of 5 stars`}
+                    >
+                      <span aria-hidden="true">{"★".repeat(t.rating)}</span>
                     </div>
                   </div>
 

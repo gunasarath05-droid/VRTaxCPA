@@ -54,12 +54,13 @@ export default function TermsOfServicePage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                3. Client Responsibilities &amp; Accuracy of Information
+                3. Client Responsibilities &amp; Secure Document Submission via TaxDome
               </h2>
               <p>
                 Accurate tax preparation and accounting depend entirely upon complete, accurate, and timely documentation provided by the client. Clients are responsible for:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-slate-700 mt-2">
+                <li><strong>Exclusive Use of TaxDome Portal:</strong> For confidentiality and data security, we do not permit or collect tax organizers or sensitive financial documents through this public website. All client organizers, tax forms, financial records, and confidential communications must be uploaded exclusively through our secure <strong>TaxDome Client Portal</strong>.</li>
                 <li>Providing all relevant tax forms, receipts, financial records, and disclosures before agreed deadlines.</li>
                 <li>Maintaining appropriate supporting documentation in accordance with IRS record-retention requirements.</li>
                 <li>Reviewing all completed tax returns and financial filings prior to signing electronic authorization (Form 8879).</li>
@@ -77,7 +78,16 @@ export default function TermsOfServicePage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                5. Governing Law
+                5. Use of Third-Party Service Providers
+              </h2>
+              <p>
+                To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers. These providers assist with functions such as tax preparation software, document storage (including TaxDome), e-signature processing, payroll systems, and secure client communication. All third-party tools are selected for their security standards and are used solely to support the services you have engaged us for.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
+                6. Governing Law
               </h2>
               <p>
                 These Terms of Service and all related engagements are governed by and construed in accordance with the laws of the State of Texas and applicable United States federal law, without regard to conflict of law principles.
@@ -86,7 +96,7 @@ export default function TermsOfServicePage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                6. Contact Information
+                7. Contact Information
               </h2>
               <p>
                 For questions regarding these Terms of Service, please reach out to:

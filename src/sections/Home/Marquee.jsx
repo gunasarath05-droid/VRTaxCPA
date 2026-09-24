@@ -22,9 +22,18 @@ export default function Marquee() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      aria-label="Firm specializations"
       className="py-3.5 overflow-hidden relative z-20 bg-[#0B1F3B] border-y border-white/10"
     >
-      <div className="marquee-container flex">
+      <span className="sr-only">
+        Core specialties: {marqueeItems.join(", ")}
+      </span>
+      <div
+        className="marquee-container flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d3d663]"
+        tabIndex={0}
+        aria-hidden="true"
+        title="Focus or hover to pause ticker"
+      >
         <div className="marquee-content flex gap-8 sm:gap-10 items-center">
           {repeatedItems.map((item, index) => (
             <div key={index} className="flex items-center gap-6 sm:gap-8">

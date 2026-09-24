@@ -3,22 +3,36 @@
 import { motion } from "framer-motion";
 import { FiMapPin, FiPhone, FiMail, FiClock } from "react-icons/fi";
 import { FaInstagram, FaFacebookF, FaLinkedinIn, FaYelp } from "react-icons/fa";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export default function OfficeDetails() {
+  const { contactInfo, socialLinks } = useSiteData();
+
   const office = {
-    title: "VR Tax CPA LLC — Irving Office",
-    address: "3035 Ivy Hill Lane, Irving, TX 75063",
-    phone: "+1 (469) 471-6580",
-    email: "info@vrtaxcpa.com",
-    hours: "Mon–Fri: 9:00 AM – 5:30 PM CST",
+    title: contactInfo?.officeTitle || "VR Tax CPA LLC — Irving Office",
+    address: contactInfo?.address || "3035 Ivy Hill Lane, Irving, TX 75063",
+    phone: contactInfo?.phone || "+1 (469) 471-6580",
+    phoneRaw: contactInfo?.phoneRaw || "+14694716580",
+    email: contactInfo?.email || "info@vrtaxcpa.com",
+    hours: contactInfo?.hours || "Mon–Fri: 9:00 AM – 5:30 PM CST",
+    mapUrl: contactInfo?.mapUrl || "https://maps.google.com/maps?q=3035+Ivy+Hill+Lane,+Irving,+TX+75063&t=&z=15&ie=UTF8&iwloc=&output=embed",
   };
 
-  const socials = [
-    { name: "Instagram", icon: <FaInstagram />, href: "https://instagram.com/vstaxcpa" },
-    { name: "Facebook", icon: <FaFacebookF />, href: "https://facebook.com/Vstaxcpallc" },
-    { name: "LinkedIn", icon: <FaLinkedinIn />, href: "https://linkedin.com/company/vstaxcpa" },
-    { name: "Yelp", icon: <FaYelp />, href: "https://yelp.com/biz/vs-tax-cpa" },
-  ];
+  const socials = socialLinks?.length
+    ? socialLinks.filter((s) => s.enabled !== false).map((s) => {
+        let icon = <FaInstagram />;
+        const lower = s.name?.toLowerCase() || "";
+        if (lower.includes("facebook")) icon = <FaFacebookF />;
+        else if (lower.includes("linkedin")) icon = <FaLinkedinIn />;
+        else if (lower.includes("yelp")) icon = <FaYelp />;
+        return { name: s.name, icon, href: s.url };
+      })
+    : [
+        { name: "Instagram", icon: <FaInstagram />, href: "https://instagram.com/vstaxcpa" },
+        { name: "Facebook", icon: <FaFacebookF />, href: "https://facebook.com/Vstaxcpallc" },
+        { name: "LinkedIn", icon: <FaLinkedinIn />, href: "https://linkedin.com/company/vstaxcpa" },
+        { name: "Yelp", icon: <FaYelp />, href: "https://yelp.com/biz/vs-tax-cpa" },
+      ];
 
   return (
     <section id="office" className="py-20 bg-[#F8FAFC]">
@@ -129,7 +143,7 @@ export default function OfficeDetails() {
             className="lg:col-span-7 rounded-3xl overflow-hidden border border-slate-200 shadow-xl min-h-[380px] relative bg-slate-100"
           >
             <iframe
-              src="https://maps.google.com/maps?q=3035+Ivy+Hill+Lane,+Irving,+TX+75063&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              src={office.mapUrl}
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: "380px" }}

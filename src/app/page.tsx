@@ -9,7 +9,7 @@ import Blog from "@/sections/Home/Blog";
 
 export default function Home() {
   return (
-    <main id="main-content" className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen">
       <Hero />
       <Marquee />
       <About />
@@ -18,6 +18,6 @@ export default function Home() {
       <Testimonials />
       <FAQHome />
       <Blog />
-    </main>
+    </div>
   );
 }

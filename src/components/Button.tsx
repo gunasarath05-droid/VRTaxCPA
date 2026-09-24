@@ -125,6 +125,7 @@ export default function Button({
           {content}
         </span>
         <span
+          aria-hidden="true"
           className={`absolute top-0 left-0 block -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${v.textHover} whitespace-nowrap`}
         >
           {content}
@@ -150,7 +151,7 @@ export default function Button({
     </>
   );
 
-  const baseClassName = `group/btn relative overflow-hidden inline-flex items-center justify-center rounded-full font-figtree transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer ${v.btn} ${s.btn} ${className}`;
+  const baseClassName = `group/btn relative overflow-hidden inline-flex items-center justify-center rounded-full font-figtree transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B] focus-visible:ring-offset-2 ${v.btn} ${s.btn} ${className}`;
 
   if (href) {
     return (

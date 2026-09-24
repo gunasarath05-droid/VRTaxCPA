@@ -155,10 +155,11 @@ export default function IndustriesWeServe({ industries }) {
                         {/* Pill Explore Button */}
                         <Link
                           href="/contact"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/40 bg-white/15 backdrop-blur-md text-white text-xs font-bold font-figtree hover:bg-[#d3d663] hover:text-[#0B1F3B] hover:border-[#d3d663] transition-all duration-300 shadow-md group/btn flex-shrink-0"
+                          aria-label={`Explore ${name} tax services`}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/40 bg-white/15 backdrop-blur-md text-white text-xs font-bold font-figtree hover:bg-[#d3d663] hover:text-[#0B1F3B] hover:border-[#d3d663] transition-all duration-300 shadow-md group/btn flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d3d663]"
                         >
                           <span>Explore</span>
-                          <FiArrowRight className="text-sm transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+                          <FiArrowRight className="text-sm transition-transform duration-300 group-hover/btn:translate-x-0.5" aria-hidden="true" />
                         </Link>
                       </div>
                     </div>

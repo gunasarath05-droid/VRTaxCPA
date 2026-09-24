@@ -118,6 +118,25 @@
   display: inline-flex;
   animation: marquee 35s linear infinite;
 }
+.marquee-container:hover .marquee-content,
+.marquee-container:focus-within .marquee-content {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  .marquee-content {
+    animation: none !important;
+  }
+  .tj-anim-spinner,
+  .tj-anim-move-var,
+  .tj-anim-move-hor,
+  .tj-zoom-in-out {
+    animation: none !important;
+  }
+}
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #F8FAFC; }
@@ -217,4 +236,29 @@ html.lenis, html.lenis body {
 
 .dropdown-scroll::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* ── Admin Dashboard Scrollbar ── */
+.admin-scroll {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(11, 31, 59, 0.18) transparent;
+}
+
+.admin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(11, 31, 59, 0.18);
+  border-radius: 9999px;
+}
+
+.admin-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 31, 59, 0.38);
 }

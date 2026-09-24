@@ -63,10 +63,13 @@ export default function DisclaimerPage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                4. Third-Party Links &amp; Tools
+                4. Third-Party Platforms, Links &amp; Tools
               </h2>
-              <p>
+              <p className="mb-3">
                 This website may contain links to external third-party websites or services. VR Tax CPA LLC does not control and is not responsible for the accuracy, content, or privacy policies of third-party platforms.
+              </p>
+              <p>
+                To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers (such as TaxDome for client portal and document management, tax preparation software, e-signature processing, and payroll systems). All confidential tax organizers, financial statements, and client documents are collected and handled exclusively through our secure TaxDome portal and are never uploaded directly to this public website.
               </p>
             </div>
 

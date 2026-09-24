@@ -4,8 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/Button";
 import { FiSend, FiCheck, FiChevronDown } from "react-icons/fi";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export default function ContactForm() {
+  const { addInquiry } = useSiteData();
   const [submitted, setSubmitted] = useState(false);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -30,19 +32,6 @@ export default function ContactForm() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Auto-hide thank you card after 4 seconds and reset
-  useEffect(() => {
-    let timer;
-    if (submitted) {
-      timer = setTimeout(() => {
-        setSubmitted(false);
-      }, 4000);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [submitted]);
-
   const services = [
     "Tax Compliance (Individual & Business Returns)",
     "Tax Planning & Strategic Advisory",
@@ -61,6 +50,9 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (addInquiry) {
+      addInquiry(form);
+    }
     setSubmitted(true);
     setForm({
       name: "",
@@ -100,7 +92,7 @@ export default function ContactForm() {
                 "Prompt Response & Dedicated Support",
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-[#0B1F3B] font-medium font-manrope">
-                  <span className="w-5 h-5 rounded-full bg-[#d3d663]/20 text-[#0B1F3B] flex items-center justify-center flex-shrink-0 text-[10px]">
+                  <span className="w-5 h-5 rounded-full bg-[#2D503B]/15 text-[#2D503B] flex items-center justify-center flex-shrink-0 text-[10px]" aria-hidden="true">
                     <FiCheck />
                   </span>
                   <span>{item}</span>
@@ -115,21 +107,32 @@ export default function ContactForm() {
               {submitted ? (
                 <motion.div
                   key="thank-you-card"
+                  role="status"
+                  aria-live="polite"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
                   className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-8 sm:p-14 text-center flex flex-col items-center gap-4 sm:gap-5 shadow-sm"
                 >
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B1F3B] flex items-center justify-center text-[#d3d663] text-2xl sm:text-3xl shadow-lg">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B1F3B] flex items-center justify-center text-[#d3d663] text-2xl sm:text-3xl shadow-lg" aria-hidden="true">
                     <FiCheck />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-extrabold font-figtree text-[#0B1F3B]">
                     Thank You for Reaching Out!
                   </h3>
                   <p className="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed font-manrope">
-                    Your consultation request has been received.
+                    Your consultation request has been received. Our advisory team will review your details and contact you promptly.
                   </p>
+                  <Button
+                    type="button"
+                    variant="dark"
+                    size="md"
+                    onClick={() => setSubmitted(false)}
+                    className="mt-2"
+                  >
+                    Submit Another Request
+                  </Button>
                 </motion.div>
               ) : (
                 <motion.form
@@ -144,30 +147,32 @@ export default function ContactForm() {
                 {/* Row 1: Name & Company */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="contact-full-name" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Full Name <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="contact-full-name"
                       type="text"
                       name="name"
                       value={form.name}
                       onChange={handleChange}
                       required
                       placeholder="e.g. John Smith"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="contact-company-name" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Company / Entity Name
                     </label>
                     <input
+                      id="contact-company-name"
                       type="text"
                       name="company"
                       value={form.company}
                       onChange={handleChange}
                       placeholder="e.g. Acme Ventures LLC (optional)"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                 </div>
@@ -175,50 +180,61 @@ export default function ContactForm() {
                 {/* Row 2: Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="contact-email-address" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Email Address <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="contact-email-address"
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
                       required
                       placeholder="e.g. john@example.com"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5 sm:gap-2">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="contact-phone-number" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Phone Number <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="contact-phone-number"
                       type="tel"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
                       required
                       placeholder="e.g. (469) 471-6580"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Service selector */}
                 <div className="flex flex-col gap-1.5 sm:gap-2 relative" ref={dropdownRef}>
-                  <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                  <label id="contact-service-label" htmlFor="contact-service-btn" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                     Service Needed
                   </label>
                   <button
+                    id="contact-service-btn"
                     type="button"
                     onClick={() => setServiceDropdownOpen((prev) => !prev)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") setServiceDropdownOpen(false);
+                      if (e.key === "ArrowDown" && !serviceDropdownOpen) {
+                        e.preventDefault();
+                        setServiceDropdownOpen(true);
+                      }
+                    }}
                     className={`w-full flex items-center justify-between bg-white border rounded-xl px-4 py-3 sm:py-3.5 text-sm text-left transition-all cursor-pointer shadow-xs ${
                       serviceDropdownOpen
-                        ? "border-[#d3d663] ring-2 ring-[#d3d663]/30"
+                        ? "border-[#0B1F3B] ring-2 ring-[#0B1F3B]/20"
                         : "border-slate-200 hover:border-slate-300"
                     }`}
                     aria-haspopup="listbox"
                     aria-expanded={serviceDropdownOpen}
+                    aria-controls="contact-service-listbox"
                   >
                     <span className={form.service ? "text-[#0B1F3B] font-semibold truncate" : "text-slate-400 font-normal"}>
                       {form.service || "Select a service category..."}
@@ -227,6 +243,7 @@ export default function ContactForm() {
                       className={`text-base text-slate-500 transition-transform duration-300 shrink-0 ml-2 ${
                         serviceDropdownOpen ? "rotate-180 text-[#0B1F3B]" : ""
                       }`}
+                      aria-hidden="true"
                     />
                   </button>
 
@@ -235,6 +252,7 @@ export default function ContactForm() {
                     name="service"
                     value={form.service}
                     tabIndex={-1}
+                    aria-hidden="true"
                     className="sr-only"
                     onChange={() => {}}
                   />
@@ -243,6 +261,8 @@ export default function ContactForm() {
                   <AnimatePresence>
                     {serviceDropdownOpen && (
                       <motion.div
+                        id="contact-service-listbox"
+                        aria-labelledby="contact-service-label"
                         data-lenis-prevent="true"
                         onWheel={(e) => e.stopPropagation()}
                         onTouchMove={(e) => e.stopPropagation()}
@@ -272,7 +292,7 @@ export default function ContactForm() {
                               }`}
                             >
                               <span className="truncate">{s}</span>
-                              {isSelected && <FiCheck className="text-base shrink-0 ml-2 text-[#d3d663]" />}
+                              {isSelected && <FiCheck className="text-base shrink-0 ml-2 text-[#d3d663]" aria-hidden="true" />}
                             </button>
                           );
                         })}
@@ -283,16 +303,17 @@ export default function ContactForm() {
 
                 {/* Message */}
                 <div className="flex flex-col gap-1.5 sm:gap-2">
-                  <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                  <label htmlFor="contact-message-body" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                     How Can We Help You? (Brief Description)
                   </label>
                   <textarea
+                    id="contact-message-body"
                     name="message"
                     value={form.message}
                     onChange={handleChange}
                     rows={4}
                     placeholder="Tell us a little about your tax situation, current deadlines, or what you'd like to discuss during our consultation..."
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all resize-none"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 sm:py-3.5 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all resize-none"
                   />
                 </div>
 

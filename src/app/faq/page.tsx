@@ -93,12 +93,13 @@ export default function FAQPage() {
           <div className="mt-8 max-w-xl mx-auto relative">
             <input
               type="text"
+              aria-label="Search frequently asked questions"
               placeholder="Search questions (e.g. S-Corp, IRS notice, payroll)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#d3d663] backdrop-blur-md text-sm font-manrope shadow-lg"
             />
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" size={18} />
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" size={18} aria-hidden="true" />
           </div>
         </div>
       </section>
@@ -108,10 +109,12 @@ export default function FAQPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-14">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-14" role="tablist" aria-label="FAQ categories">
             {faqCategories.map((cat) => (
               <button
                 key={cat.id}
+                role="tab"
+                aria-selected={activeCategory === cat.id}
                 onClick={() => {
                   setActiveCategory(cat.id);
                   setExpandedIdx(null);
@@ -147,12 +150,15 @@ export default function FAQPage() {
                     }`}
                   >
                     <button
+                      id={`faq-btn-${idx}`}
+                      aria-expanded={isExpanded}
+                      aria-controls={`faq-answer-${idx}`}
                       onClick={() => toggleFAQ(idx)}
-                      className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer transition-colors group"
+                      className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer transition-colors group focus-visible:ring-2 focus-visible:ring-[#0B1F3B] focus-visible:outline-none"
                     >
                       <div className="flex flex-col items-start gap-1.5 pr-4">
                         <span className="text-sm sm:text-base font-bold text-[#111815] font-figtree group-hover:text-[#0B1F3B] transition-colors flex items-center gap-3">
-                          <FiHelpCircle className="text-[#B8BA4A] flex-shrink-0 hidden sm:block" size={20} />
+                          <FiHelpCircle className="text-[#2D503B] flex-shrink-0 hidden sm:block" size={20} aria-hidden="true" />
                           {faq.q}
                         </span>
                       </div>
@@ -160,6 +166,7 @@ export default function FAQPage() {
                         className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                           isExpanded ? "bg-[#0B1F3B] text-white" : "bg-slate-100 text-[#111815] group-hover:bg-slate-200"
                         }`}
+                        aria-hidden="true"
                       >
                         {isExpanded ? <FiMinus size={14} /> : <FiPlus size={14} />}
                       </span>
@@ -168,12 +175,15 @@ export default function FAQPage() {
                     <AnimatePresence initial={false}>
                       {isExpanded && (
                         <motion.div
+                          id={`faq-answer-${idx}`}
+                          role="region"
+                          aria-labelledby={`faq-btn-${idx}`}
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                         >
-                          <div className="p-5 sm:p-6 pt-0 text-xs sm:text-sm text-[#66706A] leading-relaxed font-manrope border-t border-slate-100 bg-slate-50/40">
+                          <div className="p-5 sm:p-6 pt-0 text-xs sm:text-sm text-[#334155] leading-relaxed font-manrope border-t border-slate-100 bg-slate-50/40">
                             {faq.a}
                           </div>
                         </motion.div>

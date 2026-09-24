@@ -9,9 +9,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import darkGreenBg from "@/assets/images/darkbg.png";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export default function TeamMembers() {
-  const team = [
+  const { team: dynamicTeam } = useSiteData();
+  const team = dynamicTeam?.length ? dynamicTeam : [
     {
       name: "Eleanor Pena",
       role: "Operations Head",

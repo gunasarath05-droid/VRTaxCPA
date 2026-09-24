@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Logo1 from "../../public/Logo1.png";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYelp } from "react-icons/fa";
@@ -115,6 +116,20 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Escape key handler to close drawers and dropdowns
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        setIsSidebarOpen(false);
+        setIsServicesOpen(false);
+        setIsResourcesOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsServicesOpen(false);
@@ -122,6 +137,7 @@ export default function Header() {
   }, [pathname]);
 
   const isActive = (item) => {
+    if (!pathname) return false;
     if (item.hasDropdown === "services") return pathname.startsWith("/services");
     if (item.hasDropdown === "resources") {
       return pathname.startsWith("/blog") || pathname.startsWith("/faq");
@@ -131,6 +147,8 @@ export default function Header() {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
+
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>
@@ -146,11 +164,11 @@ export default function Header() {
             {/* Left: Office Address & Hours */}
             <div className="hidden md:flex items-center gap-6">
               <span className="flex items-center gap-1.5 text-slate-900 ">
-                <FiMapPin className="text-[#d3d663] text-xs shrink-0" aria-hidden="true" />
+                <FiMapPin className="text-[#2D503B] text-xs shrink-0" aria-hidden="true" />
                 <span>3035 Ivy Hill Lane, Irving, TX 75063</span>
               </span>
               <span className="flex items-center gap-1.5 text-slate-900">
-                <FiClock className="text-[#d3d663] text-xs shrink-0" aria-hidden="true" />
+                <FiClock className="text-[#2D503B] text-xs shrink-0" aria-hidden="true" />
                 <span>Mon–Fri: 9:00 AM – 5:30 PM CST</span>
               </span>
             </div>
@@ -159,28 +177,28 @@ export default function Header() {
             <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 sm:gap-6">
               <a
                 href="tel:+14694716580"
-                className="flex items-center gap-1.5 text-slate-900 hover:text-[#d3d663] transition-colors font-semibold"
+                className="flex items-center gap-1.5 text-slate-900 hover:text-[#2D503B] transition-colors font-semibold"
                 aria-label="Call VR Tax CPA LLC at (469) 471-6580"
               >
-                <FiPhone className="text-[#d3d663] text-xs shrink-0" aria-hidden="true" />
+                <FiPhone className="text-[#2D503B] text-xs shrink-0" aria-hidden="true" />
                 <span>(469) 471-6580</span>
               </a>
 
               <a
                 href="mailto:info@vrtaxcpa.com"
-                className="hidden sm:flex items-center gap-1.5 text-slate-900 hover:text-[#d3d663] transition-colors font-semibold"
+                className="hidden sm:flex items-center gap-1.5 text-slate-900 hover:text-[#2D503B] transition-colors font-semibold"
                 aria-label="Email VR Tax CPA LLC at info@vrtaxcpa.com"
               >
-                <FiMail className="text-[#d3d663] text-xs shrink-0" aria-hidden="true" />
+                <FiMail className="text-[#2D503B] text-xs shrink-0" aria-hidden="true" />
                 <span>info@vrtaxcpa.com</span>
               </a>
 
               {/* Social icons */}
-              <div className="hidden lg:flex items-center gap-3 pl-2 border-l border-white/10">
-                <a href="https://instagram.com/vstaxcpa" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-[#d3d663] transition-colors"><FaInstagram size={18} /></a>
-                <a href="https://facebook.com/Vstaxcpallc" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-[#d3d663] transition-colors"><FaFacebookF size={16} /></a>
-                <a href="https://linkedin.com/company/vstaxcpa" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-[#d3d663] transition-colors"><FaLinkedinIn size={16} /></a>
-                <a href="https://yelp.com/biz/vs-tax-cpa" target="_blank" rel="noreferrer" aria-label="Yelp" className="hover:text-[#d3d663] transition-colors"><FaYelp size={16} /></a>
+              <div className="hidden lg:flex items-center gap-3 pl-2 border-l border-slate-200">
+                <a href="https://instagram.com/vstaxcpa" target="_blank" rel="noreferrer" aria-label="Instagram" className="text-slate-700 hover:text-[#2D503B] transition-colors"><FaInstagram size={18} /></a>
+                <a href="https://facebook.com/Vstaxcpallc" target="_blank" rel="noreferrer" aria-label="Facebook" className="text-slate-700 hover:text-[#2D503B] transition-colors"><FaFacebookF size={16} /></a>
+                <a href="https://linkedin.com/company/vstaxcpa" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-slate-700 hover:text-[#2D503B] transition-colors"><FaLinkedinIn size={16} /></a>
+                <a href="https://yelp.com/biz/vs-tax-cpa" target="_blank" rel="noreferrer" aria-label="Yelp" className="text-slate-700 hover:text-[#2D503B] transition-colors"><FaYelp size={16} /></a>
               </div>
             </div>
           </div>
@@ -201,7 +219,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex-shrink-0 flex items-center" aria-label="VR Tax CPA LLC Home">
               <Image
-                src="/Logo1.png"
+                src={Logo1}
                 alt="VR Tax CPA LLC — Professional Tax & Advisory Services"
                 width={260}
                 height={80}
@@ -489,6 +507,7 @@ export default function Header() {
         className={`fixed top-0 right-0 h-full w-[85vw] max-w-[340px] bg-[#0B1F3B] text-white border-l border-white/10 z-[60] shadow-2xl flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         role="dialog"
+        aria-modal="true"
         aria-label="Mobile Navigation Menu"
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
@@ -660,6 +679,7 @@ export default function Header() {
         className={`fixed top-0 right-0 h-full w-[380px] bg-[#0B1F3B] text-white border-l border-white/10 z-50 shadow-2xl flex flex-col transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
           }`}
         role="dialog"
+        aria-modal="true"
         aria-label="Firm Overview and Contacts"
       >
         <div className="flex items-center justify-between px-8 py-5 border-b border-white/10">

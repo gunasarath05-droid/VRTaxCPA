@@ -4,19 +4,86 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/Button";
-import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa";
+import { FaLinkedinIn, FaInstagram, FaFacebookF, FaYelp } from "react-icons/fa";
 import { FiCheckCircle, FiAward, FiArrowRight } from "react-icons/fi";
 import ceo from "../../assets/images/ceo.jpeg";
+import { useSiteData } from "@/context/SiteDataContext";
+
+// Helper to render text with highlighted words inside double quotes ("word") or **bold**
+function renderHighlightedText(text) {
+  if (!text) return null;
+  const regex = /"([^"]+)"|\*\*([^*]+)\*\*/g;
+  const elements = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      elements.push(text.substring(lastIndex, match.index));
+    }
+    const boldWord = match[1] || match[2];
+    elements.push(
+      <strong key={match.index} className="text-[#0B1F3B] font-figtree font-bold">
+        {boldWord}
+      </strong>
+    );
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    elements.push(text.substring(lastIndex));
+  }
+
+  return elements.length > 0 ? elements : text;
+}
 
 export default function Founder() {
-  const credentials = [
-    "Licensed CPA — Texas State Board of Public Accountancy",
-    "Chartered Accountant (CA) — Institute of Chartered Accountants of India (ICAI)",
-    "13 Years of Comprehensive Accounting & Financial Management Experience",
-    "10 Years of Dedicated Tax Planning, Compliance & Advisory Specialization",
-    "Deep Expertise in Business Tax Strategy, Entity Structuring & IRS Relations",
-    "Active Volunteer & Community Contributor at ISKCON Dallas",
+  const { founder, socialLinks } = useSiteData();
+  const founderData = founder || {};
+
+  const name = founderData.name || "Vetha Ram, CPA";
+  const displayName = founderData.displayName || "Vetha Ram";
+  const title = founderData.title || "CPA · CA · Founder & CEO";
+  const expYears = founderData.experienceYears || 13;
+  const expLabel = founderData.experienceLabel || "Years Experience";
+
+  // Use common socialLinks from admin panel filtered by founder's active social selection
+  const activeSocialIds = founderData.activeSocials || ["instagram", "facebook", "linkedin"];
+
+  const founderSocials = socialLinks?.length
+    ? socialLinks
+        .filter((s) => {
+          if (s.enabled === false) return false;
+          const id = s.id || s.name?.toLowerCase();
+          return activeSocialIds.includes(id);
+        })
+        .map((s) => {
+          let icon = <FaInstagram size={14} />;
+          const lower = s.name?.toLowerCase() || "";
+          if (lower.includes("facebook")) icon = <FaFacebookF size={14} />;
+          else if (lower.includes("linkedin")) icon = <FaLinkedinIn size={14} />;
+          else if (lower.includes("yelp")) icon = <FaYelp size={14} />;
+          return { href: s.url, icon, label: s.name };
+        })
+    : [
+        { href: "https://instagram.com/vstaxcpa", icon: <FaInstagram size={14} />, label: "Instagram" },
+        { href: "https://facebook.com/Vstaxcpallc", icon: <FaFacebookF size={14} />, label: "Facebook" },
+        { href: "https://linkedin.com/company/vstaxcpa", icon: <FaLinkedinIn size={14} />, label: "LinkedIn" },
+      ];
+
+  const defaultParagraphs = [
+    `"Vetha Ram, CPA", is the Founder and CEO of "VR Tax CPA LLC". With "13 years of comprehensive accounting experience" including "10 years of specialized tax expertise", she partners with business owners and individuals to navigate tax complexities with precision, clarity, and peace of mind.`,
+    `Her dual qualification as a "Texas State Board Licensed CPA" and a "Chartered Accountant (India)" brings a rigorous, global analytical perspective to every client engagement. She treats each client's business with the dedication and attention of a trusted partner—never as a file number or transaction. Every relationship is built on integrity, accuracy, and genuine care.`,
+    `Guided by the principle of serving with unwavering dedication, her commitment is simple: to lift financial stress so clients can focus wholeheartedly on scaling their businesses and enjoying their lives.`
   ];
+
+  const defaultQuote = `Outside the firm, she is an active volunteer at the ISKCON Dallas Temple and cherishes spending time cooking, traveling, and being with her husband and their two boys. For those seeking an advisor who truly listens and stands by their side year-round, her doors are always open.`;
+
+  const paragraphs = (founderData.paragraphs && founderData.paragraphs.length > 0)
+    ? founderData.paragraphs
+    : defaultParagraphs;
+
+  const quote = founderData.quote !== undefined ? founderData.quote : defaultQuote;
 
   return (
     <section className="py-8 md:py-16 bg-white relative overflow-hidden">
@@ -32,7 +99,7 @@ export default function Founder() {
             Founder &amp; Leadership
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1F3B] leading-tight font-figtree tracking-tight">
-            Meet Vetha Ram, CPA
+            Meet {displayName}, CPA
           </h2>
         </div>
 
@@ -51,24 +118,32 @@ export default function Founder() {
 
               {/* Main CEO Photo Card */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] w-full border-4 border-white">
-                <Image
-                  src={ceo}
-                  alt="Vetha Ram, CPA — Founder & CEO of VR Tax CPA LLC"
-                  fill
-                  className="object-cover object-top"
-                  priority
-                  sizes="(max-width: 640px) 100vw, 380px"
-                />
+                {typeof founderData.image === "string" && founderData.image.startsWith("data:") ? (
+                  <img
+                    src={founderData.image}
+                    alt={`${displayName} — ${title}`}
+                    className="w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <Image
+                    src={founderData.image || ceo}
+                    alt={`${displayName} — ${title}`}
+                    fill
+                    className="object-cover object-top"
+                    priority
+                    sizes="(max-width: 640px) 100vw, 380px"
+                  />
+                )}
                 {/* Bottom gradient overlay */}
                 <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-[#071526]/95 to-transparent z-10" />
                 {/* Name overlay */}
                 <div className="absolute bottom-0 left-0 right-0 z-20 p-5 sm:p-6">
-                  <p className="text-white font-extrabold text-base sm:text-lg font-figtree leading-tight">Vetha Ram</p>
-                  <p className="text-[#d3d663] text-xs font-bold uppercase tracking-wider mt-0.5 font-figtree">CPA · CA · Founder &amp; CEO</p>
+                  <p className="text-white font-extrabold text-base sm:text-lg font-figtree leading-tight">{displayName}</p>
+                  <p className="text-[#d3d663] text-xs font-bold uppercase tracking-wider mt-0.5 font-figtree">{title}</p>
                 </div>
               </div>
 
-              {/* Floating: 13 Years Experience badge */}
+              {/* Floating: Experience badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -76,17 +151,13 @@ export default function Founder() {
                 transition={{ delay: 0.3 }}
                 className="absolute -top-3 -right-2 sm:-top-4 sm:-right-6 bg-[#0B1F3B] text-white rounded-2xl p-3 sm:p-5 shadow-2xl border-4 border-[#d3d663] text-center min-w-[80px] sm:min-w-[100px] z-20"
               >
-                <p className="text-2xl sm:text-3xl font-extrabold font-figtree leading-none text-[#d3d663]">13</p>
-                <p className="text-[10px] font-bold uppercase tracking-wider leading-tight mt-1 text-slate-200">Years<br />Experience</p>
+                <p className="text-2xl sm:text-3xl font-extrabold font-figtree leading-none text-[#d3d663]">{expYears}</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider leading-tight mt-1 text-slate-200">{expLabel.split(" ")[0]}<br />{expLabel.split(" ").slice(1).join(" ")}</p>
               </motion.div>
 
               {/* Social Links */}
               <div className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20">
-                {[
-                  { href: "https://instagram.com/vstaxcpa", icon: <FaInstagram size={14} />, label: "Instagram" },
-                  { href: "https://facebook.com/Vstaxcpallc", icon: <FaFacebookF size={14} />, label: "Facebook" },
-                  { href: "https://linkedin.com/company/vstaxcpa", icon: <FaLinkedinIn size={14} />, label: "LinkedIn" },
-                ].map(({ href, icon, label }) => (
+                {founderSocials.map(({ href, icon, label }) => (
                   <a
                     key={label}
                     href={href}
@@ -109,18 +180,16 @@ export default function Founder() {
             {/* Intro */}
             <div className="flex flex-col gap-3 sm:gap-4">
               <div className="space-y-3 sm:space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed font-manrope">
-                <p>
-                  <strong className="text-[#0B1F3B] font-figtree">Vetha Ram, CPA</strong>, is the Founder and CEO of <strong className="text-[#0B1F3B] font-figtree">VR Tax CPA LLC</strong>. With <strong className="text-[#0B1F3B] font-figtree">13 years of comprehensive accounting experience</strong> including <strong className="text-[#0B1F3B] font-figtree">10 years of specialized tax expertise</strong>, she partners with business owners and individuals to navigate tax complexities with precision, clarity, and peace of mind.
-                </p>
-                <p>
-                  Her dual qualification as a <strong className="text-[#0B1F3B]">Texas State Board Licensed CPA</strong> and a <strong className="text-[#0B1F3B]">Chartered Accountant (India)</strong> brings a rigorous, global analytical perspective to every client engagement. She treats each client&apos;s business with the dedication and attention of a trusted partner&mdash;never as a file number or transaction. Every relationship is built on integrity, accuracy, and genuine care.
-                </p>
-                <p>
-                  Guided by the principle of serving with unwavering dedication, her commitment is simple: to lift financial stress so clients can focus wholeheartedly on scaling their businesses and enjoying their lives.
-                </p>
-                <blockquote className="italic text-slate-700 text-sm border-l-2 border-[#d3d663] pl-4 py-1.5 font-manrope bg-slate-50/80 rounded-r-lg">
-                  Outside the firm, she is an active volunteer at the ISKCON Dallas Temple and cherishes spending time cooking, traveling, and being with her husband and their two boys. For those seeking an advisor who truly listens and stands by their side year-round, her doors are always open.
-                </blockquote>
+                {paragraphs.map((para, idx) => (
+                  <p key={idx}>
+                    {renderHighlightedText(para)}
+                  </p>
+                ))}
+                {quote && (
+                  <blockquote className="italic text-slate-700 text-sm border-l-2 border-[#d3d663] pl-4 py-1.5 font-manrope bg-slate-50/80 rounded-r-lg">
+                    {renderHighlightedText(quote)}
+                  </blockquote>
+                )}
               </div>
             </div>
 

@@ -8,12 +8,15 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { FiArrowRight, FiClock, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Button from "@/components/Button";
 import { blogPosts } from "@/constants/blogData";
+import { useSiteData } from "@/context/SiteDataContext";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function Blog() {
+  const { blogs } = useSiteData();
+  const postsToRender = blogs?.length ? blogs : blogPosts;
   return (
     <section id="blog" className="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-[#E2E8F0]">
       <style jsx global>{`
@@ -121,10 +124,14 @@ export default function Blog() {
           }}
           className="blog-swiper"
         >
-          {blogPosts.map((post, idx) => (
+          {postsToRender.map((post, idx) => (
             <SwiperSlide key={post.slug || idx} className="!h-auto pb-2">
               <article className="group bg-white rounded-3xl overflow-hidden border border-[#E2E8F0] shadow-2xs hover:shadow-xl hover:border-[#d3d663]/50 duration-300 transition-all flex flex-col justify-between h-full">
-                <Link href={`/blog/${post.slug}`} className="block w-full">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  aria-label={`Read article: ${post.title}`}
+                  className="block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B] rounded-3xl"
+                >
                   {/* Thumbnail Image Container */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F8FAFC]">
                     <Image
@@ -142,34 +149,31 @@ export default function Blog() {
 
                   {/* Card Content */}
                   <div className="p-5 sm:p-6 flex flex-col gap-3">
-                    <div className="flex items-center gap-3 text-xs text-[#66706A] font-manrope">
+                    <div className="flex items-center gap-3 text-xs text-[#334155] font-manrope">
                       <span>{post.date}</span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <FiClock size={12} />
+                        <FiClock size={12} aria-hidden="true" />
                         {post.readTime}
                       </span>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold font-figtree text-[#0B1F3B] leading-snug tracking-tight group-hover:text-[#d3d663] transition-colors line-clamp-2">
+                    <h3 className="text-base sm:text-lg font-bold font-figtree text-[#0B1F3B] leading-snug tracking-tight group-hover:text-[#2D503B] transition-colors line-clamp-2">
                       {post.title}
                     </h3>
 
-                    <p className="text-[#66706A] text-xs sm:text-sm leading-relaxed font-manrope line-clamp-2">
+                    <p className="text-[#334155] text-xs sm:text-sm leading-relaxed font-manrope line-clamp-2">
                       {post.summary}
                     </p>
                   </div>
                 </Link>
 
-                {/* Card Footer Link */}
-                <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 mt-auto">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B1F3B] group-hover:text-[#d3d663] font-figtree transition-colors"
-                  >
+                {/* Card Footer Link — Visual Only to avoid duplicate tab stops */}
+                <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 mt-auto" aria-hidden="true">
+                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B1F3B] group-hover:text-[#2D503B] font-figtree transition-colors">
                     <span>Read Article</span>
                     <FiArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
+                  </span>
                 </div>
               </article>
             </SwiperSlide>

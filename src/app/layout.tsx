@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/ScrollToTop";
+import { SiteDataProvider } from "@/context/SiteDataContext";
 import { Figtree, Manrope } from "next/font/google";
 
 const figtree = Figtree({
@@ -58,16 +59,20 @@ export default function RootLayout({
         {/* ADA Accessible Skip to Content Link */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only bg-[#0B1F3B] text-[#C5A880] border border-[#C5A880] font-bold rounded-lg shadow-2xl top-4 left-4 z-[9999]"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2.5 focus:bg-[#0B1F3B] focus:text-[#d3d663] focus:border focus:border-[#d3d663] focus:rounded-xl focus:shadow-2xl focus:font-bold focus:outline-none focus:ring-2 focus:ring-[#d3d663]"
         >
           Skip to main content
         </a>
-        <SmoothScroll>
-          <Header />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </SmoothScroll>
+        <SiteDataProvider>
+          <SmoothScroll>
+            <Header />
+            <main id="main-content" tabIndex={-1} className="outline-none min-h-[60vh]">
+              {children}
+            </main>
+            <Footer />
+            <ScrollToTop />
+          </SmoothScroll>
+        </SiteDataProvider>
       </body>
     </html>
   );

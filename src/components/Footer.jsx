@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYelp } from "react-icons/fa";
 import { FiPhone, FiMail, FiMapPin, FiLock, FiExternalLink } from "react-icons/fi";
+import { useSiteData } from "@/context/SiteDataContext";
+import Logo1 from "../../public/Logo1.png";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -41,6 +44,29 @@ const socials = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const { contactInfo, socialLinks } = useSiteData();
+
+  if (pathname?.startsWith("/admin")) return null;
+
+  const activeSocials = socialLinks?.length
+    ? socialLinks.filter((s) => s.enabled !== false).map((s) => {
+        let icon = <FaInstagram className="text-sm" />;
+        const lower = s.name?.toLowerCase() || "";
+        if (lower.includes("facebook")) icon = <FaFacebookF className="text-sm" />;
+        else if (lower.includes("linkedin")) icon = <FaLinkedinIn className="text-sm" />;
+        else if (lower.includes("yelp")) icon = <FaYelp className="text-sm" />;
+        return { icon, href: s.url, label: s.name };
+      })
+    : socials;
+
+  const addressText = contactInfo?.address || "3035 Ivy Hill Lane, Irving, TX 75063";
+  const phoneText = contactInfo?.phone || "(469) 471-6580";
+  const phoneRaw = contactInfo?.phoneRaw || "+14694716580";
+  const emailText = contactInfo?.email || "info@vrtaxcpa.com";
+  const hoursText = contactInfo?.hours || "Mon–Fri: 9:00 AM – 5:30 PM CST";
+  const officeTitle = contactInfo?.officeTitle || "Irving Office";
+
   return (
     <footer className="bg-[#071526] text-slate-400 text-sm border-t border-white/10 pt-14 pb-8 font-manrope">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,7 +78,7 @@ export default function Footer() {
           <div className="lg:col-span-4 flex flex-col gap-4">
             <Link href="/" className="inline-block" aria-label="VR Tax CPA LLC Home">
               <Image
-                src="/Logo1.png"
+                src={Logo1}
                 alt="VR Tax CPA LLC"
                 width={180}
                 height={50}
@@ -70,7 +96,7 @@ export default function Footer() {
             </p>
 
             <div className="flex items-center gap-2.5 pt-1">
-              {socials.map((s, i) => (
+              {activeSocials.map((s, i) => (
                 <a
                   key={i}
                   href={s.href}
@@ -120,33 +146,33 @@ export default function Footer() {
           {/* Col 4: Contact & Office (3 cols) */}
           <div className="lg:col-span-3">
             <h4 className="text-white font-bold text-sm mb-3 font-figtree">
-              Irving Office
+              {officeTitle}
             </h4>
             <div className="space-y-2.5 text-xs sm:text-sm">
               <div className="flex items-start gap-2.5">
                 <FiMapPin className="text-[#d3d663] text-sm shrink-0 mt-0.5" />
                 <span className="text-slate-400 leading-snug">
-                  3035 Ivy Hill Lane, Irving, TX 75063
+                  {addressText}
                 </span>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <FiPhone className="text-[#d3d663] text-sm shrink-0 mt-0.5" />
-                <a href="tel:+14694716580" className="text-slate-300 hover:text-[#d3d663] transition-colors">
-                  (469) 471-6580
+                <a href={`tel:${phoneRaw}`} className="text-slate-300 hover:text-[#d3d663] transition-colors">
+                  {phoneText}
                 </a>
               </div>
 
               <div className="flex items-start gap-2.5">
                 <FiMail className="text-[#d3d663] text-sm shrink-0 mt-0.5" />
-                <a href="mailto:info@vrtaxcpa.com" className="text-slate-300 hover:text-[#d3d663] transition-colors break-all">
-                  info@vrtaxcpa.com
+                <a href={`mailto:${emailText}`} className="text-slate-300 hover:text-[#d3d663] transition-colors break-all">
+                  {emailText}
                 </a>
               </div>
 
               <div className="pt-2">
                 <span className="text-[11px] text-slate-400 block font-medium">Business Hours:</span>
-                <span className="text-[11px] text-slate-300">Mon–Fri: 9:00 AM – 5:30 PM CST</span>
+                <span className="text-[11px] text-slate-300">{hoursText}</span>
               </div>
             </div>
           </div>

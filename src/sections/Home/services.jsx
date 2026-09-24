@@ -185,8 +185,19 @@ export default function Services() {
             return (
               <div
                 key={index}
+                tabIndex={0}
+                role="region"
+                aria-label={`${card.title} service card`}
+                aria-expanded={isActive}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`relative rounded-3xl overflow-hidden cursor-pointer bg-white border ${
+                onFocus={() => setActiveIndex(index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveIndex(index);
+                  }
+                }}
+                className={`relative rounded-3xl overflow-hidden cursor-pointer bg-white border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B] ${
                   isActive
                     ? "border-[#d3d663] shadow-[0_20px_45px_rgba(0,0,0,0.08)]"
                     : "border-[#E4E8E4] shadow-2xs hover:border-[#d3d663]/60"
@@ -202,6 +213,7 @@ export default function Services() {
                   className={`absolute inset-0 transition-opacity duration-[250ms] p-3.5 ${
                     isActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
                   }`}
+                  aria-hidden={isActive}
                 >
                   <span className="absolute top-4 right-3.5 text-xs font-bold font-mono text-[#66706A]">
                     {card.no}
@@ -210,7 +222,8 @@ export default function Services() {
                   <div className="absolute bottom-[98px] left-3.5 w-18 h-18 flex items-center justify-center shrink-0 p-2 overflow-hidden">
                     <Image
                       src={card.iconImg}
-                      alt={card.title}
+                      alt=""
+                      aria-hidden="true"
                       width={40}
                       height={40}
                       className="w-full h-full object-contain"
@@ -227,12 +240,13 @@ export default function Services() {
                   className={`absolute inset-0 flex flex-row transition-opacity duration-[150ms] p-5 ${
                     isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                   }`}
+                  aria-hidden={!isActive}
                 >
                   {/* Left: Illustration / Image */}
                   <div className="relative w-[44%] shrink-0 overflow-hidden flex items-center justify-center">
                     <Image
                       src={card.image}
-                      alt={card.title}
+                      alt={`${card.title} illustration`}
                       fill
                       sizes="300px"
                       className="object-contain p-3"
@@ -248,7 +262,8 @@ export default function Services() {
                     <div className="w-24 h-24 flex items-center justify-center shrink-0 overflow-hidden">
                       <Image
                         src={card.iconImg}
-                        alt={card.title}
+                        alt=""
+                        aria-hidden="true"
                         width={90}
                         height={90}
                         className="w-full h-full object-contain"
@@ -259,16 +274,18 @@ export default function Services() {
                       {card.title}
                     </h3>
 
-                    <p className="text-sm text-[#66706A] leading-relaxed line-clamp-3 font-manrope">
+                    <p className="text-sm text-[#334155] leading-relaxed line-clamp-3 font-manrope">
                       {card.desc}
                     </p>
 
                     <Link
                       href={`/services/${card.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-bold text-[#0B1F3B] font-figtree hover:text-[#d3d663] transition-colors duration-200 pt-1"
+                      tabIndex={isActive ? 0 : -1}
+                      aria-label={`Learn more about ${card.title}`}
+                      className="inline-flex items-center gap-2 text-sm font-bold text-[#0B1F3B] font-figtree hover:text-[#2D503B] transition-colors duration-200 pt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1F3B] rounded-md"
                     >
                       <span>Learn More</span>
-                      <FiArrowRight size={14} />
+                      <FiArrowRight size={14} aria-hidden="true" />
                     </Link>
                   </div>
                 </div>

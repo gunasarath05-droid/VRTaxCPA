@@ -52,6 +52,7 @@ export default function Hero() {
   });
 
   // Close dropdown on outside click
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -61,19 +62,6 @@ export default function Hero() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Auto-dismiss the success card after 4 seconds and return to the form
-  useEffect(() => {
-    let timer;
-    if (submitted) {
-      timer = setTimeout(() => {
-        setSubmitted(false);
-      }, 4000);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [submitted]);
 
   const services = [
     "Tax Compliance (Individual & Business)",
@@ -115,10 +103,10 @@ export default function Hero() {
       className="relative min-h-[90vh] pt-20 sm:pt-28 lg:pt-36 pb-10 sm:pb-14 lg:pb-20 flex items-center bg-slate-50 text-[#111815] overflow-hidden"
     >
       {/* ── Background Image Layer ── */}
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none" aria-hidden="true">
         <Image
           src={heroBgImg}
-          alt="VR Tax CPA LLC Professional Accounting & Tax Advisory"
+          alt=""
           fill
           priority
           className="object-cover object-center sm:object-right-top opacity-90"
@@ -143,7 +131,7 @@ export default function Hero() {
               className="text-3xl xs:text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-[#0B1F3B] leading-[1.18] sm:leading-[1.14] tracking-tight mb-3 sm:mb-5 font-figtree w-full break-words"
             >
               You&apos;ve got a business. <br className="hidden sm:inline" />
-              We have <span className="text-[#d3d663]">your back.</span>
+              We have <span className="text-[#2D503B] underline decoration-[#d3d663] underline-offset-4">your back.</span>
             </motion.h1>
 
             {/* 2. Description */}
@@ -201,21 +189,32 @@ export default function Hero() {
                 {submitted ? (
                   <motion.div
                     key="success-card"
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.35 }}
                     className="text-center py-8 px-2 flex flex-col items-center gap-3"
                   >
-                    <div className="w-14 h-14 rounded-full bg-[#0B1F3B] text-[#d3d663] flex items-center justify-center text-2xl shadow-md">
+                    <div className="w-14 h-14 rounded-full bg-[#0B1F3B] text-[#d3d663] flex items-center justify-center text-2xl shadow-md" aria-hidden="true">
                       <FiCheck />
                     </div>
                     <h3 className="text-xl font-bold font-figtree text-[#0B1F3B]">
                       Inquiry Received!
                     </h3>
                     <p className="text-sm text-slate-600 font-manrope leading-relaxed max-w-xs">
-                      Thank you for reaching out.
+                      Thank you for reaching out. We will review your consultation request and reach back shortly.
                     </p>
+                    <Button
+                      type="button"
+                      variant="dark"
+                      size="sm"
+                      onClick={() => setSubmitted(false)}
+                      className="mt-2"
+                    >
+                      Send Another Request
+                    </Button>
                   </motion.div>
                 ) : (
                   <motion.form
@@ -237,77 +236,90 @@ export default function Hero() {
                     {/* 2-Col Inputs: Name & Company */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                        <label htmlFor="hero-full-name" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                           Full Name <span className="text-rose-500">*</span>
                         </label>
                         <input
+                          id="hero-full-name"
                           type="text"
                           name="name"
                           value={form.name}
                           onChange={handleChange}
                           required
-                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1F3B] focus:ring-2 focus:ring-[#0B1F3B]/20 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                        <label htmlFor="hero-company-name" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                           Company / Entity Name
                         </label>
                         <input
+                          id="hero-company-name"
                           type="text"
                           name="company"
                           value={form.company}
                           onChange={handleChange}
-                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1F3B] focus:ring-2 focus:ring-[#0B1F3B]/20 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                        <label htmlFor="hero-email-address" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                           Email Address <span className="text-rose-500">*</span>
                         </label>
                         <input
+                          id="hero-email-address"
                           type="email"
                           name="email"
                           value={form.email}
                           onChange={handleChange}
                           required
-                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1F3B] focus:ring-2 focus:ring-[#0B1F3B]/20 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
                         />
                       </div>
 
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                        <label htmlFor="hero-phone-number" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                           Phone Number <span className="text-rose-500">*</span>
                         </label>
                         <input
+                          id="hero-phone-number"
                           type="tel"
                           name="phone"
                           value={form.phone}
                           onChange={handleChange}
                           required
-                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+                          className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1F3B] focus:ring-2 focus:ring-[#0B1F3B]/20 transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
                         />
                       </div>
                     </div>
 
                     <div className="flex flex-col gap-1 relative" ref={dropdownRef}>
-                      <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                      <label id="hero-service-label" htmlFor="hero-service-btn" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                         Service Needed <span className="text-rose-500">*</span>
                       </label>
                       <button
+                        id="hero-service-btn"
                         type="button"
                         onClick={() => setServiceDropdownOpen((prev) => !prev)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") setServiceDropdownOpen(false);
+                          if (e.key === "ArrowDown" && !serviceDropdownOpen) {
+                            e.preventDefault();
+                            setServiceDropdownOpen(true);
+                          }
+                        }}
                         className={`w-full flex items-center justify-between bg-white/70 backdrop-blur-xs border rounded-xl px-3.5 py-2.5 text-xs transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)] text-left cursor-pointer ${
                           serviceDropdownOpen
-                            ? "bg-white border-[#d3d663] ring-2 ring-[#d3d663]/30"
+                            ? "bg-white border-[#0B1F3B] ring-2 ring-[#0B1F3B]/20"
                             : "border-slate-200/80 hover:border-slate-300"
                         }`}
                         aria-haspopup="listbox"
                         aria-expanded={serviceDropdownOpen}
+                        aria-controls="hero-service-listbox"
                       >
                         <span className={form.service ? "text-[#0B1F3B] font-semibold truncate" : "text-slate-400 font-normal"}>
                           {form.service || "Select a service category..."}
@@ -316,6 +328,7 @@ export default function Hero() {
                           className={`text-sm text-slate-500 transition-transform duration-300 shrink-0 ml-2 ${
                             serviceDropdownOpen ? "rotate-180 text-[#0B1F3B]" : ""
                           }`}
+                          aria-hidden="true"
                         />
                       </button>
 
@@ -325,6 +338,7 @@ export default function Hero() {
                         value={form.service}
                         required
                         tabIndex={-1}
+                        aria-hidden="true"
                         className="sr-only"
                         onChange={() => {}}
                         onInvalid={(e) => {
@@ -337,6 +351,8 @@ export default function Hero() {
                       <AnimatePresence>
                         {serviceDropdownOpen && (
                           <motion.div
+                            id="hero-service-listbox"
+                            aria-labelledby="hero-service-label"
                             data-lenis-prevent="true"
                             onWheel={(e) => e.stopPropagation()}
                             onTouchMove={(e) => e.stopPropagation()}
@@ -344,7 +360,7 @@ export default function Hero() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -4, scale: 0.98 }}
                             transition={{ duration: 0.16, ease: "easeOut" }}
-                            className="absolute top-full left-0 right-0 mt-1.5 z-50 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(11,31,59,0.2)] p-1.5 max-h-52 overflow-y-auto dropdown-scroll overscroll-contain space-y-0.5"
+                            className="absolute top-full left-0 right-0 mt-2 z-50 bg-white border border-slate-200 rounded-2xl shadow-[0_20px_45px_rgba(11,31,59,0.18)] p-2 max-h-52 overflow-y-auto dropdown-scroll overscroll-contain space-y-1"
                             role="listbox"
                           >
                             {services.map((s, idx) => {
@@ -359,34 +375,36 @@ export default function Hero() {
                                     setForm((prev) => ({ ...prev, service: s }));
                                     setServiceDropdownOpen(false);
                                   }}
-                                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs text-left transition-all cursor-pointer ${
+                                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-left transition-all cursor-pointer ${
                                     isSelected
                                       ? "bg-[#0B1F3B] text-white font-bold shadow-xs"
                                       : "text-slate-700 hover:bg-slate-100 hover:text-[#0B1F3B]"
                                   }`}
                                 >
                                   <span className="truncate">{s}</span>
-                                  {isSelected && <FiCheck className="text-sm shrink-0 ml-2 text-[#d3d663]" />}
+                                  {isSelected && <FiCheck className="text-sm shrink-0 ml-1 text-[#d3d663]" aria-hidden="true" />}
                                 </button>
                               );
                             })}
                           </motion.div>
                         )}
-                      </AnimatePresence>
-                    </div>
+              </AnimatePresence>
+            </div>
 
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
-                        How Can We Help You? (Brief Description)
-                      </label>
-                      <textarea
-                        name="message"
-                        value={form.message}
-                        onChange={handleChange}
-                        rows={3}
-                        className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#d3d663] focus:ring-2 focus:ring-[#d3d663]/30 transition-all resize-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
-                      />
-                    </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="hero-message-body" className="text-[10px] font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                How Can We Help You? (Brief Description)
+              </label>
+              <textarea
+                id="hero-message-body"
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                rows={3}
+                placeholder="Tell us a little about your tax situation or questions..."
+                className="w-full bg-white/70 backdrop-blur-xs border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#0B1F3B] focus:ring-2 focus:ring-[#0B1F3B]/20 transition-all resize-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]"
+              />
+            </div>
                     <div className="pt-1">
                       <Button
                         type="submit"

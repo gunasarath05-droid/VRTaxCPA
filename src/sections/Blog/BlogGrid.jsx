@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowRight, FiClock, FiUser } from "react-icons/fi";
 import { blogPosts } from "@/constants/blogData";
+import { useSiteData } from "@/context/SiteDataContext";
 
 // Parse a date string like "Jun 15, 2026" into a timestamp for sorting
 function parsePostDate(dateStr) {
@@ -12,8 +13,11 @@ function parsePostDate(dateStr) {
 }
 
 export default function BlogGrid() {
+  const { blogs } = useSiteData();
+  const allPosts = blogs?.length ? blogs : blogPosts;
+
   // Sort all posts newest-first so newly added posts automatically appear at the top
-  const sortedPosts = [...blogPosts].sort(
+  const sortedPosts = [...allPosts].sort(
     (a, b) => parsePostDate(b.date) - parsePostDate(a.date)
   );
 

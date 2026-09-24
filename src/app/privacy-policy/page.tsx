@@ -45,15 +45,19 @@ export default function PrivacyPolicyPage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                2. Information We Collect
+                2. Information We Collect &amp; Submission via Secure Portal
               </h2>
               <p className="mb-3">
-                To provide comprehensive tax compliance, accounting, bookkeeping, and advisory services, we collect non-public personal information (NPI) from the following sources:
+                Please note that we do <strong>not</strong> collect or allow clients to upload confidential tax organizers, financial statements, or sensitive tax documents directly through this public marketing website. All document exchanges, tax organizers, questionnaires, and confidential client uploads are conducted exclusively through our secure, encrypted <strong>TaxDome Client Portal</strong>.
+              </p>
+              <p className="mb-3">
+                To provide comprehensive tax compliance, accounting, bookkeeping, payroll, and advisory services, we collect non-public personal information (NPI) exclusively through secure authorized channels (including TaxDome, direct consultations, or signed agreements), which may include:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-slate-700">
-                <li>Information provided on tax organizers, applications, and intake forms (e.g., name, address, Social Security Number, Employer Identification Number, dates of birth).</li>
-                <li>Financial documents provided for tax preparation (e.g., W-2s, 1099s, K-1s, bank statements, profit and loss reports, balance sheets).</li>
+                <li>Information provided on tax organizers, applications, and intake questionnaires submitted through TaxDome (e.g., name, address, Social Security Number, Employer Identification Number, dates of birth).</li>
+                <li>Financial documents uploaded securely via TaxDome for tax preparation (e.g., W-2s, 1099s, K-1s, bank statements, profit and loss reports, balance sheets).</li>
                 <li>Information regarding your business transactions, payroll data, and past tax filing history.</li>
+                <li>General inquiries submitted via our website contact form (limited to your name, email, phone number, and brief message).</li>
                 <li>Communications via email, phone, secure TaxDome portal, or virtual consultations.</li>
               </ul>
             </div>
@@ -87,7 +91,16 @@ export default function PrivacyPolicyPage() {
 
             <div>
               <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                5. Contact Us Regarding Your Privacy
+                5. Use of Third-Party Service Providers
+              </h2>
+              <p>
+                To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers. These providers assist with functions such as tax preparation software, document storage, e-signature processing, payroll systems, and secure client communication. All third-party tools are selected for their security standards and are used solely to support the services you have engaged us for.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
+                6. Contact Us Regarding Your Privacy
               </h2>
               <p>
                 If you have any questions or concerns regarding this Privacy Policy or our data security practices, please contact us:

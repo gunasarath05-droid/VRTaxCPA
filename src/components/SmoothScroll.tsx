@@ -1,10 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   useEffect(() => {
+    // Disable Lenis smooth scroll on admin routes so internal scroll containers work seamlessly with mouse wheel
+    if (pathname?.startsWith("/admin")) return;
+
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
@@ -59,7 +65,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         delete (window as unknown as { __lenis?: Lenis }).__lenis;
       }
     };
-  }, []);
+  }, [pathname]);
 
   return <>{children}</>;
 }
