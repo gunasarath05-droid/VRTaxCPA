@@ -38,7 +38,7 @@ function renderHighlightedText(text) {
 }
 
 export default function Founder() {
-  const { founder, socialLinks } = useSiteData();
+  const { founder, socialLinks, isLoaded } = useSiteData();
   const founderData = founder || {};
 
   const name = founderData.name || "Vetha Ram, CPA";
@@ -79,9 +79,9 @@ export default function Founder() {
 
   const defaultQuote = `Outside the firm, she is an active volunteer at the ISKCON Dallas Temple and cherishes spending time cooking, traveling, and being with her husband and their two boys. For those seeking an advisor who truly listens and stands by their side year-round, her doors are always open.`;
 
-  const paragraphs = (founderData.paragraphs && founderData.paragraphs.length > 0)
+  const paragraphs = isLoaded && Array.isArray(founderData.paragraphs)
     ? founderData.paragraphs
-    : defaultParagraphs;
+    : ((founderData.paragraphs && founderData.paragraphs.length > 0) ? founderData.paragraphs : defaultParagraphs);
 
   const quote = founderData.quote !== undefined ? founderData.quote : defaultQuote;
 

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight, FiClock, FiUser } from "react-icons/fi";
+import { FiArrowRight, FiClock, FiUser, FiBookOpen } from "react-icons/fi";
 import { blogPosts } from "@/constants/blogData";
 import { useSiteData } from "@/context/SiteDataContext";
 
@@ -13,19 +13,76 @@ function parsePostDate(dateStr) {
 }
 
 export default function BlogGrid() {
-  const { blogs } = useSiteData();
-  const allPosts = blogs?.length ? blogs : blogPosts;
+  const { blogs, isLoaded } = useSiteData();
+  const allPosts = isLoaded && Array.isArray(blogs)
+    ? blogs
+    : (blogs?.length ? blogs : blogPosts);
 
   // Sort all posts newest-first so newly added posts automatically appear at the top
   const sortedPosts = [...allPosts].sort(
     (a, b) => parsePostDate(b.date) - parsePostDate(a.date)
   );
 
-  const featuredPost =
-    sortedPosts.find((p) => p.featured) || sortedPosts[0];
-  const regularPosts = sortedPosts.filter(
-    (p) => p.slug !== featuredPost.slug
-  );
+  const featuredPost = sortedPosts.length > 0
+    ? (sortedPosts.find((p) => p.featured) || sortedPosts[0])
+    : null;
+  const regularPosts = featuredPost
+    ? sortedPosts.filter((p) => p.slug !== featuredPost.slug)
+    : [];
+
+  if (isLoaded && sortedPosts.length === 0) {
+    return (
+      <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+        {/* Soft background glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0B1F3B]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-10 top-1/3 w-64 h-64 bg-[#d3d663]/10 rounded-full blur-2xl pointer-events-none" />
+
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-14 shadow-lg shadow-slate-100 flex flex-col items-center"
+          >
+            {/* Elegant Icon Badge */}
+            <div className="relative mb-6">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#0B1F3B]/5 border border-[#0B1F3B]/10 flex items-center justify-center text-[#0B1F3B] shadow-inner">
+                <FiBookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-[#0B1F3B]" />
+              </div>
+              <span className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#d3d663] text-[#0B1F3B] flex items-center justify-center text-xs font-bold shadow-sm">
+                !
+              </span>
+            </div>
+
+            <span className="inline-block bg-[#0B1F3B]/10 text-[#0B1F3B] text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full font-figtree mb-3">
+              Knowledge Base
+            </span>
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B1F3B] font-figtree tracking-tight mb-3">
+              No Articles Published Yet
+            </h2>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center gap-2 bg-[#0B1F3B] text-white font-figtree font-bold text-sm px-6 py-3.5 rounded-xl hover:bg-[#122e56] transition-all shadow-md shadow-[#0B1F3B]/15"
+              >
+                <span>Explore Our Services</span>
+                <FiArrowRight size={15} />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-slate-100 text-[#0B1F3B] font-figtree font-bold text-sm px-6 py-3.5 rounded-xl hover:bg-slate-200 transition-all border border-slate-200"
+              >
+                <span>Contact Our CPAs</span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-8 sm:py-14 md:py-20 bg-white relative overflow-hidden">

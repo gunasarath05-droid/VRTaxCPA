@@ -190,7 +190,7 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     adminService.deleteTeamMember(id);
     setData((prev: any) => ({
       ...prev,
-      team: prev.team.filter((m: any) => m.id !== id),
+      team: (prev.team || []).filter((m: any) => (m.id ? m.id !== id : m.name !== id) && m.name !== id),
     }));
   }, []);
 
@@ -204,7 +204,9 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     const updated = adminService.updateTestimonial(id, updatedFields);
     setData((prev: any) => ({
       ...prev,
-      testimonials: prev.testimonials.map((t: any) => (t.id === id ? { ...t, ...updatedFields } : t)),
+      testimonials: (prev.testimonials || []).map((t: any) =>
+        (t.id === id || t.name === id) ? { ...t, ...updatedFields } : t
+      ),
     }));
     return updated;
   }, []);
@@ -213,7 +215,7 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     adminService.deleteTestimonial(id);
     setData((prev: any) => ({
       ...prev,
-      testimonials: prev.testimonials.filter((t: any) => t.id !== id),
+      testimonials: (prev.testimonials || []).filter((t: any) => (t.id ? t.id !== id : t.name !== id) && t.name !== id),
     }));
   }, []);
 
@@ -227,7 +229,9 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     const updated = adminService.updateBlog(slug, updatedFields);
     setData((prev: any) => ({
       ...prev,
-      blogs: prev.blogs.map((b: any) => (b.slug === slug ? { ...b, ...updatedFields } : b)),
+      blogs: (prev.blogs || []).map((b: any) =>
+        (b.slug === slug || b.title === slug) ? { ...b, ...updatedFields } : b
+      ),
     }));
     return updated;
   }, []);
@@ -236,7 +240,7 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     adminService.deleteBlog(slug);
     setData((prev: any) => ({
       ...prev,
-      blogs: prev.blogs.filter((b: any) => b.slug !== slug),
+      blogs: (prev.blogs || []).filter((b: any) => b.slug !== slug && b.title !== slug),
     }));
   }, []);
 

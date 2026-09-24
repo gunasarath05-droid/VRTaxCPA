@@ -12,45 +12,59 @@ import darkGreenBg from "@/assets/images/darkbg.png";
 import { useSiteData } from "@/context/SiteDataContext";
 
 export default function TeamMembers() {
-  const { team: dynamicTeam } = useSiteData();
-  const team = dynamicTeam?.length ? dynamicTeam : [
+  const { team: dynamicTeam, isLoaded } = useSiteData();
+  const defaultTeam = [
     {
+      id: "team-1",
       name: "Eleanor Pena",
       role: "Operations Head",
       bg: "bg-[#2D5A27]", // Rich Green
       image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
     },
     {
+      id: "team-2",
       name: "Cameron William",
       role: "Marketing & Tax Lead",
       bg: "bg-[#4A6B22]", // Olive Green
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
     },
     {
+      id: "team-3",
       name: "Robert Fox",
       role: "Business Director",
       bg: "bg-[#1E3A24]", // Deep Forest
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
     },
     {
+      id: "team-4",
       name: "Dianne Russell",
       role: "Senior Tax Accountant",
       bg: "bg-[#9CB05A]", // Muted Olive
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
     },
     {
+      id: "team-5",
       name: "Jenny Wilson",
       role: "Payroll & Compliance Lead",
       bg: "bg-[#3D6B35]", // Sage Green
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80",
     },
     {
+      id: "team-6",
       name: "Guy Hawkins",
       role: "Advisory & CFO Manager",
       bg: "bg-[#28572E]", // Herbal Green
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
     },
   ];
+
+  const team = isLoaded && Array.isArray(dynamicTeam)
+    ? dynamicTeam
+    : (dynamicTeam?.length ? dynamicTeam : defaultTeam);
+
+  if (isLoaded && (!team || team.length === 0)) {
+    return null;
+  }
 
   return (
     <section
@@ -101,11 +115,12 @@ export default function TeamMembers() {
         {/* ── Team Slider (X-axis Smooth Slide) ── */}
         <div className="relative team-slider-wrapper">
           <Swiper
+            key={team.map((m) => m.id || m.name).join("_")}
             modules={[Pagination, Autoplay]}
             spaceBetween={20}
             slidesPerView={1.2}
             centeredSlides={false}
-            loop={true}
+            loop={team.length > 2}
             speed={800}
             autoplay={{
               delay: 3500,

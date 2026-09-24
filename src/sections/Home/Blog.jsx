@@ -15,8 +15,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function Blog() {
-  const { blogs } = useSiteData();
-  const postsToRender = blogs?.length ? blogs : blogPosts;
+  const { blogs, isLoaded } = useSiteData();
+  const postsToRender = isLoaded && Array.isArray(blogs)
+    ? blogs
+    : (blogs?.length ? blogs : blogPosts);
+
+  if (isLoaded && (!postsToRender || postsToRender.length === 0)) {
+    return null;
+  }
+
   return (
     <section id="blog" className="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-[#E2E8F0]">
       <style jsx global>{`
@@ -95,6 +102,7 @@ export default function Blog() {
 
         {/* Smooth X-Axis Horizontal Slider */}
         <Swiper
+          key={postsToRender.map((p) => p.slug || p.title).join("_")}
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={20}
           slidesPerView={1.15}

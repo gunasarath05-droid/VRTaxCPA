@@ -11,9 +11,10 @@ import "swiper/css/navigation";
 import { useSiteData } from "@/context/SiteDataContext";
 
 export default function Testimonials() {
-  const { testimonials } = useSiteData();
+  const { testimonials, isLoaded } = useSiteData();
   const defaultList = [
     {
+      id: "test-1",
       name: "Marcus T.",
       desig: "Real Estate Investor · Irving, TX",
       initials: "MT",
@@ -22,6 +23,7 @@ export default function Testimonials() {
       desc: "Vethavalli saved me tens of thousands in taxes by correctly structuring my rental properties and recommending a cost segregation study. She explained everything clearly and was available whenever I had questions. I've already referred three other investors to VR Tax CPA LLC.",
     },
     {
+      id: "test-2",
       name: "Dr. Priya N.",
       desig: "Dentist · Owner, Bright Smiles Dental",
       initials: "PN",
@@ -30,6 +32,7 @@ export default function Testimonials() {
       desc: "Running a dental practice is already overwhelming — dealing with taxes on top of that was a nightmare until I found VR Tax CPA LLC. Vethavalli set up our payroll, organized our books, and reduced our tax liability significantly through proper S-Corp structuring. She's an absolute gem.",
     },
     {
+      id: "test-3",
       name: "Alex R.",
       desig: "Co-Founder · SaaS Startup · Dallas, TX",
       initials: "AR",
@@ -38,6 +41,7 @@ export default function Testimonials() {
       desc: "As a tech startup founder, I needed a CPA who understands the intersection of tech, equity compensation, and growth planning. Vethavalli built us a cash flow model, helped with our entity election, and keeps our quarterly taxes on track. She's become a true strategic partner for our business.",
     },
     {
+      id: "test-4",
       name: "Lisa M.",
       desig: "Restaurant Owner · Fort Worth, TX",
       initials: "LM",
@@ -46,6 +50,7 @@ export default function Testimonials() {
       desc: "I had back taxes and unfiled returns that were keeping me up at night. VR Tax CPA LLC handled everything — they filed all the back returns, negotiated with the IRS, and got my penalties abated. Now my books are clean and my sales tax is filed on time every month. I couldn't be more relieved.",
     },
     {
+      id: "test-5",
       name: "Ryan K.",
       desig: "General Contractor · DFW Area",
       initials: "RK",
@@ -55,7 +60,13 @@ export default function Testimonials() {
     },
   ];
 
-  const listToRender = testimonials?.length ? testimonials : defaultList;
+  const listToRender = isLoaded && Array.isArray(testimonials)
+    ? testimonials
+    : (testimonials?.length ? testimonials : defaultList);
+
+  if (isLoaded && (!listToRender || listToRender.length === 0)) {
+    return null;
+  }
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
@@ -138,10 +149,11 @@ export default function Testimonials() {
           </button>
 
           <Swiper
+            key={listToRender.map((t) => t.id || t.name).join("_")}
             modules={[Pagination, Autoplay, Navigation]}
             spaceBetween={24}
             centeredSlides={true}
-            loop={true}
+            loop={listToRender.length > 2}
             speed={750}
             autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
             pagination={{ clickable: true }}

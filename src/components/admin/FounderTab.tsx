@@ -131,7 +131,10 @@ export default function FounderTab({
   const removeParagraphItem = (index: number) => {
     if (founderForm.paragraphs.length <= 1) return;
     const updated = founderForm.paragraphs.filter((_, idx) => idx !== index);
-    setFounderForm({ ...founderForm, paragraphs: updated });
+    const updatedForm = { ...founderForm, paragraphs: updated };
+    setFounderForm(updatedForm);
+    updateFounder(updatedForm);
+    showToast("Paragraph deleted and live site updated!", "success");
   };
 
   const toggleEditParagraph = (index: number) => {
@@ -435,7 +438,11 @@ export default function FounderTab({
                       <div className="flex justify-end">
                         <button
                           type="button"
-                          onClick={() => toggleEditParagraph(idx)}
+                          onClick={() => {
+                            toggleEditParagraph(idx);
+                            updateFounder(founderForm);
+                            showToast("Paragraph updated and live site updated!", "success");
+                          }}
                           className="px-4 py-1.5 bg-[#1D61E7] hover:bg-[#1554C0] text-white rounded-full text-xs font-bold font-figtree flex items-center gap-1 cursor-pointer shadow-xs"
                         >
                           <FiCheck size={12} /> Save Text
@@ -505,7 +512,11 @@ export default function FounderTab({
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={() => setEditingQuote(false)}
+                  onClick={() => {
+                    setEditingQuote(false);
+                    updateFounder(founderForm);
+                    showToast("Quote updated and live site updated!", "success");
+                  }}
                   className="px-4 py-1.5 bg-[#1D61E7] hover:bg-[#1554C0] text-white rounded-full text-xs font-bold font-figtree flex items-center gap-1 cursor-pointer shadow-xs"
                 >
                   <FiCheck size={12} /> Save Quote

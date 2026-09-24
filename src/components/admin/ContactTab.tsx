@@ -81,8 +81,13 @@ export default function ContactTab({
   const toggleSocialEnabled = (index: number) => {
     const updated = [...socialsList];
     const current = updated[index].enabled !== false;
-    updated[index] = { ...updated[index], enabled: !current };
+    const nextState = !current;
+    updated[index] = { ...updated[index], enabled: nextState };
     setSocialsList(updated);
+    if (updateSocialLinks) {
+      updateSocialLinks(updated);
+      showToast(`${updated[index].name} set to ${nextState ? "Active" : "Inactive"} (Live site updated)`);
+    }
   };
 
   // Update social URL

@@ -28,11 +28,11 @@ export const adminService = {
         ...parsed,
         contactInfo: { ...initialSiteData.contactInfo, ...(parsed.contactInfo || {}) },
         founder: { ...initialSiteData.founder, ...(parsed.founder || {}) },
-        socialLinks: parsed.socialLinks || initialSiteData.socialLinks,
-        team: parsed.team || initialSiteData.team,
-        testimonials: parsed.testimonials || initialSiteData.testimonials,
-        blogs: parsed.blogs || initialSiteData.blogs,
-        inquiries: parsed.inquiries || initialSiteData.inquiries,
+        socialLinks: Array.isArray(parsed.socialLinks) ? parsed.socialLinks : initialSiteData.socialLinks,
+        team: Array.isArray(parsed.team) ? parsed.team : initialSiteData.team,
+        testimonials: Array.isArray(parsed.testimonials) ? parsed.testimonials : initialSiteData.testimonials,
+        blogs: Array.isArray(parsed.blogs) ? parsed.blogs : initialSiteData.blogs,
+        inquiries: Array.isArray(parsed.inquiries) ? parsed.inquiries : initialSiteData.inquiries,
         adminSettings: { ...initialSiteData.adminSettings, ...(parsed.adminSettings || {}) },
       };
     } catch (err) {
@@ -95,14 +95,18 @@ export const adminService = {
 
   updateTeamMember: (id, updatedFields) => {
     const data = adminService.getSiteData();
-    data.team = (data.team || []).map((m) => (m.id === id ? { ...m, ...updatedFields } : m));
+    data.team = (data.team || []).map((m) =>
+      m.id === id || m.name === id ? { ...m, ...updatedFields } : m
+    );
     adminService.saveSiteData(data);
-    return data.team.find((m) => m.id === id);
+    return data.team.find((m) => m.id === id || m.name === id);
   },
 
   deleteTeamMember: (id) => {
     const data = adminService.getSiteData();
-    data.team = (data.team || []).filter((m) => m.id !== id);
+    data.team = (data.team || []).filter((m) =>
+      (m.id ? m.id !== id : m.name !== id) && m.name !== id
+    );
     adminService.saveSiteData(data);
     return true;
   },
@@ -127,15 +131,17 @@ export const adminService = {
   updateTestimonial: (id, updatedFields) => {
     const data = adminService.getSiteData();
     data.testimonials = (data.testimonials || []).map((t) =>
-      t.id === id ? { ...t, ...updatedFields, rating: Number(updatedFields.rating || t.rating) } : t
+      t.id === id || t.name === id ? { ...t, ...updatedFields, rating: Number(updatedFields.rating || t.rating) } : t
     );
     adminService.saveSiteData(data);
-    return data.testimonials.find((t) => t.id === id);
+    return data.testimonials.find((t) => t.id === id || t.name === id);
   },
 
   deleteTestimonial: (id) => {
     const data = adminService.getSiteData();
-    data.testimonials = (data.testimonials || []).filter((t) => t.id !== id);
+    data.testimonials = (data.testimonials || []).filter((t) =>
+      (t.id ? t.id !== id : t.name !== id) && t.name !== id
+    );
     adminService.saveSiteData(data);
     return true;
   },
@@ -180,7 +186,7 @@ export const adminService = {
 
   deleteBlog: (slug) => {
     const data = adminService.getSiteData();
-    data.blogs = (data.blogs || []).filter((b) => b.slug !== slug);
+    data.blogs = (data.blogs || []).filter((b) => b.slug !== slug && b.title !== slug);
     adminService.saveSiteData(data);
     return true;
   },
