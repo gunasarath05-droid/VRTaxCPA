@@ -1,4 +1,6 @@
 import { blogPosts } from "./blogData";
+import { servicesData } from "./servicesData";
+import { galleryItems } from "./galleryData";
 
 export const initialSiteData = {
   contactInfo: {
@@ -139,6 +141,131 @@ export const initialSiteData = {
     },
   ],
   blogs: blogPosts,
+  services: servicesData,
+  homeServices: [
+    {
+      id: "hs-1",
+      no: "01",
+      title: "Tax Compliance",
+      desc: "Accurate and timely federal and Texas tax return preparation and filing for individuals, businesses, trusts, and exempt organizations.",
+      slug: "tax-compliance",
+    },
+    {
+      id: "hs-2",
+      no: "02",
+      title: "Tax Planning & Advisory",
+      desc: "Proactive year-round tax planning and entity structuring to optimize tax obligations and prevent last-minute filing surprises.",
+      slug: "tax-planning",
+    },
+    {
+      id: "hs-3",
+      no: "03",
+      title: "Business Entity Formation",
+      desc: "Advisory on entity classification (LLC, S-Corp, C-Corp), Texas state formation filings, EIN setup, and S-Corp tax elections.",
+      slug: "business-formation",
+    },
+    {
+      id: "hs-4",
+      no: "04",
+      title: "Payroll Support",
+      desc: "We set up and train your team to manage payroll through partner platforms like QuickBooks, ensuring compliant withholding configuration.",
+      slug: "payroll-services",
+    },
+    {
+      id: "hs-5",
+      no: "05",
+      title: "Accounting Services",
+      desc: "Monthly and quarterly bookkeeping, bank reconciliations, management financials, and year-end ledger organization.",
+      slug: "accounting-services",
+    },
+    {
+      id: "hs-6",
+      no: "06",
+      title: "Fractional CFO",
+      desc: "Cash flow modeling, KPI tracking dashboards, and internal management budgeting — tailored for growing businesses.",
+      slug: "fractional-cfo",
+    },
+    {
+      id: "hs-7",
+      no: "07",
+      title: "IRS Representation",
+      desc: "Notice response, IRS representation, penalty abatement review, and unfiled prior-year tax return resolution.",
+      slug: "irs-representation",
+    },
+    {
+      id: "hs-8",
+      no: "08",
+      title: "Sales Tax & 1099",
+      desc: "Texas sales tax return filings, plus year-end preparation and electronic filing of 1099s for contractors, rent, interest, and dividends.",
+      slug: "sales-tax-1099",
+    },
+  ],
+  homeFaqs: [
+    {
+      id: "faq-1",
+      q: "What types of businesses do you work with?",
+      a: "We work with small to medium-sized businesses, startups, solo entrepreneurs, S-Corps, LLCs, and professionals across healthcare & dental practices, IT & tech services, real estate, construction contractors, restaurants, and manufacturing.",
+    },
+    {
+      id: "faq-2",
+      q: "How does VR Tax CPA LLC support small businesses throughout the year?",
+      a: "For our Tax Advisory clients, we proactively review and implement strategies throughout the year—analyzing allowable deductions, optimizing entity classifications, calculating quarterly estimates, and guiding tax-impacting decisions. We also offer separate Accounting services that keep your books accurate and up-to-date, ensuring your annual filing is a meticulously planned process rather than a rushed one.",
+    },
+    {
+      id: "faq-3",
+      q: "Is my financial information secure?",
+      a: "Absolutely. We utilize bank-grade 256-bit encrypted digital client portals via TaxDome, secure document vaults, and adhere to strict professional standards for client confidentiality.",
+    },
+    {
+      id: "faq-4",
+      q: "Do you offer year-round support?",
+      a: "Yes. We believe client service is an ongoing strategic partnership. Our team provides year-round advisory check-ins, timely deadline tracking, and responsive support whenever questions arise.",
+    },
+    {
+      id: "faq-5",
+      q: "Can you assist with IRS notices and representation?",
+      a: "Yes. We assist clients with formal IRS and Texas tax notice responses, transcript reviews, penalty abatement requests where eligible under IRS criteria, and unfiled prior-year tax returns.",
+    },
+  ],
+  gallery: galleryItems,
+  partners: [
+    {
+      id: "partner-1",
+      name: "Gusto",
+      logoSrc: "/partners/logoipsum-414.png",
+      category: "Payroll Partner",
+    },
+    {
+      id: "partner-2",
+      name: "QuickBooks",
+      logoSrc: "/partners/logoipsum-418.png",
+      category: "Accounting ProAdvisor",
+    },
+    {
+      id: "partner-3",
+      name: "Xero",
+      logoSrc: "/partners/logoipsum-430.png",
+      category: "Cloud Accounting",
+    },
+    {
+      id: "partner-4",
+      name: "IRS e-File",
+      logoSrc: "/partners/logoipsum-432.png",
+      category: "Authorized e-File Provider",
+    },
+    {
+      id: "partner-5",
+      name: "Stripe",
+      logoSrc: "/partners/logoipsum-435.png",
+      category: "Payment Integration",
+    },
+    {
+      id: "partner-6",
+      name: "ADP",
+      logoSrc: "/partners/logoipsum-437.png",
+      category: "HR & Payroll",
+    },
+  ],
   inquiries: [
     {
       id: "inq-101",
@@ -167,5 +294,118 @@ export const initialSiteData = {
     username: "admin",
     passcode: "VRtaxcpa@2026",
     backendApiUrl: "",
+  },
+  legalPages: {
+    termsOfService: {
+      title: "Terms of Service",
+      badge: "Client Agreement",
+      lastUpdated: "September 2026",
+      sections: [
+        {
+          id: "tos-1",
+          heading: "1. Acceptance of Terms & Scope",
+          content: "Welcome to VR Tax CPA LLC. By accessing our website (vrtaxcpa.com), booking an advisory consultation, or engaging our firm for professional tax, accounting, bookkeeping, or advisory services, you agree to comply with and be bound by these Terms of Service.",
+        },
+        {
+          id: "tos-2",
+          heading: "2. Professional Engagement Letters",
+          content: "All professional tax and accounting services (including federal and state tax preparation, IRS representation, payroll support, and fractional CFO guidance) are subject to a formal, written Engagement Letter detailing the specific scope of work, client responsibilities, fee structures, and deliverables. In the event of a conflict between these general website terms and an executed Engagement Letter, the Engagement Letter shall govern.",
+        },
+        {
+          id: "tos-3",
+          heading: "3. Client Responsibilities & Secure Document Submission via TaxDome",
+          content: "Accurate tax preparation and accounting depend entirely upon complete, accurate, and timely documentation provided by the client. Clients are responsible for:\n\n• Exclusive Use of TaxDome Portal: For confidentiality and data security, we do not permit or collect tax organizers or sensitive financial documents through this public website. All client organizers, tax forms, financial records, and confidential communications must be uploaded exclusively through our secure TaxDome Client Portal.\n• Providing all relevant tax forms, receipts, financial records, and disclosures before agreed deadlines.\n• Maintaining appropriate supporting documentation in accordance with IRS record-retention requirements.\n• Reviewing all completed tax returns and financial filings prior to signing electronic authorization (Form 8879).",
+        },
+        {
+          id: "tos-4",
+          heading: "4. Fees, Invoicing & Retainers",
+          content: "Service fees are clearly communicated prior to engagement initiation. Invoices for tax preparation, payroll support, and accounting services are due upon receipt or as specified in your agreement. Electronic filing of returns is executed upon receipt of signed authorization and fee settlement.",
+        },
+        {
+          id: "tos-5",
+          heading: "5. Use of Third-Party Service Providers",
+          content: "To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers. These providers assist with functions such as tax preparation software, document storage (including TaxDome), e-signature processing, payroll systems, and secure client communication. All third-party tools are selected for their security standards and are used solely to support the services you have engaged us for.",
+        },
+        {
+          id: "tos-6",
+          heading: "6. Governing Law",
+          content: "These Terms of Service and all related engagements are governed by and construed in accordance with the laws of the State of Texas and applicable United States federal law, without regard to conflict of law principles.",
+        },
+        {
+          id: "tos-7",
+          heading: "7. Contact Information",
+          content: "For questions regarding these Terms of Service, please reach out to our office:",
+        },
+      ],
+    },
+    privacyPolicy: {
+      title: "Privacy Policy",
+      badge: "Legal & Compliance",
+      lastUpdated: "September 2026",
+      sections: [
+        {
+          id: "priv-1",
+          heading: "1. Commitment to Client Confidentiality",
+          content: "At VR Tax CPA LLC, protecting your personal, tax, and financial privacy is one of our highest responsibilities. We adhere to the strictest ethical standards regarding client data security and confidentiality in accordance with professional accountancy guidelines.",
+        },
+        {
+          id: "priv-2",
+          heading: "2. Information We Collect & Submission via Secure Portal",
+          content: "Please note that we do not collect or allow clients to upload confidential tax organizers, financial statements, or sensitive tax documents directly through this public marketing website. All document exchanges, tax organizers, questionnaires, and confidential client uploads are conducted exclusively through our secure, encrypted TaxDome Client Portal.\n\nTo provide comprehensive tax compliance, accounting, bookkeeping, payroll, and advisory services, we collect non-public personal information (NPI) exclusively through secure authorized channels (including TaxDome, direct consultations, or signed agreements), which may include:\n\n• Information provided on tax organizers, applications, and intake questionnaires submitted through TaxDome (e.g., name, address, Social Security Number, Employer Identification Number, dates of birth).\n• Financial documents uploaded securely via TaxDome for tax preparation (e.g., W-2s, 1099s, K-1s, bank statements, profit and loss reports, balance sheets).\n• Information regarding your business transactions, payroll data, and past tax filing history.\n• General inquiries submitted via our website contact form (limited to your name, email, phone number, and brief message).\n• Communications via email, phone, secure TaxDome portal, or virtual consultations.",
+        },
+        {
+          id: "priv-3",
+          heading: "3. How We Use & Protect Your Information",
+          content: "We use your personal and financial information solely to deliver the services you have engaged us for, including:\n\n• Preparing federal, state, and local tax returns.\n• Providing ongoing accounting, bookkeeping, and payroll support.\n• Representing you before the Internal Revenue Service (IRS) or state tax authorities.\n• Advising on strategic tax minimization and business entity structuring.\n\nWe maintain physical, electronic, and procedural safeguards that comply with federal regulations and IRS Publication 4557 (Safeguarding Taxpayer Data) to guard your non-public personal information.",
+        },
+        {
+          id: "priv-4",
+          heading: "4. Third-Party Disclosure Policy",
+          content: "We do not sell, rent, or trade your personal or financial information to any third party under any circumstances. Information is only shared with secure third-party software providers (e.g., TaxDome Client Portal, professional tax preparation platforms) necessary to perform agreed-upon functions, or when required by lawful subpoena or court order.",
+        },
+        {
+          id: "priv-5",
+          heading: "5. Use of Third-Party Service Providers",
+          content: "To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers. These providers assist with functions such as tax preparation software, document storage, e-signature processing, payroll systems, and secure client communication. All third-party tools are selected for their security standards and are used solely to support the services you have engaged us for.",
+        },
+        {
+          id: "priv-6",
+          heading: "6. Contact Us Regarding Your Privacy",
+          content: "If you have any questions or concerns regarding this Privacy Policy or our data security practices, please contact us:",
+        },
+      ],
+    },
+    disclaimer: {
+      title: "Professional Disclaimer",
+      badge: "Important Notices",
+      lastUpdated: "September 2026",
+      sections: [
+        {
+          id: "disc-1",
+          heading: "1. No CPA-Client Relationship Formed by Website Use",
+          content: "The information provided on this website (vrtaxcpa.com), including articles, blog posts, tax deadline guides, calculators, and social media content, is published for general informational and educational purposes only. Browsing this website, submitting an inquiry form, or reading our published materials does not establish a CPA-client, attorney-client, or fiduciary relationship between you and VR Tax CPA LLC.",
+        },
+        {
+          id: "disc-2",
+          heading: "2. Not Formal Tax, Legal, or Financial Advice",
+          content: "Tax laws and regulations (both federal and state) are constantly evolving and vary substantially based on individual circumstances, entity classifications, and jurisdictions. Content on this site should not be relied upon as a substitute for individualized professional advice tailored to your specific tax situation. Always consult with a qualified professional before making tax, financial, or corporate entity decisions.",
+        },
+        {
+          id: "disc-3",
+          heading: "3. IRS Circular 230 Disclosure",
+          content: "Pursuant to Internal Revenue Service (IRS) regulations, any tax information contained in this communication (including any attachments or website postings) is not intended or written to be used, and cannot be used, for the purpose of avoiding tax-related penalties under the Internal Revenue Code, or for promoting, marketing, or recommending to another party any tax-related transaction or matter.",
+        },
+        {
+          id: "disc-4",
+          heading: "4. Third-Party Platforms, Links & Tools",
+          content: "This website may contain links to external third-party websites or services. VR Tax CPA LLC does not control and is not responsible for the accuracy, content, or privacy policies of third-party platforms.\n\nTo deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers (such as TaxDome for client portal and document management, tax preparation software, e-signature processing, and payroll systems). All confidential tax organizers, financial statements, and client documents are collected and handled exclusively through our secure TaxDome portal and are never uploaded directly to this public website.",
+        },
+        {
+          id: "disc-5",
+          heading: "5. Contact Us",
+          content: "For official professional consultations and formal advisory engagements, please contact:",
+        },
+      ],
+    },
   },
 };

@@ -108,9 +108,6 @@ export default function MissionVision() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold font-figtree text-[#0B1F3B] mb-1 leading-tight tracking-tight">
                   {pillars[0].title}
                 </h3>
-                <span className="inline-block text-sm font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-2">
-                    {pillars[0].headline}
-                  </span>
                 <p className="text-[#334155] text-sm sm:text-[15px] font-manrope leading-relaxed font-medium">
                   {pillars[0].desc}
                 </p>
@@ -150,9 +147,6 @@ export default function MissionVision() {
                 <h3 className="text-2xl sm:text-3xl font-extrabold font-figtree text-[#0B1F3B] mb-1 leading-tight tracking-tight">
                   {pillars[1].title}
                 </h3>
-                <span className="inline-block text-sm font-extrabold uppercase tracking-widest text-[#0B1F3B] font-figtree mb-2">
-                    {pillars[1].headline}
-                  </span>
                 <p className="text-[#334155] text-sm sm:text-[15px] font-manrope leading-relaxed font-medium">
                   {pillars[1].desc}
                 </p>

@@ -179,31 +179,33 @@ export default function CTABanner() {
                 {/* Name & Company */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="cta-form-name" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Full Name <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="cta-form-name"
                       type="text"
                       name="name"
                       value={form.name}
                       onChange={handleChange}
                       required
                       placeholder="e.g. John Smith"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="cta-form-company" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Company / Entity Name
                     </label>
                     <input
+                      id="cta-form-company"
                       type="text"
                       name="company"
                       value={form.company}
                       onChange={handleChange}
                       placeholder="e.g. Acme Ventures LLC (optional)"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                 </div>
@@ -211,46 +213,49 @@ export default function CTABanner() {
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="cta-form-email" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Email Address <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="cta-form-email"
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
                       required
                       placeholder="e.g. john@example.com"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                    <label htmlFor="cta-form-phone" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                       Phone Number <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="cta-form-phone"
                       type="tel"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
                       required
                       placeholder="e.g. (469) 471-6580"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Service Selector */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                  <label htmlFor="cta-form-service" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                     Service Needed
                   </label>
                   <select
+                    id="cta-form-service"
                     name="service"
                     value={form.service}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all cursor-pointer"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all cursor-pointer"
                   >
                     <option value="">Select a service category...</option>
                     {services.map((s, idx) => (
@@ -261,16 +266,17 @@ export default function CTABanner() {
 
                 {/* Message / Details */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
+                  <label htmlFor="cta-form-message" className="text-xs font-bold text-[#0B1F3B] uppercase tracking-wider font-figtree">
                     How Can We Help You? (Brief Description)
                   </label>
                   <textarea
+                    id="cta-form-message"
                     name="message"
                     value={form.message}
                     onChange={handleChange}
                     rows={3}
                     placeholder="Tell us a little about your tax situation, upcoming deadlines, or what you'd like to discuss..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#d3d663] focus:border-[#d3d663] transition-all resize-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-[#0B1F3B] placeholder:text-slate-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1F3B] focus:border-[#0B1F3B] transition-all resize-none"
                   />
                 </div>
 

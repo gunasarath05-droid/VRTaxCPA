@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import LegalPageContent from "@/components/legal/LegalPageContent";
 
 export const metadata: Metadata = {
   title: "Terms of Service | VR Tax CPA LLC",
@@ -8,108 +8,10 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <>
-      {/* Hero */}
-      <section className="relative pt-28 sm:pt-36 pb-14 sm:pb-20 bg-[#0B1F3B] text-white overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none bg-[radial-gradient(circle,#d3d663,transparent_70%)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
-          <nav className="flex items-center justify-center gap-2 text-white/60 text-xs font-semibold mb-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-[#d3d663]">Terms of Service</span>
-          </nav>
-          <span className="inline-flex items-center rounded-full bg-white/10 text-white/80 px-3.5 py-1 text-xs font-bold uppercase tracking-widest border border-white/20 mb-3 font-figtree">
-            Client Agreement
-          </span>
-          <h1 className="text-3xl sm:text-5xl text-white font-extrabold font-figtree tracking-tight">
-            Terms of Service
-          </h1>
-          <p className="text-white/70 text-sm sm:text-base font-manrope mt-3">
-            Last Updated: September 2026
-          </p>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-8 font-manrope text-slate-600 text-sm sm:text-base leading-relaxed">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                1. Acceptance of Terms &amp; Scope
-              </h2>
-              <p>
-                Welcome to <strong>VR Tax CPA LLC</strong>. By accessing our website (vrtaxcpa.com), booking an advisory consultation, or engaging our firm for professional tax, accounting, bookkeeping, or advisory services, you agree to comply with and be bound by these Terms of Service.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                2. Professional Engagement Letters
-              </h2>
-              <p>
-                All professional tax and accounting services (including federal and state tax preparation, IRS representation, payroll support, and fractional CFO guidance) are subject to a formal, written Engagement Letter detailing the specific scope of work, client responsibilities, fee structures, and deliverables. In the event of a conflict between these general website terms and an executed Engagement Letter, the Engagement Letter shall govern.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                3. Client Responsibilities &amp; Secure Document Submission via TaxDome
-              </h2>
-              <p>
-                Accurate tax preparation and accounting depend entirely upon complete, accurate, and timely documentation provided by the client. Clients are responsible for:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-slate-700 mt-2">
-                <li><strong>Exclusive Use of TaxDome Portal:</strong> For confidentiality and data security, we do not permit or collect tax organizers or sensitive financial documents through this public website. All client organizers, tax forms, financial records, and confidential communications must be uploaded exclusively through our secure <strong>TaxDome Client Portal</strong>.</li>
-                <li>Providing all relevant tax forms, receipts, financial records, and disclosures before agreed deadlines.</li>
-                <li>Maintaining appropriate supporting documentation in accordance with IRS record-retention requirements.</li>
-                <li>Reviewing all completed tax returns and financial filings prior to signing electronic authorization (Form 8879).</li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                4. Fees, Invoicing &amp; Retainers
-              </h2>
-              <p>
-                Service fees are clearly communicated prior to engagement initiation. Invoices for tax preparation, payroll support, and accounting services are due upon receipt or as specified in your agreement. Electronic filing of returns is executed upon receipt of signed authorization and fee settlement.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                5. Use of Third-Party Service Providers
-              </h2>
-              <p>
-                To deliver professional tax, accounting, bookkeeping, payroll, and advisory services, VR Tax CPA LLC may utilize secure third-party platforms and service providers. These providers assist with functions such as tax preparation software, document storage (including TaxDome), e-signature processing, payroll systems, and secure client communication. All third-party tools are selected for their security standards and are used solely to support the services you have engaged us for.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                6. Governing Law
-              </h2>
-              <p>
-                These Terms of Service and all related engagements are governed by and construed in accordance with the laws of the State of Texas and applicable United States federal law, without regard to conflict of law principles.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-figtree text-[#0B1F3B] mb-3">
-                7. Contact Information
-              </h2>
-              <p>
-                For questions regarding these Terms of Service, please reach out to:
-              </p>
-              <div className="mt-4 p-5 bg-[#F8FAFC] rounded-2xl border border-slate-200 text-sm">
-                <p className="font-bold font-figtree text-[#0B1F3B]">VR Tax CPA LLC</p>
-                <p>3035 Ivy Hill Lane, Irving, TX 75063</p>
-                <p>Phone: (469) 471-6580 | Email: info@vrtaxcpa.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    <LegalPageContent
+      pageKey="termsOfService"
+      defaultTitle="Terms of Service"
+      defaultBadge="Client Agreement"
+    />
   );
 }

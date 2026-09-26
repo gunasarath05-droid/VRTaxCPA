@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import { FiArrowRight } from "react-icons/fi";
+import { useSiteData } from "@/context/SiteDataContext";
 
 import img1 from "@/assets/images/home/services/about-2-1.png";
 import img2 from "@/assets/images/home/services/about-2-2.png";
@@ -24,7 +25,67 @@ import iconFractionalCFO from "@/assets/images/home/services/icons/Fractional CF
 import iconIRSRepresentation from "@/assets/images/home/services/icons/IRS Representation.png";
 import iconSalesTax1099 from "@/assets/images/home/services/icons/Sales Tax & 1099.png";
 
-const serviceList = [
+export const defaultIcons = {
+  "tax-compliance": iconTaxCompliance,
+  "tax-planning": iconTaxPlanning,
+  "business-formation": iconBusinessFormation,
+  "payroll-services": iconPayrollSupport,
+  "accounting-services": iconAccountingServices,
+  "fractional-cfo": iconFractionalCFO,
+  "irs-representation": iconIRSRepresentation,
+  "sales-tax-1099": iconSalesTax1099,
+};
+
+export const defaultImages = {
+  "tax-compliance": img1,
+  "tax-planning": img2,
+  "business-formation": img3,
+  "payroll-services": img4,
+  "accounting-services": img5,
+  "fractional-cfo": img1,
+  "irs-representation": img2,
+  "sales-tax-1099": img3,
+};
+
+function ServiceMediaImage({ src, alt, className, width, height, fill, sizes }) {
+  if (!src) return null;
+  const isStringSrc = typeof src === "string";
+
+  if (isStringSrc) {
+    if (fill) {
+      return (
+        <img
+          src={src}
+          alt={alt || ""}
+          className={`absolute inset-0 w-full h-full ${className || "object-contain"}`}
+        />
+      );
+    }
+    return (
+      <img
+        src={src}
+        alt={alt || ""}
+        width={width}
+        height={height}
+        className={className}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt || ""}
+      fill={fill}
+      width={!fill ? width : undefined}
+      height={!fill ? height : undefined}
+      sizes={sizes}
+      className={className}
+    />
+  );
+}
+
+export const serviceList = [
   {
     no: "01",
     title: "Tax Compliance",
@@ -92,7 +153,22 @@ const serviceList = [
 ];
 
 export default function Services() {
+  const { homeServices, isLoaded } = useSiteData();
+  const rawList = isLoaded && Array.isArray(homeServices)
+    ? homeServices
+    : (homeServices?.length ? homeServices : serviceList);
+  const activeServiceList = rawList.map((item, idx) => ({
+    ...item,
+    no: item.no || `0${idx + 1}`,
+    iconImg: item.iconImg || defaultIcons[item.slug] || iconTaxCompliance,
+    image: item.image || defaultImages[item.slug] || img1,
+  }));
+
   const [activeIndex, setActiveIndex] = useState(2);
+
+  if (isLoaded && (!rawList || rawList.length === 0)) {
+    return null;
+  }
 
   return (
     <section
@@ -143,7 +219,7 @@ export default function Services() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="grid grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-7 sm:gap-y-9 lg:hidden"
         >
-          {serviceList.map((card, index) => (
+          {activeServiceList.map((card, index) => (
             <Link
               key={index}
               href={`/services/${card.slug}`}
@@ -151,7 +227,7 @@ export default function Services() {
             >
               {/* Icon Container */}
               <div className="w-20 h-20 sm:w-20 sm:h-20 flex items-center justify-center opacity-70 mb-1">
-                <Image
+                <ServiceMediaImage
                   src={card.iconImg}
                   alt={card.title}
                   width={90}
@@ -179,14 +255,14 @@ export default function Services() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="hidden lg:flex flex-row gap-3 items-stretch h-[340px]"
         >
-          {serviceList.map((card, index) => {
+          {activeServiceList.map((card, index) => {
             const isActive = activeIndex === index;
 
             return (
               <div
                 key={index}
                 tabIndex={0}
-                role="region"
+                role="button"
                 aria-label={`${card.title} service card`}
                 aria-expanded={isActive}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -220,7 +296,7 @@ export default function Services() {
                   </span>
 
                   <div className="absolute bottom-[98px] left-3.5 w-18 h-18 flex items-center justify-center shrink-0 p-2 overflow-hidden">
-                    <Image
+                    <ServiceMediaImage
                       src={card.iconImg}
                       alt=""
                       aria-hidden="true"
@@ -244,7 +320,7 @@ export default function Services() {
                 >
                   {/* Left: Illustration / Image */}
                   <div className="relative w-[44%] shrink-0 overflow-hidden flex items-center justify-center">
-                    <Image
+                    <ServiceMediaImage
                       src={card.image}
                       alt={`${card.title} illustration`}
                       fill
@@ -260,7 +336,7 @@ export default function Services() {
                     </span>
 
                     <div className="w-24 h-24 flex items-center justify-center shrink-0 overflow-hidden">
-                      <Image
+                      <ServiceMediaImage
                         src={card.iconImg}
                         alt=""
                         aria-hidden="true"

@@ -6,18 +6,21 @@ import { adminService } from "@/services/adminService";
 
 // Modular Admin Components
 import AdminLogin from "@/components/admin/AdminLogin";
-import LoadingScreen from "@/components/LoadingScreen";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminToast, { ToastData } from "@/components/admin/AdminToast";
 import OverviewTab from "@/components/admin/OverviewTab";
 import InquiriesTab from "@/components/admin/InquiriesTab";
 import ContactTab from "@/components/admin/ContactTab";
-import SocialsTab from "@/components/admin/SocialsTab";
 import FounderTab from "@/components/admin/FounderTab";
 import TeamTab from "@/components/admin/TeamTab";
 import TestimonialsTab from "@/components/admin/TestimonialsTab";
 import BlogsTab from "@/components/admin/BlogsTab";
+import ServicesTab from "@/components/admin/ServicesTab";
+import HomeFaqsTab from "@/components/admin/HomeFaqsTab";
+import GalleryTab from "@/components/admin/GalleryTab";
+import PartnersTab from "@/components/admin/PartnersTab";
+import LegalTab from "@/components/admin/LegalTab";
 import SettingsTab from "@/components/admin/SettingsTab";
 import {
   TeamModal,
@@ -33,6 +36,11 @@ export default function AdminPage() {
     team,
     testimonials,
     blogs,
+    services,
+    gallery,
+    partners,
+    homeServices,
+    homeFaqs,
     inquiries,
     updateContactInfo,
     updateSocialLinks,
@@ -46,6 +54,24 @@ export default function AdminPage() {
     addBlog,
     updateBlog,
     deleteBlog,
+    updateService,
+    addGalleryItem,
+    updateGalleryItem,
+    deleteGalleryItem,
+    addPartner,
+    updatePartner,
+    deletePartner,
+    updateHomeService,
+    addHomeService,
+    deleteHomeService,
+    updateHomeFaq,
+    addHomeFaq,
+    deleteHomeFaq,
+    legalPages,
+    updateLegalPage,
+    updateLegalSection,
+    addLegalSection,
+    deleteLegalSection,
     updateInquiryStatus,
     deleteInquiry,
     exportBackup,
@@ -77,7 +103,7 @@ export default function AdminPage() {
     setTimeout(() => setToast(null), 3500);
   };
 
-  // Check login on mount
+  // Check login on mount immediately
   useEffect(() => {
     const isAuth = adminService.checkAuth();
     setIsAuthenticated(isAuth);
@@ -274,9 +300,9 @@ export default function AdminPage() {
     (inq: any) => inq.status === "new"
   ).length;
 
-  // ── Render Loading Screen ──
+  // ── Auth Checking ──
   if (authChecking) {
-    return <LoadingScreen message="Verifying admin session..." />;
+    return null;
   }
 
   // ── Render Login Screen ──
@@ -304,6 +330,10 @@ export default function AdminPage() {
     team: "Team Members",
     testimonials: "Client Testimonials",
     blogs: "Blog Posts & Articles",
+    services: "Services Management",
+    "home-faqs": "Homepage FAQs Accordion",
+    gallery: "Photo Gallery Management",
+    partners: "Strategic Partners & Brand Logos",
     settings: "Settings & API",
   };
 
@@ -330,6 +360,11 @@ export default function AdminPage() {
         teamCount={(team || []).length}
         testimonialsCount={(testimonials || []).length}
         blogsCount={(blogs || []).length}
+        servicesCount={Object.keys(services || {}).length}
+        homeServicesCount={(homeServices || []).length}
+        homeFaqsCount={(homeFaqs || []).length}
+        galleryCount={(gallery || []).length}
+        partnersCount={(partners || []).length}
         handleLogout={handleLogout}
       />
 
@@ -424,6 +459,58 @@ export default function AdminPage() {
                 openAddBlogModal={openAddBlogModal}
                 openEditBlogModal={openEditBlogModal}
                 deleteBlog={deleteBlog}
+                showToast={showToast}
+              />
+            )}
+
+            {activeTab === "services" && (
+              <ServicesTab
+                services={services}
+                updateService={updateService}
+                showToast={showToast}
+                homeServices={homeServices || []}
+                updateHomeService={updateHomeService}
+              />
+            )}
+
+            {activeTab === "home-faqs" && (
+              <HomeFaqsTab
+                homeFaqs={homeFaqs || []}
+                updateHomeFaq={updateHomeFaq}
+                addHomeFaq={addHomeFaq}
+                deleteHomeFaq={deleteHomeFaq}
+                showToast={showToast}
+              />
+            )}
+
+            {activeTab === "gallery" && (
+              <GalleryTab
+                gallery={gallery}
+                addGalleryItem={addGalleryItem}
+                updateGalleryItem={updateGalleryItem}
+                deleteGalleryItem={deleteGalleryItem}
+                showToast={showToast}
+              />
+            )}
+
+            {activeTab === "partners" && (
+              <PartnersTab
+                partners={partners || []}
+                addPartner={addPartner}
+                updatePartner={updatePartner}
+                deletePartner={deletePartner}
+                showToast={showToast}
+              />
+            )}
+
+            {activeTab === "legal" && (
+              <LegalTab
+                legalPages={legalPages}
+                contactInfo={contactInfo}
+                updateLegalPage={updateLegalPage}
+                updateLegalSection={updateLegalSection}
+                addLegalSection={addLegalSection}
+                deleteLegalSection={deleteLegalSection}
                 showToast={showToast}
               />
             )}

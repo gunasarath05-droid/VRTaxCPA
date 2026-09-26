@@ -6,6 +6,8 @@ import WhyChooseUs from "@/sections/Home/WhyChooseUs";
 import Testimonials from "@/sections/Home/Testimonials";
 import FAQHome from "@/sections/Home/FAQHome";
 import Blog from "@/sections/Home/Blog";
+import GallerySection from "@/sections/Home/GallerySection";
+import Partner from "@/sections/Home/Partner";
 
 export default function Home() {
   return (
@@ -13,11 +15,13 @@ export default function Home() {
       <Hero />
       <Marquee />
       <About />
+      <Partner/>
       <Services />
       <WhyChooseUs />
       <Testimonials />
       <FAQHome />
       <Blog />
+      <GallerySection />
     </div>
   );
 }

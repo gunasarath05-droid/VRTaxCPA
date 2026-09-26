@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiHelpCircle, FiArrowRight } from "react-icons/fi";
+import { useSiteData } from "@/context/SiteDataContext";
 import faqImg from "@/assets/images/FAQ.png";
 
 export const faqs = [
@@ -33,11 +34,19 @@ export const faqs = [
 export const homeFaqs = faqs;
 
 export default function FAQHome() {
+  const { homeFaqs: dynamicFaqs, isLoaded } = useSiteData();
+  const currentFaqs = isLoaded && Array.isArray(dynamicFaqs)
+    ? dynamicFaqs
+    : (dynamicFaqs?.length ? dynamicFaqs : faqs);
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
+
+  if (isLoaded && (!currentFaqs || currentFaqs.length === 0)) {
+    return null;
+  }
 
   return (
     <section className="py-16 sm:py-20 bg-white relative border-t border-[#E2E8F0]">
@@ -76,7 +85,7 @@ export default function FAQHome() {
 
           {/* Right Column: Accordion with ADA ARIA Attributes */}
           <div className="lg:col-span-7 flex flex-col gap-3" role="region" aria-label="Frequently Asked Questions Accordion">
-            {faqs.map((item, idx) => {
+            {currentFaqs.map((item, idx) => {
               const isOpen = openIndex === idx;
               return (
                 <div

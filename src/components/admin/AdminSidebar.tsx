@@ -14,7 +14,13 @@ import {
   FiFileText,
   FiSettings,
   FiTrendingUp,
+  FiBriefcase,
+  FiImage,
+  FiGrid,
+  FiHelpCircle,
+  FiShield,
   FiX,
+  FiAward,
 } from "react-icons/fi";
 
 export interface NavItem {
@@ -39,6 +45,11 @@ interface AdminSidebarProps {
   teamCount: number;
   testimonialsCount: number;
   blogsCount: number;
+  servicesCount?: number;
+  homeServicesCount?: number;
+  homeFaqsCount?: number;
+  galleryCount?: number;
+  partnersCount?: number;
   handleLogout: () => void;
 }
 
@@ -51,6 +62,11 @@ export default function AdminSidebar({
   teamCount,
   testimonialsCount,
   blogsCount,
+  servicesCount,
+  homeServicesCount,
+  homeFaqsCount,
+  galleryCount,
+  partnersCount,
   handleLogout,
 }: AdminSidebarProps) {
   const categories: NavCategory[] = [
@@ -68,10 +84,15 @@ export default function AdminSidebar({
     {
       title: "CONTENT",
       items: [
+        { id: "services", label: "Services", icon: <FiBriefcase size={18} />, count: servicesCount },
+        { id: "home-faqs", label: "Home FAQs", icon: <FiHelpCircle size={18} />, count: homeFaqsCount },
+        { id: "gallery", label: "Gallery", icon: <FiImage size={18} />, count: galleryCount },
+        { id: "partners", label: "Partners & Brands", icon: <FiAward size={18} />, count: partnersCount },
         { id: "blogs", label: "Blog Posts", icon: <FiFileText size={18} />, count: blogsCount },
         { id: "testimonials", label: "Testimonials", icon: <FiStar size={18} />, count: testimonialsCount },
         { id: "team", label: "Team Members", icon: <FiUsers size={18} />, count: teamCount },
         { id: "founder", label: "Founder Profile", icon: <FiUser size={18} /> },
+        { id: "legal", label: "Legal Policies", icon: <FiShield size={18} /> },
       ],
     },
     {

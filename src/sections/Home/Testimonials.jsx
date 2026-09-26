@@ -168,7 +168,7 @@ export default function Testimonials() {
             }}
           >
             {listToRender.map((t, i) => (
-              <SwiperSlide key={t.id || i} className="pt-2 pb-12">
+              <SwiperSlide key={t.id ? `${t.id}-${i}` : `slide-${i}`} className="pt-2 pb-12">
                 <div className="relative bg-white border border-[#E2E8F0] rounded-3xl p-7 md:p-10 pb-9 md:pb-11 shadow-md">
 
                   {/* Top: avatar + name + stars */}

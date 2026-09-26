@@ -22,6 +22,17 @@ export const adminService = {
         return initialSiteData;
       }
       const parsed = JSON.parse(stored);
+      const dedupe = (arr) => {
+        if (!Array.isArray(arr)) return [];
+        const seen = new Set();
+        return arr.filter((item) => {
+          if (!item) return false;
+          const key = item.id || item.slug || item.name || JSON.stringify(item);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+      };
       // Merge with initialSiteData to ensure any new keys exist
       return {
         ...initialSiteData,
@@ -29,11 +40,21 @@ export const adminService = {
         contactInfo: { ...initialSiteData.contactInfo, ...(parsed.contactInfo || {}) },
         founder: { ...initialSiteData.founder, ...(parsed.founder || {}) },
         socialLinks: Array.isArray(parsed.socialLinks) ? parsed.socialLinks : initialSiteData.socialLinks,
-        team: Array.isArray(parsed.team) ? parsed.team : initialSiteData.team,
-        testimonials: Array.isArray(parsed.testimonials) ? parsed.testimonials : initialSiteData.testimonials,
-        blogs: Array.isArray(parsed.blogs) ? parsed.blogs : initialSiteData.blogs,
-        inquiries: Array.isArray(parsed.inquiries) ? parsed.inquiries : initialSiteData.inquiries,
+        team: dedupe(Array.isArray(parsed.team) ? parsed.team : initialSiteData.team),
+        testimonials: dedupe(Array.isArray(parsed.testimonials) ? parsed.testimonials : initialSiteData.testimonials),
+        blogs: dedupe(Array.isArray(parsed.blogs) ? parsed.blogs : initialSiteData.blogs),
+        services: parsed.services || initialSiteData.services,
+        homeServices: dedupe(Array.isArray(parsed.homeServices) ? parsed.homeServices : initialSiteData.homeServices),
+        homeFaqs: dedupe(Array.isArray(parsed.homeFaqs) ? parsed.homeFaqs : initialSiteData.homeFaqs),
+        gallery: dedupe(Array.isArray(parsed.gallery) ? parsed.gallery : initialSiteData.gallery),
+        partners: dedupe(Array.isArray(parsed.partners) ? parsed.partners : initialSiteData.partners),
+        inquiries: dedupe(Array.isArray(parsed.inquiries) ? parsed.inquiries : initialSiteData.inquiries),
         adminSettings: { ...initialSiteData.adminSettings, ...(parsed.adminSettings || {}) },
+        legalPages: {
+          termsOfService: { ...initialSiteData.legalPages.termsOfService, ...(parsed.legalPages?.termsOfService || {}) },
+          privacyPolicy: { ...initialSiteData.legalPages.privacyPolicy, ...(parsed.legalPages?.privacyPolicy || {}) },
+          disclaimer: { ...initialSiteData.legalPages.disclaimer, ...(parsed.legalPages?.disclaimer || {}) },
+        },
       };
     } catch (err) {
       console.error("Error reading site data from localStorage:", err);
@@ -86,9 +107,9 @@ export const adminService = {
     const data = adminService.getSiteData();
     const newMember = {
       ...member,
-      id: member.id || `team-${Date.now()}`,
+      id: member.id || `team-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
     };
-    data.team = [newMember, ...(data.team || [])];
+    data.team = [newMember, ...(data.team || []).filter((m) => m.id !== newMember.id)];
     adminService.saveSiteData(data);
     return newMember;
   },
@@ -119,11 +140,11 @@ export const adminService = {
     const initials = item.initials || (item.name ? item.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() : "VR");
     const newItem = {
       ...item,
-      id: item.id || `test-${Date.now()}`,
+      id: item.id || `test-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       initials,
       rating: Number(item.rating) || 5,
     };
-    data.testimonials = [newItem, ...(data.testimonials || [])];
+    data.testimonials = [newItem, ...(data.testimonials || []).filter((t) => t.id !== newItem.id)];
     adminService.saveSiteData(data);
     return newItem;
   },
@@ -191,6 +212,160 @@ export const adminService = {
     return true;
   },
 
+  // ── Services Management ──
+  getServices: () => adminService.getSiteData().services || initialSiteData.services,
+
+  updateService: (slug, serviceData) => {
+    const data = adminService.getSiteData();
+    data.services = {
+      ...(data.services || initialSiteData.services),
+      [slug]: {
+        ...(data.services?.[slug] || initialSiteData.services?.[slug] || {}),
+        ...serviceData,
+      },
+    };
+    adminService.saveSiteData(data);
+    return data.services[slug];
+  },
+
+  // ── Gallery Management ──
+  getGallery: () => {
+    const gal = adminService.getSiteData().gallery;
+    return Array.isArray(gal) ? gal : initialSiteData.gallery;
+  },
+
+  addGalleryItem: (item) => {
+    const data = adminService.getSiteData();
+    const newItem = {
+      ...item,
+      id: item.id || `gal-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    };
+    data.gallery = [newItem, ...(data.gallery || []).filter((g) => g.id !== newItem.id)];
+    adminService.saveSiteData(data);
+    return newItem;
+  },
+
+  updateGalleryItem: (id, updatedFields) => {
+    const data = adminService.getSiteData();
+    data.gallery = (data.gallery || []).map((g) =>
+      g.id === id ? { ...g, ...updatedFields } : g
+    );
+    adminService.saveSiteData(data);
+    return data.gallery.find((g) => g.id === id);
+  },
+
+  deleteGalleryItem: (id) => {
+    const data = adminService.getSiteData();
+    data.gallery = (data.gallery || []).filter((g) => g.id !== id);
+    adminService.saveSiteData(data);
+    return true;
+  },
+
+  // ── Partners Management ──
+  getPartners: () => {
+    const pts = adminService.getSiteData().partners;
+    return Array.isArray(pts) ? pts : initialSiteData.partners;
+  },
+
+  addPartner: (item) => {
+    const data = adminService.getSiteData();
+    const newItem = {
+      ...item,
+      id: item.id || `partner-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    };
+    data.partners = [...(data.partners || []).filter((p) => p.id !== newItem.id), newItem];
+    adminService.saveSiteData(data);
+    return newItem;
+  },
+
+  updatePartner: (id, updatedFields) => {
+    const data = adminService.getSiteData();
+    data.partners = (data.partners || []).map((p) =>
+      p.id === id ? { ...p, ...updatedFields } : p
+    );
+    adminService.saveSiteData(data);
+    return data.partners.find((p) => p.id === id);
+  },
+
+  deletePartner: (id) => {
+    const data = adminService.getSiteData();
+    data.partners = (data.partners || []).filter((p) => p.id !== id);
+    adminService.saveSiteData(data);
+    return true;
+  },
+
+  // ── Home Page Services Cards ──
+  getHomeServices: () => adminService.getSiteData().homeServices || initialSiteData.homeServices,
+
+  updateHomeService: (idOrSlug, updatedFields) => {
+    const data = adminService.getSiteData();
+    const list = data.homeServices || initialSiteData.homeServices;
+    const exists = list.some((s) => s.id === idOrSlug || s.slug === idOrSlug);
+    if (exists) {
+      data.homeServices = list.map((s) =>
+        s.id === idOrSlug || s.slug === idOrSlug ? { ...s, ...updatedFields } : s
+      );
+    } else {
+      const newItem = {
+        id: `hs-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+        slug: idOrSlug,
+        ...updatedFields,
+      };
+      data.homeServices = [...list, newItem];
+    }
+    adminService.saveSiteData(data);
+    return data.homeServices.find((s) => s.id === idOrSlug || s.slug === idOrSlug);
+  },
+
+  addHomeService: (item) => {
+    const data = adminService.getSiteData();
+    const newItem = {
+      ...item,
+      id: item.id || `hs-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      no: item.no || `0${(data.homeServices || []).length + 1}`,
+    };
+    data.homeServices = [...(data.homeServices || []).filter((s) => s.id !== newItem.id), newItem];
+    adminService.saveSiteData(data);
+    return newItem;
+  },
+
+  deleteHomeService: (idOrSlug) => {
+    const data = adminService.getSiteData();
+    data.homeServices = (data.homeServices || []).filter((s) => s.id !== idOrSlug && s.slug !== idOrSlug);
+    adminService.saveSiteData(data);
+    return true;
+  },
+
+  // ── Home Page FAQs ──
+  getHomeFaqs: () => adminService.getSiteData().homeFaqs || initialSiteData.homeFaqs,
+
+  updateHomeFaq: (id, updatedFields) => {
+    const data = adminService.getSiteData();
+    data.homeFaqs = (data.homeFaqs || initialSiteData.homeFaqs).map((f) =>
+      f.id === id ? { ...f, ...updatedFields } : f
+    );
+    adminService.saveSiteData(data);
+    return data.homeFaqs.find((f) => f.id === id);
+  },
+
+  addHomeFaq: (item) => {
+    const data = adminService.getSiteData();
+    const newItem = {
+      ...item,
+      id: item.id || `faq-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    };
+    data.homeFaqs = [...(data.homeFaqs || []).filter((f) => f.id !== newItem.id), newItem];
+    adminService.saveSiteData(data);
+    return newItem;
+  },
+
+  deleteHomeFaq: (id) => {
+    const data = adminService.getSiteData();
+    data.homeFaqs = (data.homeFaqs || []).filter((f) => f.id !== id);
+    adminService.saveSiteData(data);
+    return true;
+  },
+
   // ── Inquiries (Contact Form Submissions) ──
   getInquiries: () => adminService.getSiteData().inquiries || [],
 
@@ -198,11 +373,11 @@ export const adminService = {
     const data = adminService.getSiteData();
     const newInquiry = {
       ...form,
-      id: `inq-${Date.now()}`,
+      id: `inq-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       date: new Date().toISOString(),
       status: "new", // 'new' | 'replied' | 'archived'
     };
-    data.inquiries = [newInquiry, ...(data.inquiries || [])];
+    data.inquiries = [newInquiry, ...(data.inquiries || []).filter((i) => i.id !== newInquiry.id)];
     adminService.saveSiteData(data);
     return newInquiry;
   },
@@ -287,6 +462,62 @@ export const adminService = {
     data.adminSettings = { ...data.adminSettings, passcode: newPasscode };
     adminService.saveSiteData(data);
     return true;
+  },
+
+  // ── Legal & Policies Management ──
+  updateLegalPage: (pageKey, pageData) => {
+    const data = adminService.getSiteData();
+    if (!data.legalPages) data.legalPages = { ...initialSiteData.legalPages };
+    data.legalPages[pageKey] = {
+      ...data.legalPages[pageKey],
+      ...pageData,
+    };
+    adminService.saveSiteData(data);
+    return data.legalPages[pageKey];
+  },
+
+  updateLegalSection: (pageKey, sectionId, fields) => {
+    const data = adminService.getSiteData();
+    if (!data.legalPages) data.legalPages = { ...initialSiteData.legalPages };
+    const page = data.legalPages[pageKey] || initialSiteData.legalPages[pageKey];
+    const sections = (page.sections || []).map((sec) =>
+      sec.id === sectionId ? { ...sec, ...fields } : sec
+    );
+    data.legalPages[pageKey] = {
+      ...page,
+      sections,
+    };
+    adminService.saveSiteData(data);
+    return data.legalPages[pageKey];
+  },
+
+  addLegalSection: (pageKey, section) => {
+    const data = adminService.getSiteData();
+    if (!data.legalPages) data.legalPages = { ...initialSiteData.legalPages };
+    const page = data.legalPages[pageKey] || initialSiteData.legalPages[pageKey];
+    const newSec = {
+      id: section.id || `${pageKey}-${Date.now()}`,
+      heading: section.heading || "New Section",
+      content: section.content || "",
+    };
+    data.legalPages[pageKey] = {
+      ...page,
+      sections: [...(page.sections || []), newSec],
+    };
+    adminService.saveSiteData(data);
+    return data.legalPages[pageKey];
+  },
+
+  deleteLegalSection: (pageKey, sectionId) => {
+    const data = adminService.getSiteData();
+    if (!data.legalPages) data.legalPages = { ...initialSiteData.legalPages };
+    const page = data.legalPages[pageKey] || initialSiteData.legalPages[pageKey];
+    data.legalPages[pageKey] = {
+      ...page,
+      sections: (page.sections || []).filter((s) => s.id !== sectionId),
+    };
+    adminService.saveSiteData(data);
+    return data.legalPages[pageKey];
   },
 
   updateAdminCredentials: (newUsername, newPasscode) => {

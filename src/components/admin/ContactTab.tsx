@@ -133,19 +133,20 @@ export default function ContactTab({
 
         {/* Inputs Grid (2 Columns) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-          {/* Office Title */}
+         
+         {/* Brand Tagline */}
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1.5 font-figtree tracking-wide flex items-center gap-1.5">
               <FiFileText size={13} className="text-[#1D61E7]" />
-              <span>Office Title / Header</span>
+              <span>Brand Tagline (Shown in Footer &amp; Office Card)</span>
             </label>
             <input
               type="text"
-              value={contactForm.officeTitle}
+              value={contactForm.tagline}
               onChange={(e) =>
-                setContactForm({ ...contactForm, officeTitle: e.target.value })
+                setContactForm({ ...contactForm, tagline: e.target.value })
               }
-              placeholder="VR Tax CPA LLC — Irving Office"
+              placeholder="Reliable partners in your financial growth."
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-800 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1D61E7]/20 focus:border-[#1D61E7] transition-all font-manrope shadow-2xs"
             />
           </div>
@@ -234,23 +235,7 @@ export default function ContactTab({
               className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-800 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1D61E7]/20 focus:border-[#1D61E7] transition-all font-manrope shadow-2xs"
             />
           </div>
-
-          {/* Brand Tagline (Spans 2 columns) */}
-          <div className="sm:col-span-2">
-            <label className="block text-xs font-bold text-slate-700 mb-1.5 font-figtree tracking-wide flex items-center gap-1.5">
-              <FiFileText size={13} className="text-[#1D61E7]" />
-              <span>Brand Tagline (Shown in Footer &amp; Office Card)</span>
-            </label>
-            <input
-              type="text"
-              value={contactForm.tagline}
-              onChange={(e) =>
-                setContactForm({ ...contactForm, tagline: e.target.value })
-              }
-              placeholder="Reliable partners in your financial growth."
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-800 text-xs sm:text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1D61E7]/20 focus:border-[#1D61E7] transition-all font-manrope shadow-2xs"
-            />
-          </div>
+         
         </div>
       </div>
 
@@ -424,7 +409,7 @@ export default function ContactTab({
       </div>
 
       {/* ── Single Save Button ── */}
-      <div className="pt-6 flex justify-end border-t border-slate-100">
+      <div className="flex justify-end">
         <button
           type="submit"
           className="w-full sm:w-auto justify-center px-8 py-3 rounded-full bg-[#1D61E7] hover:bg-[#1554C0] active:scale-[0.98] text-white font-bold text-sm font-figtree transition-all shadow-md shadow-blue-500/20 cursor-pointer flex items-center gap-2"

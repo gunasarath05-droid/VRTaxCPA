@@ -15,12 +15,14 @@ const quickLinks = [
   { label: "Client Portal", href: "https://vrtaxcpa.taxdome.com", target: "_blank" },
   { label: "Knowledge Base", href: "/blog" },
   { label: "FAQ", href: "/faq"},
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact Us", href: "/contact" }
 ];
 
 const serviceLinks = [
   { label: "Tax Compliance", href: "/services/tax-compliance" },
   { label: "Tax Planning & Advisory", href: "/services/tax-planning" },
+  { label: "Business Formation", href: "/services/business-formation" },
   { label: "Accounting Services", href: "/services/accounting-services" },
   { label: "Payroll Support", href: "/services/payroll-services" },
   { label: "Fractional CFO Services", href: "/services/fractional-cfo" },
@@ -70,6 +72,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#071526] text-slate-400 text-sm border-t border-white/10 pt-14 pb-8 font-manrope">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="sr-only">Footer Navigation and Office Information</h2>
 
         {/* ── Main Links Grid: 4 columns ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-white/10">
@@ -101,8 +104,8 @@ export default function Footer() {
                   key={i}
                   href={s.href}
                   target="_blank"
-                  rel="noreferrer"
-                  aria-label={s.label}
+                  rel="noreferrer noopener"
+                  aria-label={`${s.label} (opens in a new tab)`}
                   className="w-8 h-8 rounded-full bg-white/5 hover:bg-[#d3d663] hover:text-[#0B1F3B] flex items-center justify-center transition-all text-slate-300"
                 >
                   {s.icon}
@@ -113,13 +116,19 @@ export default function Footer() {
 
           {/* Col 2: Quick Links (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-white font-bold text-sm mb-3 font-figtree">
+            <h3 className="text-white font-bold text-sm mb-3 font-figtree">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs sm:text-sm">
               {quickLinks.map((l, i) => (
                 <li key={i}>
-                  <Link href={l.href} target={l.target} className="hover:text-[#d3d663] transition-colors">
+                  <Link
+                    href={l.href}
+                    target={l.target}
+                    rel={l.target === "_blank" ? "noopener noreferrer" : undefined}
+                    aria-label={l.target === "_blank" ? `${l.label} (opens in a new tab)` : undefined}
+                    className="hover:text-[#d3d663] transition-colors"
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -129,9 +138,9 @@ export default function Footer() {
 
           {/* Col 3: Services (3 cols) */}
           <div className="lg:col-span-3">
-            <h4 className="text-white font-bold text-sm mb-3 font-figtree">
+            <h3 className="text-white font-bold text-sm mb-3 font-figtree">
               Our Services
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs sm:text-sm">
               {serviceLinks.map((l, i) => (
                 <li key={i}>
@@ -145,9 +154,9 @@ export default function Footer() {
 
           {/* Col 4: Contact & Office (3 cols) */}
           <div className="lg:col-span-3">
-            <h4 className="text-white font-bold text-sm mb-3 font-figtree">
-              {officeTitle}
-            </h4>
+            <h3 className="text-white font-bold text-sm mb-3 font-figtree">
+              Contact Info
+            </h3>
             <div className="space-y-2.5 text-xs sm:text-sm">
               <div className="flex items-start gap-2.5">
                 <FiMapPin className="text-[#d3d663] text-sm shrink-0 mt-0.5" />

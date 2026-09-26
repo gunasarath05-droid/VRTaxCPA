@@ -144,7 +144,7 @@ export default function TestimonialsTab({
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          {filteredTestimonials.map((t: any) => {
+          {filteredTestimonials.map((t: any, index: number) => {
             const initials =
               t.initials ||
               (t.name
@@ -158,7 +158,7 @@ export default function TestimonialsTab({
 
             return (
               <div
-                key={t.id}
+                key={t.id ? `${t.id}-${index}` : `test-${index}`}
                 className="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 bg-white flex flex-col justify-between group"
               >
                 {/* ── Top Header (Clean Professional SaaS Header) ── */}

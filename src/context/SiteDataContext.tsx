@@ -93,6 +93,25 @@ export interface AdminSettings {
   backendApiUrl?: string;
 }
 
+export interface LegalSection {
+  id: string;
+  heading: string;
+  content: string;
+}
+
+export interface LegalPageData {
+  title: string;
+  badge: string;
+  lastUpdated: string;
+  sections: LegalSection[];
+}
+
+export interface LegalPages {
+  termsOfService: LegalPageData;
+  privacyPolicy: LegalPageData;
+  disclaimer: LegalPageData;
+}
+
 export interface SiteDataContextType {
   isLoaded: boolean;
   contactInfo: ContactInfo;
@@ -101,8 +120,14 @@ export interface SiteDataContextType {
   team: TeamMember[];
   testimonials: TestimonialItem[];
   blogs: BlogPostItem[];
+  services: Record<string, any>;
+  gallery: any[];
+  partners: any[];
+  homeServices: any[];
+  homeFaqs: any[];
   inquiries: InquiryItem[];
   adminSettings: AdminSettings;
+  legalPages: LegalPages;
   updateContactInfo: (info: any) => any;
   updateSocialLinks: (links: any) => any;
   updateFounder: (data: any) => any;
@@ -115,6 +140,23 @@ export interface SiteDataContextType {
   addBlog: (post: any) => any;
   updateBlog: (slug: string, post: any) => any;
   deleteBlog: (slug: string) => void;
+  updateService: (slug: string, serviceData: any) => any;
+  addGalleryItem: (item: any) => any;
+  updateGalleryItem: (id: string, item: any) => any;
+  deleteGalleryItem: (id: string) => void;
+  addPartner: (item: any) => any;
+  updatePartner: (id: string, item: any) => any;
+  deletePartner: (id: string) => void;
+  updateHomeService: (idOrSlug: string, fields: any) => any;
+  addHomeService: (item: any) => any;
+  deleteHomeService: (idOrSlug: string) => void;
+  updateHomeFaq: (id: string, fields: any) => any;
+  addHomeFaq: (item: any) => any;
+  deleteHomeFaq: (id: string) => void;
+  updateLegalPage: (pageKey: "termsOfService" | "privacyPolicy" | "disclaimer", pageData: any) => any;
+  updateLegalSection: (pageKey: "termsOfService" | "privacyPolicy" | "disclaimer", sectionId: string, fields: any) => any;
+  addLegalSection: (pageKey: "termsOfService" | "privacyPolicy" | "disclaimer", section: any) => any;
+  deleteLegalSection: (pageKey: "termsOfService" | "privacyPolicy" | "disclaimer", sectionId: string) => void;
   addInquiry: (form: any) => any;
   updateInquiryStatus: (id: string, status: string) => void;
   deleteInquiry: (id: string) => void;
@@ -173,7 +215,7 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
 
   const addTeamMember = useCallback((member: any) => {
     const newMember = adminService.addTeamMember(member);
-    setData((prev: any) => ({ ...prev, team: [newMember, ...prev.team] }));
+    setData((prev: any) => ({ ...prev, team: [newMember, ...(prev.team || []).filter((m: any) => m.id !== newMember.id)] }));
     return newMember;
   }, []);
 
@@ -196,7 +238,10 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
 
   const addTestimonial = useCallback((item: any) => {
     const newItem = adminService.addTestimonial(item);
-    setData((prev: any) => ({ ...prev, testimonials: [newItem, ...prev.testimonials] }));
+    setData((prev: any) => ({
+      ...prev,
+      testimonials: [newItem, ...(prev.testimonials || []).filter((t: any) => t.id !== newItem.id)],
+    }));
     return newItem;
   }, []);
 
@@ -221,7 +266,7 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
 
   const addBlog = useCallback((post: any) => {
     const newPost = adminService.addBlog(post);
-    setData((prev: any) => ({ ...prev, blogs: [newPost, ...prev.blogs] }));
+    setData((prev: any) => ({ ...prev, blogs: [newPost, ...(prev.blogs || []).filter((b: any) => b.slug !== newPost.slug)] }));
     return newPost;
   }, []);
 
@@ -241,6 +286,131 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     setData((prev: any) => ({
       ...prev,
       blogs: (prev.blogs || []).filter((b: any) => b.slug !== slug && b.title !== slug),
+    }));
+  }, []);
+
+  const updateService = useCallback((slug: string, serviceData: any) => {
+    const updated = adminService.updateService(slug, serviceData);
+    setData((prev: any) => ({
+      ...prev,
+      services: {
+        ...(prev.services || {}),
+        [slug]: updated,
+      },
+    }));
+    return updated;
+  }, []);
+
+  const addGalleryItem = useCallback((item: any) => {
+    const newItem = adminService.addGalleryItem(item);
+    setData((prev: any) => ({
+      ...prev,
+      gallery: [newItem, ...(prev.gallery || []).filter((g: any) => g.id !== newItem.id)],
+    }));
+    return newItem;
+  }, []);
+
+  const updateGalleryItem = useCallback((id: string, updatedFields: any) => {
+    const updated = adminService.updateGalleryItem(id, updatedFields);
+    setData((prev: any) => ({
+      ...prev,
+      gallery: (prev.gallery || []).map((g: any) => (g.id === id ? { ...g, ...updatedFields } : g)),
+    }));
+    return updated;
+  }, []);
+
+  const deleteGalleryItem = useCallback((id: string) => {
+    adminService.deleteGalleryItem(id);
+    setData((prev: any) => ({
+      ...prev,
+      gallery: (prev.gallery || []).filter((g: any) => g.id !== id),
+    }));
+  }, []);
+
+  const addPartner = useCallback((item: any) => {
+    const newItem = adminService.addPartner(item);
+    setData((prev: any) => ({
+      ...prev,
+      partners: [...(prev.partners || []).filter((p: any) => p.id !== newItem.id), newItem],
+    }));
+    return newItem;
+  }, []);
+
+  const updatePartner = useCallback((id: string, updatedFields: any) => {
+    const updated = adminService.updatePartner(id, updatedFields);
+    setData((prev: any) => ({
+      ...prev,
+      partners: (prev.partners || []).map((p: any) => (p.id === id ? { ...p, ...updatedFields } : p)),
+    }));
+    return updated;
+  }, []);
+
+  const deletePartner = useCallback((id: string) => {
+    adminService.deletePartner(id);
+    setData((prev: any) => ({
+      ...prev,
+      partners: (prev.partners || []).filter((p: any) => p.id !== id),
+    }));
+  }, []);
+
+  const updateHomeService = useCallback((idOrSlug: string, updatedFields: any) => {
+    const updated = adminService.updateHomeService(idOrSlug, updatedFields);
+    setData((prev: any) => {
+      const list = prev.homeServices || [];
+      const exists = list.some((s: any) => s.id === idOrSlug || s.slug === idOrSlug);
+      const nextList = exists
+        ? list.map((s: any) => (s.id === idOrSlug || s.slug === idOrSlug ? { ...s, ...updatedFields } : s))
+        : [...list, updated];
+      return {
+        ...prev,
+        homeServices: nextList,
+      };
+    });
+    return updated;
+  }, []);
+
+  const addHomeService = useCallback((item: any) => {
+    const newItem = adminService.addHomeService(item);
+    setData((prev: any) => ({
+      ...prev,
+      homeServices: [...(prev.homeServices || []).filter((s: any) => s.id !== newItem.id), newItem],
+    }));
+    return newItem;
+  }, []);
+
+  const deleteHomeService = useCallback((idOrSlug: string) => {
+    adminService.deleteHomeService(idOrSlug);
+    setData((prev: any) => ({
+      ...prev,
+      homeServices: (prev.homeServices || []).filter((s: any) => s.id !== idOrSlug && s.slug !== idOrSlug),
+    }));
+  }, []);
+
+  const updateHomeFaq = useCallback((id: string, updatedFields: any) => {
+    const updated = adminService.updateHomeFaq(id, updatedFields);
+    setData((prev: any) => ({
+      ...prev,
+      homeFaqs: (prev.homeFaqs || []).map((f: any) =>
+        f.id === id ? { ...f, ...updatedFields } : f
+      ),
+    }));
+    return updated;
+  }, []);
+
+  const addHomeFaq = useCallback((item: any) => {
+    const newItem = adminService.addHomeFaq(item);
+    setData((prev: any) => ({
+      ...prev,
+      homeFaqs: [...(prev.homeFaqs || []).filter((f: any) => f.id !== newItem.id), newItem],
+    }));
+    return newItem;
+  }, []);
+
+  const deleteHomeFaq = useCallback((id: string) => {
+    adminService.deleteHomeFaq(id);
+    setData((prev: any) => ({
+      ...prev,
+      homeFaqs: (prev.homeFaqs || []).filter((f: any) => f.id !== id),
     }));
   }, []);
 
@@ -290,6 +460,53 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
     }));
   }, []);
 
+  const updateLegalPage = useCallback((pageKey: any, pageData: any) => {
+    const updated = adminService.updateLegalPage(pageKey, pageData);
+    setData((prev: any) => ({
+      ...prev,
+      legalPages: {
+        ...(prev.legalPages || (initialSiteData as any).legalPages),
+        [pageKey]: updated,
+      },
+    }));
+    return updated;
+  }, []);
+
+  const updateLegalSection = useCallback((pageKey: any, sectionId: string, fields: any) => {
+    const updated = adminService.updateLegalSection(pageKey, sectionId, fields);
+    setData((prev: any) => ({
+      ...prev,
+      legalPages: {
+        ...(prev.legalPages || (initialSiteData as any).legalPages),
+        [pageKey]: updated,
+      },
+    }));
+    return updated;
+  }, []);
+
+  const addLegalSection = useCallback((pageKey: any, section: any) => {
+    const updated = adminService.addLegalSection(pageKey, section);
+    setData((prev: any) => ({
+      ...prev,
+      legalPages: {
+        ...(prev.legalPages || (initialSiteData as any).legalPages),
+        [pageKey]: updated,
+      },
+    }));
+    return updated;
+  }, []);
+
+  const deleteLegalSection = useCallback((pageKey: any, sectionId: string) => {
+    const updated = adminService.deleteLegalSection(pageKey, sectionId);
+    setData((prev: any) => ({
+      ...prev,
+      legalPages: {
+        ...(prev.legalPages || (initialSiteData as any).legalPages),
+        [pageKey]: updated,
+      },
+    }));
+  }, []);
+
   return (
     <SiteDataContext.Provider
       value={{
@@ -300,8 +517,14 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
         team: data.team,
         testimonials: data.testimonials,
         blogs: data.blogs,
+        services: data.services || (initialSiteData as any).services,
+        gallery: Array.isArray(data.gallery) ? data.gallery : (initialSiteData as any).gallery,
+        partners: Array.isArray(data.partners) ? data.partners : (initialSiteData as any).partners,
+        homeServices: Array.isArray(data.homeServices) ? data.homeServices : (initialSiteData as any).homeServices,
+        homeFaqs: Array.isArray(data.homeFaqs) ? data.homeFaqs : (initialSiteData as any).homeFaqs,
         inquiries: data.inquiries,
         adminSettings: data.adminSettings,
+        legalPages: data.legalPages || (initialSiteData as any).legalPages,
         updateContactInfo,
         updateSocialLinks,
         updateFounder,
@@ -314,6 +537,23 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
         addBlog,
         updateBlog,
         deleteBlog,
+        updateService,
+        addGalleryItem,
+        updateGalleryItem,
+        deleteGalleryItem,
+        addPartner,
+        updatePartner,
+        deletePartner,
+        updateHomeService,
+        addHomeService,
+        deleteHomeService,
+        updateHomeFaq,
+        addHomeFaq,
+        deleteHomeFaq,
+        updateLegalPage,
+        updateLegalSection,
+        addLegalSection,
+        deleteLegalSection,
         addInquiry,
         updateInquiryStatus,
         deleteInquiry,
@@ -340,8 +580,14 @@ export function useSiteData(): SiteDataContextType {
       team: initialSiteData.team,
       testimonials: initialSiteData.testimonials,
       blogs: initialSiteData.blogs,
+      services: (initialSiteData as any).services,
+      gallery: (initialSiteData as any).gallery,
+      partners: (initialSiteData as any).partners,
+      homeServices: (initialSiteData as any).homeServices,
+      homeFaqs: (initialSiteData as any).homeFaqs,
       inquiries: initialSiteData.inquiries as any,
       adminSettings: initialSiteData.adminSettings,
+      legalPages: (initialSiteData as any).legalPages,
       updateContactInfo: (_: any) => {},
       updateSocialLinks: (_: any) => {},
       updateFounder: (_: any) => {},
@@ -354,6 +600,23 @@ export function useSiteData(): SiteDataContextType {
       addBlog: (_: any) => {},
       updateBlog: (_: string, __: any) => {},
       deleteBlog: (_: string) => {},
+      updateService: (_: string, __: any) => {},
+      addGalleryItem: (_: any) => {},
+      updateGalleryItem: (_: string, __: any) => {},
+      deleteGalleryItem: (_: string) => {},
+      addPartner: (_: any) => {},
+      updatePartner: (_: string, __: any) => {},
+      deletePartner: (_: string) => {},
+      updateHomeService: (_: string, __: any) => {},
+      addHomeService: (_: any) => {},
+      deleteHomeService: (_: string) => {},
+      updateHomeFaq: (_: string, __: any) => {},
+      addHomeFaq: (_: any) => {},
+      deleteHomeFaq: (_: string) => {},
+      updateLegalPage: (_: any, __: any) => {},
+      updateLegalSection: (_: any, __: string, ___: any) => {},
+      addLegalSection: (_: any, __: any) => {},
+      deleteLegalSection: (_: any, __: string) => {},
       addInquiry: (_: any) => {},
       updateInquiryStatus: (_: string, __: string) => {},
       deleteInquiry: (_: string) => {},

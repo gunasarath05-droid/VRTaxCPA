@@ -4,7 +4,7 @@ export const servicesData = {
     title: "Tax Compliance",
     primaryKeyword: "tax compliance tax return filing Irving TX",
     overviewTitle: "Accurate & Timely Tax Return Filing for Individuals and Businesses",
-    overview: "We handle accurate and timely federal and Texas tax return preparation and filing for individuals and businesses, with careful attention to compliance and detail.",
+    overview: "We handle accurate and timely federal and State tax return preparation and filing for individuals and businesses, with careful attention to compliance and detail.",
     whatWeOffer: [
       { title: "Individual Tax Returns (1040)", desc: "Accurate preparation and e-filing of federal and state individual income tax returns, including rental income, self-employment, and investment reporting." },
       { title: "Business Tax Returns", desc: "Complete preparation of S-Corp (1120-S), C-Corp (1120), Partnership (1065), and LLC returns with a focus on compliance and accuracy." },

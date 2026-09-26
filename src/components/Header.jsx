@@ -23,6 +23,7 @@ import {
   FiLock,
   FiExternalLink,
   FiHelpCircle,
+  FiImage,
 } from "react-icons/fi";
 import { LuCalculator, LuFileCheck } from "react-icons/lu";
 import { usePathname } from "next/navigation";
@@ -60,6 +61,12 @@ const clientResourceLinks = [
     href: "/faq",
     icon: <FiHelpCircle className="text-base" />,
   },
+  {
+    name: "Gallery",
+    desc: "Our office, moments & client community",
+    href: "/gallery",
+    icon: <FiImage className="text-base" />,
+  },
 ];
 
 const navLinks = [
@@ -78,6 +85,7 @@ const knownSubpages = [
   "/privacy-policy",
   "/terms-of-service",
   "/faq",
+  "/gallery",
   "/disclaimer",
 ];
 
@@ -140,7 +148,7 @@ export default function Header() {
     if (!pathname) return false;
     if (item.hasDropdown === "services") return pathname.startsWith("/services");
     if (item.hasDropdown === "resources") {
-      return pathname.startsWith("/blog") || pathname.startsWith("/faq");
+      return pathname.startsWith("/blog") || pathname.startsWith("/faq") || pathname.startsWith("/gallery");
     }
     const href = item.href;
     if (!href || href.startsWith("http")) return false;
@@ -418,7 +426,7 @@ export default function Header() {
                             </div>
 
                             {/* Right: Glass Image Panel */}
-                            <div className="w-[160px] shrink-0 border-l border-white/10">
+                            <div className="w-[220px] shrink-0 border-l border-white/10">
                               <div className="relative w-full h-full min-h-[120px] overflow-hidden">
                                 <Image
                                   src={dropdownImg}
@@ -504,8 +512,11 @@ export default function Header() {
 
       {/* ── Mobile Drawer ── */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85vw] max-w-[340px] bg-[#0B1F3B] text-white border-l border-white/10 z-[60] shadow-2xl flex flex-col transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-[85vw] max-w-[340px] bg-[#0B1F3B] text-white border-l border-white/10 z-[60] shadow-2xl flex flex-col transition-all duration-300 ${
+          isMobileMenuOpen
+            ? "translate-x-0 visible pointer-events-auto"
+            : "translate-x-full invisible pointer-events-none"
+        }`}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile Navigation Menu"
@@ -676,8 +687,11 @@ export default function Header() {
 
       {/* ── Desktop Info Sidebar ── */}
       <div
-        className={`fixed top-0 right-0 h-full w-[380px] bg-[#0B1F3B] text-white border-l border-white/10 z-50 shadow-2xl flex flex-col transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 h-full w-[380px] bg-[#0B1F3B] text-white border-l border-white/10 z-50 shadow-2xl flex flex-col transition-all duration-300 ${
+          isSidebarOpen
+            ? "translate-x-0 visible pointer-events-auto"
+            : "translate-x-full invisible pointer-events-none"
+        }`}
         role="dialog"
         aria-modal="true"
         aria-label="Firm Overview and Contacts"

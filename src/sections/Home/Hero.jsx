@@ -50,6 +50,7 @@ export default function Hero() {
     service: "",
     message: "",
   });
+  const [serviceError, setServiceError] = useState("");
 
   // Close dropdown on outside click
   // Close dropdown on outside click
@@ -81,6 +82,11 @@ export default function Hero() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!form.service) {
+      setServiceError("Please select a service from the list");
+      return;
+    }
+    setServiceError("");
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -333,19 +339,15 @@ export default function Hero() {
                       </button>
 
                       <input
-                        type="text"
+                        type="hidden"
                         name="service"
                         value={form.service}
-                        required
-                        tabIndex={-1}
-                        aria-hidden="true"
-                        className="sr-only"
-                        onChange={() => {}}
-                        onInvalid={(e) => {
-                          e.target.setCustomValidity("Please select a service from the list");
-                        }}
-                        onInput={(e) => e.target.setCustomValidity("")}
                       />
+                      {serviceError && (
+                        <p role="alert" className="text-xs text-rose-500 font-semibold mt-1">
+                          {serviceError}
+                        </p>
+                      )}
 
                       {/* Dropdown Menu Popup */}
                       <AnimatePresence>

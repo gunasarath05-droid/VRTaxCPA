@@ -8,6 +8,7 @@ import darkbg from "@/assets/images/darkbg.png";
 
 import { servicesData } from "@/constants/servicesData";
 import { homeFaqs } from "@/sections/Home/FAQHome";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export interface FAQItem {
   q: string;
@@ -33,7 +34,7 @@ const faqCategories = [
   ...serviceCategories,
 ];
 
-const allFaqs: FAQItem[] = [
+const fallbackFaqs: FAQItem[] = [
   ...homeFaqs.map((faq: { q: string; a: string }) => ({
     category: "general",
     q: faq.q,
@@ -51,9 +52,29 @@ const allFaqs: FAQItem[] = [
 ];
 
 export default function FAQPage() {
+  const { homeFaqs: contextHomeFaqs, services: contextServices } = useSiteData();
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+
+  const activeFaqs: FAQItem[] = [
+    ...(contextHomeFaqs && contextHomeFaqs.length > 0 ? contextHomeFaqs : homeFaqs).map((faq: any) => ({
+      category: "general",
+      q: faq.q,
+      a: faq.a,
+      serviceTitle: "General Overview",
+    })),
+    ...Object.values(contextServices || servicesData).flatMap((service: any) =>
+      (service.faqs || []).map((faq: any) => ({
+        category: service.slug,
+        q: faq.q,
+        a: faq.a,
+        serviceTitle: service.title,
+      }))
+    ),
+  ];
+
+  const allFaqs = activeFaqs.length > 0 ? activeFaqs : fallbackFaqs;
 
   const filteredFaqs = allFaqs.filter((faq) => {
     const matchesCategory = activeCategory === "all" || faq.category === activeCategory;

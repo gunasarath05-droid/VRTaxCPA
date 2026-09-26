@@ -140,31 +140,7 @@ export default function About() {
           </ScrollReveal>
         </div>
 
-        {/* Stats Grid */}
-        {/* <div
-          ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-[#E2E8F0]"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="p-3.5 sm:p-5 md:p-6 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col items-center justify-center text-center shadow-xs hover:border-[#d3d663]/40 transition-colors"
-            >
-              <p className="text-2xl xs:text-3xl sm:text-4xl font-extrabold text-[#0B1F3B] font-figtree tracking-tight flex items-center justify-center flex-wrap gap-0.5">
-                <CountUp value={stat.value} isTriggered={isStatsInView} />
-                <span>{stat.suffix}</span>
-                {stat.icon}
-              </p>
-              <p className="text-xs sm:text-sm font-semibold text-[#334155] mt-1.5 font-manrope leading-snug">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </div> */}
+        
       </div>
     </section>
   );
